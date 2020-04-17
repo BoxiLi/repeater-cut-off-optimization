@@ -1,4 +1,4 @@
-# repeater-cut-off-optimization
+# Optimization of cut-offs for repeater chains
 This repository stores the implementation of the algorithm introduced in *Efficient optimization of cut-offs in quantum repeater chains* by Boxi Li, Tim Coopmans and David Elkouss. It includes two implementations: 
 - The numerical algorithm calculating the waiting time distribution and the fidelity of the delivered entangled state.
 - The optimizer used to optimize the cut-off time for maximal secret key rate.
