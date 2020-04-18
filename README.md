@@ -25,5 +25,3 @@ See [CuPy installation](https://docs-cupy.chainer.org/en/stable/install.html) fo
 - The optimizer can be found in `optimize_cutoff.py`.
 - Examples for some symmetric repeater protocol are given in `examples.py`
 
-## License
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
