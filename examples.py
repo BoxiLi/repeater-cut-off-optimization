@@ -79,7 +79,6 @@ def single_parameter_simulation():
     print()
     plot_algorithm(pmf, w_func, axs, t_trunc=2000)
     print("coverage", sum(pmf))
-    print("average waiting time", sum(pmf*np.arange(len(pmf))))
     print("secret key rate", secret_key_rate(pmf, w_func))
 
     # plot
