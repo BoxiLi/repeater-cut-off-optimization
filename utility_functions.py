@@ -78,13 +78,8 @@ def secret_key_rate(pmf, w_func, extrapolation=False, show_warning=False):
 
     aver_t = get_mean_waiting_time(pmf, extrapolation, show_warning)
 
-    # aver_w = np.sum(pmf * w_func) / coverage
-    # aver_t = np.sum(pmf/coverage * np.arange(len(pmf)))
-    if not extrapolation or coverage > 1 - 1.e-10 or coverage < 0.99:
-        key_rate = 1/aver_t * secret_fraction(aver_w) * coverage
-    else:
-        key_rate = 1/aver_t * secret_fraction(aver_w)
-    if key_rate<0.:
+    key_rate = 1/aver_t * secret_fraction(aver_w)
+    if key_rate < 0.:
         key_rate = 0.
     return key_rate
 
@@ -92,17 +87,15 @@ def secret_key_rate(pmf, w_func, extrapolation=False, show_warning=False):
 def get_mean_waiting_time(pmf, extrapolation=False, show_warning=False):
     coverage = np.sum(pmf)
     # if coverage < 0.99, extrapolation may leads to wrong secret key rate
-    # if coverage > 1 - 1.e-10, the last few point is close to 0
-    # and therefore the numerical noise dominant.
+    # if coverage > 1 - 1.e-10, the last few point is close to 0 and therefore the numerical noise dominant.
     if not extrapolation or coverage > 1 - 1.e-10 or coverage < 0.99:
-        return np.sum(pmf * np.arange(len(pmf))) /coverage
-        # return (1 - coverage) / coverage * len(pmf) + np.sum(pmf * np.arange(len(pmf)))
+        return (1 - coverage) / coverage * len(pmf) + np.sum(pmf * np.arange(len(pmf)))/coverage
     else:
         # use an exponential function to estimate the distribution
         t_trunc = len(pmf)
         sample_start = t_trunc - 10
         sample_end = t_trunc
-        
+
         def func(x, a, b):
             c_0 = pmf[-1]
             d_0 = (pmf[-2] - pmf[-1]) / c_0
