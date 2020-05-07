@@ -25,9 +25,6 @@ TEXTWIDTH = 7.1398920714
 LINEWIDTH = 3.48692403487
 
 #######################################################################
-# fig 4
-# plot_swap_with_cutoff_data()
-# plot_swap_with_cutoff_fig()
 
 def plot_swap_with_cutoff_data():
     parameters = {
@@ -75,13 +72,13 @@ def plot_swap_with_cutoff_data():
     [pmf_list_, w_func_list_] = np.load("swap_with_cutoff.npy", allow_pickle=True)
     pmf_list += list(pmf_list_)[2:4]
     w_func_list += list(w_func_list_)[2:4]
-    np.save("swap_with_cutoff", [pmf_list, w_func_list])
+    np.save("figures\\swap_with_cutoff", [pmf_list, w_func_list])
 
 
 def plot_swap_with_cutoff_fig():
     sns.set_palette("Paired")
 
-    pmf_list, w_func_list = np.load("swap_with_cutoff.npy", allow_pickle=True)
+    pmf_list, w_func_list = np.load("figures\\swap_with_cutoff.npy", allow_pickle=True)
     fig = plt.figure(figsize=(LINEWIDTH, LINEWIDTH*4/5), dpi=150)
 
     gs = gridspec.GridSpec(2, 1)
@@ -119,8 +116,8 @@ def plot_swap_with_cutoff_fig():
     axis[0].set_xticklabels([])
     axis[0].legend(fontsize="small")
     fig.tight_layout()
-    fig.savefig("swap_with_cutoff.png")
-    fig.savefig("swap_with_cutoff.pdf")
+    fig.savefig("figures\\swap_with_cutoff.png")
+    fig.savefig("figures\\swap_with_cutoff.pdf")
     return fig
 ###############################################################################
 # fig 5
@@ -145,11 +142,11 @@ def plot_trade_off_data():
 
     pmf_matrix, w_func_matrix = parallel_tau_warpper(tau_list, parameters, t_trunc)
 
-    np.save("trade_off", [pmf_matrix, w_func_matrix])
+    np.save("figures\\trade_off", [pmf_matrix, w_func_matrix])
 
 
 def plot_trade_off_fig():
-    pmf_matrix, w_func_matrix = np.load("trade_off.npy")
+    pmf_matrix, w_func_matrix = np.load("figures\\trade_off.npy")
     t_trunc = 4000
     tlist = np.arange(t_trunc)
     tau_list = np.array(np.arange(30, 150, 1))
@@ -196,14 +193,13 @@ def plot_trade_off_fig():
     axis2.set_xlabel(r"Cut-off $\tau$")
     axis2.set_ylabel(r"R $(10^{-3})$")
     plt.subplots_adjust(bottom=0.14, left=0.14, top=0.95, right=0.87)
-    fig.savefig("trade_off.pdf")
-    fig.savefig("trade_off.png")
+    fig.savefig("figures\\trade_off.pdf")
+    fig.savefig("figures\\trade_off.png")
     fig.show()
-    # input()
     return fig
+
 ###############################################################################
 # Collect data for fig 6 or 7
-
 
 def parameter_regime_step(parameters, track, workers=1):
     current_log_level = logging.getLogger().level
@@ -322,19 +318,7 @@ def parameter_regime(parameters_list, track=False, trunc_map=None, remark=""):
     complete_data(ID)
     return ID
 
-# example:
-#
-# if __name__ =="__main__":
-#     parameters = {"protocol": (0, ),
-#         "p_gen": 0.1,
-#         "p_swap": 0.5,
-#         "t_trunc": 200,
-#         # Those parameter in a list will be iterated for all combination, in this example, you will get a grid for all w0 and t_coh combinition, and also for uniform and nonuniform cutoff
-#         "w0": [0.97, 0.98, 0.99, 1.0],
-#         "t_coh": [300, 350, 400, 450, 500, 550, 600, 700, 800, 1000, 1200],
-#         "optimizer": ["full_de", "uniform_de", "none"],
-#         }
-#     ID = parameter_regime(parameters, remark="example run")
+
 ###############################################################################
 # fig 7
 def plot_parameter_contour(ID=None):
@@ -373,8 +357,8 @@ def plot_parameter_contour(ID=None):
     axis.set_ylabel(r"Initial Fidelity")
     cbar.ax.set_ylabel(r"Increase in the secret key rate $(10^{-2})$") 
     fig.tight_layout()
-    fig.savefig("parameter_regime.pdf")
-    fig.savefig("parameter_regime.png")
+    fig.savefig("figures\\parameter_regime.pdf")
+    fig.savefig("figures\\parameter_regime.png")
     fig.show()
 
 
@@ -610,8 +594,8 @@ def plot_sensitivity_parameters():
     axs[1][3].text(1500, 0.9, "(h)", horizontalalignment='right', verticalalignment='bottom')
 
     plt.subplots_adjust(top=0.98, bottom=0.1, right=0.98, left=0.09)
-    fig.savefig("tau_sensitivity.pdf")
-    fig.savefig("tau_sensitivity.png")
+    fig.savefig("figures\\tau_sensitivity.pdf")
+    fig.savefig("figures\\tau_sensitivity.png")
     return fig
 
 
@@ -626,12 +610,33 @@ plt.rcParams.update(
     'ytick.labelsize':'x-small'
     })
 
-# plot_parameter_contour()
-# plot_swap_with_cutoff_data()
-# start = time.time
-# fig = plot_trade_off_fig()
-# end = time.time
-# fig = parameter_regime_slice_fig1(ID)
-# plot_sensitivity_parameters()
-# plt.show()
-# input()
+if __name__ == "__main__":
+    # fig 4
+    # plot_swap_with_cutoff_data()
+    plot_swap_with_cutoff_fig()
+
+    # fig 5
+    # fig = plot_trade_off_data()
+    fig = plot_trade_off_fig()
+
+    # fig 6
+    plot_sensitivity_parameters()
+
+    # fig 7
+    plot_parameter_contour()
+
+    plt.show()
+
+    # example of obtaining data for fig 6 and fig 7:
+    # # Those parameter in a list will be iterated for all combination, in this example, you will get a grid for all w0 and t_coh combinition, and also for uniform and nonuniform cutoff
+
+    # if __name__ =="__main__":
+    #     parameters = {"protocol": (0, ),
+    #         "p_gen": 0.1,
+    #         "p_swap": 0.5,
+    #         "t_trunc": 200,
+    #         "w0": [0.97, 0.98, 0.99, 1.0],
+    #         "t_coh": [300, 350, 400, 450, 500, 550, 600, 700, 800, 1000, 1200],
+    #         "optimizer": ["full_de", "uniform_de", "none"],
+    #         }
+    #     ID = parameter_regime(parameters, remark="example run")
