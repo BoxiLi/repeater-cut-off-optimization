@@ -1,0 +1,4144 @@
+INFO:root:ID: tau_opt-20200407-192254
+INFO:root:Date: 2020-04-07 19:22:54
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 3000
+w0 [0.97, 0.975, 0.98, 0.985, 0.99, 0.995, 1.0]
+t_coh [300, 325, 350, 375, 400, 450, 475, 500, 550, 600, 700, 800, 1000, 1500]
+optimizer ['full_de']
+
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 3500
+w0 0.97
+t_coh 300
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The probability coverage is only 95.34200990543094%, please check the validity of the result by increasing t_trunc.
+Local optimal check fails. The best tau found is not optimal. Neighboring tau = (8, 17, 27) is better with an increase in the secrete key rate of 0.42%.
+
+INFO:root:The current tau found: (9, 18, 28)
+The current cut-off is located at: [0.58995186 0.41794861 0.19308221]
+The current key rate is 0.00011012239366399622
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 4666 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The probability coverage is only 98.83310877538875%, please check the validity of the result by increasing t_trunc.
+Local optimal check fails. The best tau found is not optimal. Neighboring tau = (10, 18, 30) is better with an increase in the secrete key rate of 0.15%.
+
+INFO:root:The current tau found: (10, 18, 29)
+The current cut-off is located at: [0.61943877 0.4088284  0.20527792]
+The current key rate is 0.0001013979971934664
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 6221 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (11, 20, 33)
+The best cut-off is located at: [0.65808636 0.47107538 0.23993401]
+The best key rate is 9.872066255447639e-05
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 3500
+w0 0.97
+t_coh 325
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The probability coverage is only 96.9320166946259%, please check the validity of the result by increasing t_trunc.
+Local optimal check fails. The best tau found is not optimal. Neighboring tau = (10, 19, 31) is better with an increase in the secrete key rate of 0.06%.
+
+INFO:root:The current tau found: (10, 18, 31)
+The current cut-off is located at: [0.62107853 0.42551366 0.22526444]
+The current key rate is 0.00012388109180155911
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 4666 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (11, 22, 36) is better with an increase in the secrete key rate of 0.01%.
+
+INFO:root:The current tau found: (11, 22, 37)
+The current cut-off is located at: [0.65985902 0.49822736 0.28318851]
+The current key rate is 0.0001160504227984634
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (7,22).
+INFO:root:Search region for tau[1] is restricted to (14,37).
+INFO:root:Search region for tau[2] is restricted to (18,62).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (11, 22, 36)
+The best cut-off is located at: [0.43825295 0.48271901 0.4631215 ]
+The best key rate is 0.00011606512010551833
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 3000
+w0 0.97
+t_coh 350
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The probability coverage is only 95.74670244873647%, please check the validity of the result by increasing t_trunc.
+
+INFO:root:The current tau found: (10, 19, 32)
+The current cut-off is located at: [0.64512541 0.44524541 0.23591416]
+The current key rate is 0.0001449849213489655
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 4000 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The probability coverage is only 98.77403156844973%, please check the validity of the result by increasing t_trunc.
+Local optimal check fails. The best tau found is not optimal. Neighboring tau = (11, 20, 32) is better with an increase in the secrete key rate of 0.65%.
+
+INFO:root:The current tau found: (10, 21, 31)
+The current cut-off is located at: [0.64316148 0.47849611 0.22338121]
+The current key rate is 0.00013386866408563583
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 5333 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (12, 23, 39) is better with an increase in the secrete key rate of 0.09%.
+
+INFO:root:The current tau found: (12, 22, 39)
+The current cut-off is located at: [0.69851767 0.49500017 0.2978708 ]
+The current key rate is 0.00013369842280246632
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (7,25).
+INFO:root:Search region for tau[1] is restricted to (14,37).
+INFO:root:Search region for tau[2] is restricted to (20,65).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (12, 23, 39) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (12, 23, 40)
+The current cut-off is located at: [0.51085896 0.53282121 0.51274368]
+The current key rate is 0.00013377455651984355
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[1] is restricted to (19,29).
+INFO:root:Search region for tau[2] is restricted to (32,51).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (12, 23, 39)
+The best cut-off is located at: [0.53588191 0.48850179 0.4294532 ]
+The best key rate is 0.0001338143061819379
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2750
+w0 0.97
+t_coh 375
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The probability coverage is only 96.71485872857154%, please check the validity of the result by increasing t_trunc.
+
+INFO:root:The current tau found: (11, 21, 35)
+The current cut-off is located at: [0.68564639 0.49166023 0.26031891]
+The current key rate is 0.00016393365856630916
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 3666 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The probability coverage is only 98.95428488748283%, please check the validity of the result by increasing t_trunc.
+Local optimal check fails. The best tau found is not optimal. Neighboring tau = (11, 22, 34) is better with an increase in the secrete key rate of 0.05%.
+
+INFO:root:The current tau found: (11, 21, 35)
+The current cut-off is located at: [0.67508271 0.48216626 0.25832914]
+The current key rate is 0.00015249473631574
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 4888 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (13, 24, 42) is better with an increase in the secrete key rate of 0.05%.
+
+INFO:root:The current tau found: (13, 25, 42)
+The current cut-off is located at: [0.74015976 0.54853968 0.33091876]
+The current key rate is 0.00015162113182741861
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (8,29).
+INFO:root:Search region for tau[1] is restricted to (16,42).
+INFO:root:Search region for tau[2] is restricted to (22,69).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (13, 24, 41)
+The best cut-off is located at: [0.47105054 0.43662508 0.47737351]
+The best key rate is 0.0001516780748992848
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2500
+w0 0.97
+t_coh 400
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The probability coverage is only 96.09610680229821%, please check the validity of the result by increasing t_trunc.
+
+INFO:root:The current tau found: (11, 22, 36)
+The current cut-off is located at: [0.65139121 0.50802468 0.26885938]
+The current key rate is 0.00018406284658653544
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 3333 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The probability coverage is only 98.97894700484673%, please check the validity of the result by increasing t_trunc.
+Local optimal check fails. The best tau found is not optimal. Neighboring tau = (12, 22, 37) is better with an increase in the secrete key rate of 0.07%.
+
+INFO:root:The current tau found: (11, 23, 38)
+The current cut-off is located at: [0.68366508 0.5118063  0.2868742 ]
+The current key rate is 0.00017115130325617102
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 4444 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (13, 26, 44)
+The best cut-off is located at: [0.72768256 0.57390714 0.34590115]
+The best key rate is 0.0001696332860349456
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2500
+w0 0.97
+t_coh 450
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The probability coverage is only 98.62106072189457%, please check the validity of the result by increasing t_trunc.
+Local optimal check fails. The best tau found is not optimal. Neighboring tau = (14, 26, 44) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (14, 25, 44)
+The current cut-off is located at: [0.7606825  0.56520313 0.3442732 ]
+The current key rate is 0.0002146548269807299
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 3333 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (15, 28, 49) is better with an increase in the secrete key rate of 0.20%.
+
+INFO:root:The current tau found: (16, 27, 48)
+The current cut-off is located at: [0.79703146 0.59538268 0.37944355]
+The current key rate is 0.00020510457001057198
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (10,330).
+INFO:root:Search region for tau[1] is restricted to (17,46).
+INFO:root:Search region for tau[2] is restricted to (28,78).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (15, 28, 50)
+The best cut-off is located at: [0.45821752 0.52773479 0.52669102]
+The best key rate is 0.00020550377554748745
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2250
+w0 0.97
+t_coh 475
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The probability coverage is only 98.46717644330117%, please check the validity of the result by increasing t_trunc.
+Local optimal check fails. The best tau found is not optimal. Neighboring tau = (14, 27, 47) is better with an increase in the secrete key rate of 0.05%.
+
+INFO:root:The current tau found: (14, 27, 48)
+The current cut-off is located at: [0.74619104 0.59739825 0.38056665]
+The current key rate is 0.00023545918497510715
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 3000 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (16, 30, 51) is better with an increase in the secrete key rate of 0.09%.
+
+INFO:root:The current tau found: (15, 31, 50)
+The current cut-off is located at: [0.77385193 0.6566056  0.3957609 ]
+The current key rate is 0.00022299585713060315
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (9,50).
+INFO:root:Search region for tau[1] is restricted to (20,55).
+INFO:root:Search region for tau[2] is restricted to (29,81).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (16, 30, 52) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (16, 29, 51)
+The current cut-off is located at: [0.54941873 0.41586539 0.50784023]
+The current key rate is 0.00022313758706939252
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (13,23).
+INFO:root:Search region for tau[1] is restricted to (24,37).
+INFO:root:Search region for tau[2] is restricted to (42,63).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (16, 30, 52) is better with an increase in the secrete key rate of 0.06%.
+
+INFO:root:The current tau found: (15, 31, 51)
+The current cut-off is located at: [0.29263846 0.64798245 0.47671996]
+The current key rate is 0.00022307178507033262
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[2] is restricted to (47,57).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (16, 30, 52) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (16, 29, 52)
+The current cut-off is located at: [0.45283198 0.44251432 0.5446799 ]
+The current key rate is 0.0002231634250458838
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 49.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (16, 30, 52)
+The best cut-off is located at: [0.50211204 0.55097936 0.5230799 ]
+The best key rate is 0.00022320571127744322
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2000
+w0 0.97
+t_coh 500
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The probability coverage is only 97.24001680725807%, please check the validity of the result by increasing t_trunc.
+
+INFO:root:The current tau found: (14, 27, 45)
+The current cut-off is located at: [0.74651937 0.58380161 0.3513367 ]
+The current key rate is 0.0002585428815974051
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 2666 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (16, 32, 53) is better with an increase in the secrete key rate of 0.05%.
+
+INFO:root:The current tau found: (17, 32, 52)
+The current cut-off is located at: [0.82749857 0.65761613 0.41039405]
+The current key rate is 0.00024053368378885445
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (10,330).
+INFO:root:Search region for tau[1] is restricted to (20,57).
+INFO:root:Search region for tau[2] is restricted to (31,84).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (16, 31, 54) is better with an increase in the secrete key rate of 0.04%.
+
+INFO:root:The current tau found: (17, 32, 54)
+The current cut-off is located at: [0.51760491 0.50423664 0.52738067]
+The current key rate is 0.00024060748757455115
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (14,25).
+INFO:root:Search region for tau[1] is restricted to (27,41).
+INFO:root:Search region for tau[2] is restricted to (45,67).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (16, 32, 55) is better with an increase in the secrete key rate of 0.12%.
+
+INFO:root:The current tau found: (16, 33, 56)
+The current cut-off is located at: [0.33410616 0.52344432 0.56593984]
+The current key rate is 0.00024037382083589938
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[2] is restricted to (52,62).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (16, 31, 54)
+The best cut-off is located at: [0.33190916 0.3494059  0.3057502 ]
+The best key rate is 0.00024070398835712934
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2000
+w0 0.97
+t_coh 550
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The probability coverage is only 98.75172707831828%, please check the validity of the result by increasing t_trunc.
+Local optimal check fails. The best tau found is not optimal. Neighboring tau = (16, 31, 52) is better with an increase in the secrete key rate of 0.11%.
+
+INFO:root:The current tau found: (17, 32, 52)
+The current cut-off is located at: [0.83101037 0.66147673 0.41342389]
+The current key rate is 0.0002880753475598132
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 2666 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (18, 34, 59)
+The best cut-off is located at: [0.8397759  0.68471686 0.47000161]
+The best key rate is 0.0002749564127440218
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2000
+w0 0.97
+t_coh 600
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The probability coverage is only 98.96942796956104%, please check the validity of the result by increasing t_trunc.
+Local optimal check fails. The best tau found is not optimal. Neighboring tau = (17, 34, 55) is better with an increase in the secrete key rate of 0.04%.
+
+INFO:root:The current tau found: (18, 33, 54)
+The current cut-off is located at: [0.84931519 0.67157239 0.43265767]
+The current key rate is 0.0003180836605403054
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 2666 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (19, 37, 65) is better with an increase in the secrete key rate of 0.10%.
+
+INFO:root:The current tau found: (18, 38, 66)
+The current cut-off is located at: [0.84773358 0.72915228 0.52067869]
+The current key rate is 0.0003076442226461315
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (10,330).
+INFO:root:Search region for tau[1] is restricted to (24,77).
+INFO:root:Search region for tau[2] is restricted to (41,106).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (20, 37, 63) is better with an increase in the secrete key rate of 0.10%.
+
+INFO:root:The current tau found: (21, 36, 62)
+The current cut-off is located at: [0.68881012 0.45189413 0.42388296]
+The current key rate is 0.0003076406547914308
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (16,34).
+INFO:root:Search region for tau[1] is restricted to (30,46).
+INFO:root:Search region for tau[2] is restricted to (52,76).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (19, 37, 63) is better with an increase in the secrete key rate of 0.04%.
+
+INFO:root:The current tau found: (19, 36, 62)
+The current cut-off is located at: [0.40079735 0.45954575 0.4651821 ]
+The current key rate is 0.00030788102512031054
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[2] is restricted to (58,68).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (19, 37, 63)
+The best cut-off is located at: [0.33858316 0.52000817 0.56646336]
+The best key rate is 0.0003079898667367205
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2000
+w0 0.97
+t_coh 700
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (22, 42, 73) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (21, 42, 73)
+The current cut-off is located at: [0.88471926 0.76877205 0.55956752]
+The current key rate is 0.00037011634222430616
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (12,330).
+INFO:root:Search region for tau[1] is restricted to (26,101).
+INFO:root:Search region for tau[2] is restricted to (46,119).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (22, 42, 73) is better with an increase in the secrete key rate of 0.01%.
+
+INFO:root:The current tau found: (22, 41, 73)
+The current cut-off is located at: [0.67553544 0.4713746  0.49516155]
+The current key rate is 0.0003701818969147111
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (18,33).
+INFO:root:Search region for tau[1] is restricted to (34,54).
+INFO:root:Search region for tau[2] is restricted to (61,90).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (22, 43, 73) is better with an increase in the secrete key rate of 0.04%.
+
+INFO:root:The current tau found: (23, 44, 72)
+The current cut-off is located at: [0.54683175 0.62776263 0.43587171]
+The current key rate is 0.0003700472884115449
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[2] is restricted to (67,79).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (22, 42, 74)
+The best cut-off is located at: [0.49413295 0.521864   0.64175204]
+The best key rate is 0.00037021945402221205
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 1500
+w0 0.97
+t_coh 800
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The probability coverage is only 98.76740418592493%, please check the validity of the result by increasing t_trunc.
+Local optimal check fails. The best tau found is not optimal. Neighboring tau = (22, 42, 72) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (23, 43, 73)
+The current cut-off is located at: [0.90333711 0.77854445 0.56111538]
+The current key rate is 0.00044745469674344177
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 2000 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (25, 46, 82) is better with an increase in the secrete key rate of 0.06%.
+
+INFO:root:The current tau found: (24, 45, 82)
+The current cut-off is located at: [0.91980671 0.79618334 0.61287111]
+The current key rate is 0.00042686206606796275
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (13,330).
+INFO:root:Search region for tau[1] is restricted to (28,2001).
+INFO:root:Search region for tau[2] is restricted to (52,136).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (25, 48, 82)
+The best cut-off is located at: [0.71722469 0.55051824 0.49206382]
+The best key rate is 0.0004271851791996579
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 1500
+w0 0.97
+t_coh 1000
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The probability coverage is only 98.94890921206014%, please check the validity of the result by increasing t_trunc.
+Local optimal check fails. The best tau found is not optimal. Neighboring tau = (24, 46, 78) is better with an increase in the secrete key rate of 0.17%.
+
+INFO:root:The current tau found: (23, 46, 77)
+The current cut-off is located at: [0.90871404 0.80795487 0.58738726]
+The current key rate is 0.0005349694392987734
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 2000 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (30, 59, 98) is better with an increase in the secrete key rate of 0.04%.
+
+INFO:root:The current tau found: (29, 58, 97)
+The current cut-off is located at: [0.95035646 0.87802848 0.68703845]
+The current key rate is 0.0005260397878939083
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (14,330).
+INFO:root:Search region for tau[1] is restricted to (33,2001).
+INFO:root:Search region for tau[2] is restricted to (62,172).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (31, 59, 102) is better with an increase in the secrete key rate of 0.01%.
+
+INFO:root:The current tau found: (32, 59, 103)
+The current cut-off is located at: [0.853984   0.64625953 0.55949079]
+The current key rate is 0.0005261973545470487
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (24,2001).
+INFO:root:Search region for tau[1] is restricted to (48,83).
+INFO:root:Search region for tau[2] is restricted to (86,128).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (32, 59, 95) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (33, 59, 94)
+The current cut-off is located at: [0.64179089 0.49139201 0.2545964 ]
+The current key rate is 0.0005259869341752258
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[0] is restricted to (29,43).
+INFO:root:Search region for tau[1] is restricted to (54,68).
+INFO:root:Search region for tau[2] is restricted to (88,103).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (31, 60, 100)
+The best cut-off is located at: [0.32612753 0.51491154 0.83397196]
+The best key rate is 0.0005262976123136089
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 3000
+w0 0.97
+t_coh 1500
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The best tau found: (52, 92, 137)
+The best cut-off is located at: [0.99561857 0.96867058 0.82007743]
+The best key rate is 0.0007066105554277421
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 3500
+w0 0.975
+t_coh 300
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The probability coverage is only 98.73599986011983%, please check the validity of the result by increasing t_trunc.
+Local optimal check fails. The best tau found is not optimal. Neighboring tau = (11, 21, 36) is better with an increase in the secrete key rate of 0.10%.
+
+INFO:root:The current tau found: (11, 20, 37)
+The current cut-off is located at: [0.65254127 0.45799703 0.27879996]
+The current key rate is 0.00016157181460112286
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 4666 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (12, 23, 38) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (12, 22, 39)
+The current cut-off is located at: [0.69724355 0.4921793  0.29711589]
+The current key rate is 0.0001547464167290848
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (7,25).
+INFO:root:Search region for tau[1] is restricted to (14,37).
+INFO:root:Search region for tau[2] is restricted to (20,65).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (12, 23, 38) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (12, 22, 39)
+The current cut-off is located at: [0.53558882 0.46569113 0.47443076]
+The current key rate is 0.0001547464167290848
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[1] is restricted to (18,28).
+INFO:root:Search region for tau[2] is restricted to (31,50).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (12, 23, 38)
+The best cut-off is located at: [0.53415194 0.62287302 0.41182008]
+The best key rate is 0.00015477028134617957
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 3500
+w0 0.975
+t_coh 325
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The probability coverage is only 98.98181174646933%, please check the validity of the result by increasing t_trunc.
+Local optimal check fails. The best tau found is not optimal. Neighboring tau = (11, 22, 36) is better with an increase in the secrete key rate of 0.07%.
+
+INFO:root:The current tau found: (11, 23, 35)
+The current cut-off is located at: [0.66858579 0.52823386 0.26147902]
+The current key rate is 0.0001829707933516612
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 4666 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (13, 24, 41)
+The best cut-off is located at: [0.74527001 0.54642537 0.32302632]
+The best key rate is 0.0001792642045696149
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 3000
+w0 0.975
+t_coh 350
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The probability coverage is only 98.75282829829945%, please check the validity of the result by increasing t_trunc.
+Local optimal check fails. The best tau found is not optimal. Neighboring tau = (13, 24, 39) is better with an increase in the secrete key rate of 0.10%.
+
+INFO:root:The current tau found: (12, 24, 38)
+The current cut-off is located at: [0.69708254 0.53864942 0.28685369]
+The current key rate is 0.00021089199955596228
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 4000 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (14, 26, 44) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (14, 26, 43)
+The current cut-off is located at: [0.7585455  0.56963966 0.33603374]
+The current key rate is 0.00020383389781006395
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (9,35).
+INFO:root:Search region for tau[1] is restricted to (16,44).
+INFO:root:Search region for tau[2] is restricted to (23,71).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (13, 26, 45)
+The best cut-off is located at: [0.40757469 0.48603504 0.52065274]
+The best key rate is 0.00020387391357774026
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2750
+w0 0.975
+t_coh 375
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The probability coverage is only 98.99450856811295%, please check the validity of the result by increasing t_trunc.
+Local optimal check fails. The best tau found is not optimal. Neighboring tau = (13, 25, 43) is better with an increase in the secrete key rate of 0.07%.
+
+INFO:root:The current tau found: (14, 25, 42)
+The current cut-off is located at: [0.75569365 0.5538347  0.32530478]
+The current key rate is 0.00023680464393039066
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 3666 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (14, 27, 48) is better with an increase in the secrete key rate of 0.06%.
+
+INFO:root:The current tau found: (15, 28, 47)
+The current cut-off is located at: [0.78193648 0.60584154 0.3744994 ]
+The current key rate is 0.00022840236853702997
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (9,50).
+INFO:root:Search region for tau[1] is restricted to (18,48).
+INFO:root:Search region for tau[2] is restricted to (27,76).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (14, 27, 48)
+The best cut-off is located at: [0.42824348 0.45217807 0.50231244]
+The best key rate is 0.0002285375177780532
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2500
+w0 0.975
+t_coh 400
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The probability coverage is only 98.79328173893461%, please check the validity of the result by increasing t_trunc.
+
+INFO:root:The current tau found: (14, 26, 45)
+The current cut-off is located at: [0.74918151 0.57911721 0.35520065]
+The current key rate is 0.0002634623359124057
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 3333 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (15, 29, 50) is better with an increase in the secrete key rate of 0.04%.
+
+INFO:root:The current tau found: (15, 28, 50)
+The current cut-off is located at: [0.77998489 0.60775378 0.39518127]
+The current key rate is 0.00025295372372311517
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (9,50).
+INFO:root:Search region for tau[1] is restricted to (18,48).
+INFO:root:Search region for tau[2] is restricted to (29,81).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (15, 29, 50)
+The best cut-off is located at: [0.50548315 0.52585375 0.49253328]
+The best key rate is 0.0002530598048822479
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2500
+w0 0.975
+t_coh 450
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The probability coverage is only 98.99311354350819%, please check the validity of the result by increasing t_trunc.
+
+INFO:root:The current tau found: (15, 27, 45)
+The current cut-off is located at: [0.77320387 0.59764598 0.35462221]
+The current key rate is 0.00030471925427610924
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 3333 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (17, 32, 56)
+The best cut-off is located at: [0.83115481 0.66291462 0.44434948]
+The best key rate is 0.00030110918327562355
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2250
+w0 0.975
+t_coh 475
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The probability coverage is only 98.97819398546167%, please check the validity of the result by increasing t_trunc.
+Local optimal check fails. The best tau found is not optimal. Neighboring tau = (15, 30, 51) is better with an increase in the secrete key rate of 0.04%.
+
+INFO:root:The current tau found: (16, 29, 50)
+The current cut-off is located at: [0.80824334 0.62548073 0.40018364]
+The current key rate is 0.00033330689325545117
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 3000 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (18, 34, 58)
+The best cut-off is located at: [0.84966385 0.68345372 0.46416877]
+The best key rate is 0.0003245341529755476
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2000
+w0 0.975
+t_coh 500
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The probability coverage is only 98.75172707831828%, please check the validity of the result by increasing t_trunc.
+Local optimal check fails. The best tau found is not optimal. Neighboring tau = (17, 32, 53) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (17, 32, 52)
+The current cut-off is located at: [0.81765753 0.66698991 0.41622594]
+The current key rate is 0.0003619749881503204
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 2666 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (18, 35, 61) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (18, 34, 62)
+The current cut-off is located at: [0.84548343 0.68597193 0.49277634]
+The current key rate is 0.0003474692997710913
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (10,330).
+INFO:root:Search region for tau[1] is restricted to (22,63).
+INFO:root:Search region for tau[2] is restricted to (38,100).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (19, 35, 61)
+The best cut-off is located at: [0.63605164 0.50303421 0.47251036]
+The best key rate is 0.0003475402914162529
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2000
+w0 0.975
+t_coh 550
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The probability coverage is only 98.97853020270458%, please check the validity of the result by increasing t_trunc.
+Local optimal check fails. The best tau found is not optimal. Neighboring tau = (17, 32, 58) is better with an increase in the secrete key rate of 0.11%.
+
+INFO:root:The current tau found: (17, 31, 59)
+The current cut-off is located at: [0.81891358 0.65007683 0.46805271]
+The current key rate is 0.00040141050264141335
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 2666 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (20, 39, 66) is better with an increase in the secrete key rate of 0.05%.
+
+INFO:root:The current tau found: (20, 40, 67)
+The current cut-off is located at: [0.87809539 0.75199716 0.52251227]
+The current key rate is 0.0003919651775702824
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (11,330).
+INFO:root:Search region for tau[1] is restricted to (25,87).
+INFO:root:Search region for tau[2] is restricted to (42,108).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (20, 38, 66) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (20, 39, 65)
+The current cut-off is located at: [0.61802794 0.47034344 0.45734693]
+The current key rate is 0.0003921130098950097
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (16,30).
+INFO:root:Search region for tau[1] is restricted to (32,51).
+INFO:root:Search region for tau[2] is restricted to (54,80).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (20, 38, 67)
+The best cut-off is located at: [0.49501788 0.44892459 0.54348196]
+The best key rate is 0.00039217158111827885
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2000
+w0 0.975
+t_coh 600
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (22, 41, 71) is better with an increase in the secrete key rate of 0.01%.
+
+INFO:root:The current tau found: (21, 41, 71)
+The current cut-off is located at: [0.88885935 0.75959143 0.55241437]
+The current key rate is 0.00043469626744099035
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (12,330).
+INFO:root:Search region for tau[1] is restricted to (26,93).
+INFO:root:Search region for tau[2] is restricted to (45,115).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (21, 41, 72) is better with an increase in the secrete key rate of 0.07%.
+
+INFO:root:The current tau found: (20, 41, 73)
+The current cut-off is located at: [0.59646248 0.49465205 0.52284425]
+The current key rate is 0.0004344075755753811
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (17,28).
+INFO:root:Search region for tau[1] is restricted to (34,54).
+INFO:root:Search region for tau[2] is restricted to (61,89).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (22, 42, 71) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (22, 43, 72)
+The current cut-off is located at: [0.65504784 0.5733563  0.44346404]
+The current key rate is 0.00043458365893739846
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[2] is restricted to (67,79).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (22, 42, 71)
+The best cut-off is located at: [0.64914878 0.53589894 0.39030974]
+The best key rate is 0.00043472476647041925
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2000
+w0 0.975
+t_coh 700
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The best tau found: (25, 48, 80)
+The best cut-off is located at: [0.92315385 0.82393333 0.60537412]
+The best key rate is 0.0005137555892858382
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 1500
+w0 0.975
+t_coh 800
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The probability coverage is only 98.94473075646776%, please check the validity of the result by increasing t_trunc.
+Local optimal check fails. The best tau found is not optimal. Neighboring tau = (24, 46, 78) is better with an increase in the secrete key rate of 0.08%.
+
+INFO:root:The current tau found: (23, 45, 78)
+The current cut-off is located at: [0.90797952 0.79929495 0.58939965]
+The current key rate is 0.000603752411831461
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 2000 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (28, 54, 92) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (27, 53, 93)
+The current cut-off is located at: [0.9386571  0.85091848 0.67031702]
+The current key rate is 0.0005849084256540208
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (13,330).
+INFO:root:Search region for tau[1] is restricted to (31,2001).
+INFO:root:Search region for tau[2] is restricted to (59,162).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (28, 54, 95) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (28, 55, 96)
+The current cut-off is located at: [0.79004003 0.6175742  0.53018143]
+The current key rate is 0.0005847357824044897
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (22,2001).
+INFO:root:Search region for tau[1] is restricted to (45,76).
+INFO:root:Search region for tau[2] is restricted to (80,119).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (28, 54, 92)
+The best cut-off is located at: [0.46929576 0.43197748 0.37832279]
+The best key rate is 0.0005850363430202554
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 1500
+w0 0.975
+t_coh 1000
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (36, 68, 106) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (35, 69, 105)
+The current cut-off is located at: [0.97492112 0.91996859 0.72113239]
+The current key rate is 0.0007065104282187793
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (15,330).
+INFO:root:Search region for tau[1] is restricted to (37,1501).
+INFO:root:Search region for tau[2] is restricted to (67,198).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (36, 70, 117) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (35, 71, 118)
+The current cut-off is located at: [0.87791191 0.73224522 0.60395599]
+The current key rate is 0.0007062654426435632
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (26,1501).
+INFO:root:Search region for tau[1] is restricted to (57,113).
+INFO:root:Search region for tau[2] is restricted to (97,150).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (35, 67, 114)
+The best cut-off is located at: [0.60708053 0.37084005 0.41132142]
+The best key rate is 0.0007068055802960507
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 3000
+w0 0.975
+t_coh 1500
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The best tau found: (53, 108, 161)
+The best cut-off is located at: [0.996102   0.98279306 0.87197929]
+The best key rate is 0.0009222386305325892
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 3500
+w0 0.98
+t_coh 300
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The probability coverage is only 98.9987266815826%, please check the validity of the result by increasing t_trunc.
+Local optimal check fails. The best tau found is not optimal. Neighboring tau = (12, 22, 34) is better with an increase in the secrete key rate of 0.12%.
+
+INFO:root:The current tau found: (12, 23, 33)
+The current cut-off is located at: [0.70344041 0.51573978 0.23732967]
+The current key rate is 0.0002263243400752083
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 4666 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (13, 25, 42) is better with an increase in the secrete key rate of 0.19%.
+
+INFO:root:The current tau found: (13, 24, 41)
+The current cut-off is located at: [0.74513228 0.540763   0.31722061]
+The current key rate is 0.00022454698973303219
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (8,29).
+INFO:root:Search region for tau[1] is restricted to (15,40).
+INFO:root:Search region for tau[2] is restricted to (22,68).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (13, 25, 43)
+The best cut-off is located at: [0.51912326 0.52335169 0.51967525]
+The best key rate is 0.00022501833049574802
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 3500
+w0 0.98
+t_coh 325
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (14, 27, 46) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (14, 27, 45)
+The current cut-off is located at: [0.77080267 0.58710647 0.3528663 ]
+The current key rate is 0.0002575661318998043
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (9,35).
+INFO:root:Search region for tau[1] is restricted to (17,46).
+INFO:root:Search region for tau[2] is restricted to (25,73).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (14, 27, 46) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (14, 26, 47)
+The current cut-off is located at: [0.49384008 0.4377594  0.53431064]
+The current key rate is 0.0002575421788294708
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[1] is restricted to (22,33).
+INFO:root:Search region for tau[2] is restricted to (38,59).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (14, 27, 47) is better with an increase in the secrete key rate of 0.05%.
+
+INFO:root:The current tau found: (14, 27, 48)
+The current cut-off is located at: [0.47539733 0.551685   0.53672341]
+The current key rate is 0.00025744774193882153
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[2] is restricted to (44,54).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (14, 27, 46)
+The best cut-off is located at: [0.44104958 0.54931575 0.25824231]
+The best key rate is 0.00025762345309500423
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 3000
+w0 0.98
+t_coh 350
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The best tau found: (15, 28, 49)
+The best cut-off is located at: [0.78858183 0.60525937 0.38561134]
+The best key rate is 0.000290051961945182
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2750
+w0 0.98
+t_coh 375
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The probability coverage is only 98.9999947543991%, please check the validity of the result by increasing t_trunc.
+
+INFO:root:The current tau found: (13, 24, 46)
+The current cut-off is located at: [0.72505436 0.533257   0.36765088]
+The current key rate is 0.00032324960467724307
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 3666 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (16, 30, 53) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (16, 30, 54)
+The current cut-off is located at: [0.80296243 0.63180508 0.43198497]
+The current key rate is 0.0003221002633154062
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (10,330).
+INFO:root:Search region for tau[1] is restricted to (19,52).
+INFO:root:Search region for tau[2] is restricted to (32,87).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (16, 30, 52)
+The best cut-off is located at: [0.47076012 0.49601081 0.45430364]
+The best key rate is 0.0003221901728103052
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2500
+w0 0.98
+t_coh 400
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The probability coverage is only 98.90822908384555%, please check the validity of the result by increasing t_trunc.
+Local optimal check fails. The best tau found is not optimal. Neighboring tau = (14, 27, 47) is better with an increase in the secrete key rate of 0.24%.
+
+INFO:root:The current tau found: (14, 26, 47)
+The current cut-off is located at: [0.76171689 0.58080745 0.36950817]
+The current key rate is 0.000357897259642504
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 3333 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (17, 32, 55)
+The best cut-off is located at: [0.81659495 0.66798558 0.44170676]
+The best key rate is 0.0003538318801586448
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2500
+w0 0.98
+t_coh 450
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The best tau found: (19, 35, 61)
+The best cut-off is located at: [0.86473244 0.7009874  0.48410612]
+The best key rate is 0.00041529898381164265
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2250
+w0 0.98
+t_coh 475
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (19, 37, 65) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (20, 38, 65)
+The current cut-off is located at: [0.86558383 0.73336094 0.51003142]
+The current key rate is 0.0004449270519176652
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (11,330).
+INFO:root:Search region for tau[1] is restricted to (24,77).
+INFO:root:Search region for tau[2] is restricted to (41,105).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (19, 37, 65) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (19, 36, 66)
+The current cut-off is located at: [0.60023786 0.44788319 0.50234585]
+The current key rate is 0.00044492754348109245
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (16,27).
+INFO:root:Search region for tau[1] is restricted to (30,46).
+INFO:root:Search region for tau[2] is restricted to (55,81).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (19, 37, 64)
+The best cut-off is located at: [0.40804105 0.51357375 0.40892559]
+The best key rate is 0.00044504870533020513
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2000
+w0 0.98
+t_coh 500
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The probability coverage is only 98.9658782835202%, please check the validity of the result by increasing t_trunc.
+Local optimal check fails. The best tau found is not optimal. Neighboring tau = (17, 34, 55) is better with an increase in the secrete key rate of 0.17%.
+
+INFO:root:The current tau found: (16, 35, 55)
+The current cut-off is located at: [0.81262894 0.69812489 0.43712645]
+The current key rate is 0.000483286650382602
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 2666 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (20, 38, 69) is better with an increase in the secrete key rate of 0.05%.
+
+INFO:root:The current tau found: (20, 37, 70)
+The current cut-off is located at: [0.87398409 0.72667691 0.54186196]
+The current key rate is 0.0004737208218960196
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (11,330).
+INFO:root:Search region for tau[1] is restricted to (23,73).
+INFO:root:Search region for tau[2] is restricted to (44,113).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (20, 37, 68) is better with an increase in the secrete key rate of 0.07%.
+
+INFO:root:The current tau found: (21, 36, 68)
+The current cut-off is located at: [0.66472749 0.48023599 0.4621251 ]
+The current key rate is 0.0004734960442747591
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (17,32).
+INFO:root:Search region for tau[1] is restricted to (30,47).
+INFO:root:Search region for tau[2] is restricted to (57,83).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (20, 38, 71) is better with an increase in the secrete key rate of 0.07%.
+
+INFO:root:The current tau found: (20, 37, 72)
+The current cut-off is located at: [0.37451992 0.50732959 0.61815365]
+The current key rate is 0.0004733804108236754
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[2] is restricted to (67,79).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (20, 39, 67)
+The best cut-off is located at: [0.41302998 0.62676447 0.05059051]
+The best key rate is 0.00047407078967880124
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2000
+w0 0.98
+t_coh 550
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (22, 42, 73) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (23, 41, 72)
+The current cut-off is located at: [0.91102231 0.76122901 0.55840297]
+The current key rate is 0.0005297300247768026
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (12,330).
+INFO:root:Search region for tau[1] is restricted to (26,93).
+INFO:root:Search region for tau[2] is restricted to (46,117).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (23, 42, 74) is better with an increase in the secrete key rate of 0.08%.
+
+INFO:root:The current tau found: (24, 41, 75)
+The current cut-off is located at: [0.72734486 0.48159071 0.5340387 ]
+The current key rate is 0.0005293886132133934
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (19,40).
+INFO:root:Search region for tau[1] is restricted to (34,54).
+INFO:root:Search region for tau[2] is restricted to (63,92).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (22, 42, 72) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (23, 42, 71)
+The current cut-off is located at: [0.44606397 0.49297598 0.33435031]
+The current key rate is 0.0005297378591246004
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[2] is restricted to (66,78).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (22, 42, 74)
+The best cut-off is located at: [0.34613217 0.53813399 0.71233667]
+The best key rate is 0.0005298769794963012
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2000
+w0 0.98
+t_coh 600
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (24, 46, 78) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (24, 47, 77)
+The current cut-off is located at: [0.91230122 0.81471381 0.58438353]
+The current key rate is 0.0005826018590094092
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (13,330).
+INFO:root:Search region for tau[1] is restricted to (29,2001).
+INFO:root:Search region for tau[2] is restricted to (49,126).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (24, 44, 82) is better with an increase in the secrete key rate of 0.07%.
+
+INFO:root:The current tau found: (23, 43, 83)
+The current cut-off is located at: [0.66950767 0.4299891  0.57656639]
+The current key rate is 0.0005820037878249133
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (19,34).
+INFO:root:Search region for tau[1] is restricted to (36,56).
+INFO:root:Search region for tau[2] is restricted to (69,102).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (24, 46, 78) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (23, 45, 77)
+The current cut-off is located at: [0.432093   0.55345665 0.2989931 ]
+The current key rate is 0.0005825231146855794
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[2] is restricted to (72,85).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (24, 46, 79)
+The best cut-off is located at: [0.56765027 0.59240034 0.56317701]
+The best key rate is 0.0005827183792094386
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2000
+w0 0.98
+t_coh 700
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (28, 54, 89) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (29, 55, 89)
+The current cut-off is located at: [0.95111467 0.86493047 0.64930249]
+The current key rate is 0.0006795351685159487
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (14,330).
+INFO:root:Search region for tau[1] is restricted to (32,2001).
+INFO:root:Search region for tau[2] is restricted to (57,152).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (28, 52, 92)
+The best cut-off is located at: [0.77321671 0.54505681 0.52298314]
+The best key rate is 0.0006796886249507301
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 1500
+w0 0.98
+t_coh 800
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The probability coverage is only 98.96075242365667%, please check the validity of the result by increasing t_trunc.
+Local optimal check fails. The best tau found is not optimal. Neighboring tau = (25, 46, 76) is better with an increase in the secrete key rate of 0.07%.
+
+INFO:root:The current tau found: (25, 46, 75)
+The current cut-off is located at: [0.92762186 0.80434578 0.57589277]
+The current key rate is 0.0007786629188310017
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 2000 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (32, 61, 100)
+The best cut-off is located at: [0.96246252 0.89198977 0.69904968]
+The best key rate is 0.0007662112893591793
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 1500
+w0 0.98
+t_coh 1000
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (44, 79, 124) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (45, 80, 125)
+The current cut-off is located at: [0.99090788 0.94815024 0.7868472 ]
+The current key rate is 0.0009114818044048498
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (15,330).
+INFO:root:Search region for tau[1] is restricted to (40,1501).
+INFO:root:Search region for tau[2] is restricted to (78,342).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (40, 79, 120) is better with an increase in the secrete key rate of 0.01%.
+
+INFO:root:The current tau found: (40, 80, 119)
+The current cut-off is located at: [0.92536752 0.78531985 0.44415711]
+The current key rate is 0.0009118107146869877
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (27,1501).
+INFO:root:Search region for tau[1] is restricted to (63,1501).
+INFO:root:Search region for tau[2] is restricted to (98,152).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (40, 73, 118) is better with an increase in the secrete key rate of 0.01%.
+
+INFO:root:The current tau found: (40, 72, 117)
+The current cut-off is located at: [0.76074051 0.3204761  0.44049719]
+The current key rate is 0.000911913556551638
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[0] is restricted to (34,62).
+INFO:root:Search region for tau[1] is restricted to (66,83).
+INFO:root:Search region for tau[2] is restricted to (108,129).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (41, 74, 122)
+The best cut-off is located at: [0.56966306 0.55724148 0.73323088]
+The best key rate is 0.000912112393713312
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 3000
+w0 0.98
+t_coh 1500
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (44, 111, 170) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (43, 110, 169)
+The current cut-off is located at: [0.98855477 0.98406238 0.88503749]
+The current key rate is 0.0011634448174943663
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (15,330).
+INFO:root:Search region for tau[1] is restricted to (43,3001).
+INFO:root:Search region for tau[2] is restricted to (97,2373).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (74, 118, 170)
+The best cut-off is located at: [0.98911886 0.93951343 0.63473262]
+The best key rate is 0.0011646172282979942
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 3500
+w0 0.985
+t_coh 300
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The best tau found: (14, 27, 47)
+The best cut-off is located at: [0.76811881 0.58831048 0.37652888]
+The best key rate is 0.0003099176997809572
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 3500
+w0 0.985
+t_coh 325
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (15, 29, 51) is better with an increase in the secrete key rate of 0.16%.
+
+INFO:root:The current tau found: (14, 30, 51)
+The current cut-off is located at: [0.76231788 0.63576237 0.40861469]
+The current key rate is 0.0003510023603414162
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (9,35).
+INFO:root:Search region for tau[1] is restricted to (19,52).
+INFO:root:Search region for tau[2] is restricted to (30,82).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (15, 29, 51) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (15, 30, 50)
+The current cut-off is located at: [0.50823965 0.49448559 0.4727587 ]
+The current key rate is 0.00035149585254455465
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[1] is restricted to (25,38).
+INFO:root:Search region for tau[2] is restricted to (41,62).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (15, 29, 51)
+The best cut-off is located at: [0.53919392 0.4336466  0.5354906 ]
+The best key rate is 0.00035157744441471103
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 3000
+w0 0.985
+t_coh 350
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The best tau found: (16, 31, 55)
+The best cut-off is located at: [0.81237938 0.65394638 0.4417105 ]
+The best key rate is 0.00039265894309072855
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2750
+w0 0.985
+t_coh 375
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (17, 33, 57) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (17, 34, 57)
+The current cut-off is located at: [0.83322579 0.69369162 0.4544911 ]
+The current key rate is 0.00043296864051081116
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (10,330).
+INFO:root:Search region for tau[1] is restricted to (22,63).
+INFO:root:Search region for tau[2] is restricted to (35,91).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (17, 33, 58) is better with an increase in the secrete key rate of 0.10%.
+
+INFO:root:The current tau found: (16, 33, 59)
+The current cut-off is located at: [0.48541711 0.44414556 0.53115807]
+The current key rate is 0.000432625998326472
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (13,23).
+INFO:root:Search region for tau[1] is restricted to (28,42).
+INFO:root:Search region for tau[2] is restricted to (49,72).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (17, 33, 57)
+The best cut-off is located at: [0.54971305 0.43264346 0.41064204]
+The best key rate is 0.0004330810329643982
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2500
+w0 0.985
+t_coh 400
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (18, 35, 61) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (18, 36, 61)
+The current cut-off is located at: [0.83892653 0.7138045  0.48017112]
+The current key rate is 0.00047245943670195996
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (10,330).
+INFO:root:Search region for tau[1] is restricted to (23,69).
+INFO:root:Search region for tau[2] is restricted to (38,98).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (18, 35, 60) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (18, 35, 59)
+The current cut-off is located at: [0.59698968 0.45440545 0.45388553]
+The current key rate is 0.00047251856674998077
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (15,26).
+INFO:root:Search region for tau[1] is restricted to (29,45).
+INFO:root:Search region for tau[2] is restricted to (49,73).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (18, 35, 61) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (18, 34, 60)
+The current cut-off is located at: [0.47010657 0.41602762 0.49674592]
+The current key rate is 0.00047252816284379455
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[2] is restricted to (56,67).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (18, 35, 61)
+The best cut-off is located at: [0.41345883 0.493042   0.52534469]
+The best key rate is 0.0004726058495048048
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2500
+w0 0.985
+t_coh 450
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The best tau found: (20, 39, 68)
+The best cut-off is located at: [0.8662842  0.74727876 0.53393245]
+The best key rate is 0.000548733073270786
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2250
+w0 0.985
+t_coh 475
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (21, 41, 68) is better with an increase in the secrete key rate of 0.06%.
+
+INFO:root:The current tau found: (22, 42, 67)
+The current cut-off is located at: [0.89628139 0.77294219 0.52561564]
+The current key rate is 0.0005848803259053093
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (12,330).
+INFO:root:Search region for tau[1] is restricted to (26,101).
+INFO:root:Search region for tau[2] is restricted to (42,108).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (21, 40, 70) is better with an increase in the secrete key rate of 0.04%.
+
+INFO:root:The current tau found: (20, 40, 70)
+The current cut-off is located at: [0.60388372 0.45165344 0.53400902]
+The current key rate is 0.0005851409317018495
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (17,28).
+INFO:root:Search region for tau[1] is restricted to (33,52).
+INFO:root:Search region for tau[2] is restricted to (59,86).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (21, 40, 70) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (22, 40, 70)
+The current cut-off is located at: [0.66819604 0.5004529  0.45438854]
+The current key rate is 0.0005852732471881643
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[2] is restricted to (65,77).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (21, 41, 70)
+The best cut-off is located at: [0.51861263 0.5449021  0.4397121 ]
+The best key rate is 0.0005853456766925614
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2000
+w0 0.985
+t_coh 500
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (22, 42, 76) is better with an increase in the secrete key rate of 0.06%.
+
+INFO:root:The current tau found: (21, 41, 77)
+The current cut-off is located at: [0.88455819 0.7661643  0.58694956]
+The current key rate is 0.0006203064601127137
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (12,330).
+INFO:root:Search region for tau[1] is restricted to (26,93).
+INFO:root:Search region for tau[2] is restricted to (49,126).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (22, 42, 73)
+The best cut-off is located at: [0.67753583 0.51387954 0.44088164]
+The best key rate is 0.0006209162943043097
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2000
+w0 0.985
+t_coh 550
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (24, 46, 81) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (24, 46, 82)
+The current cut-off is located at: [0.91317903 0.80618995 0.61408921]
+The current key rate is 0.0006886912800717741
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (13,330).
+INFO:root:Search region for tau[1] is restricted to (28,2001).
+INFO:root:Search region for tau[2] is restricted to (52,136).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (24, 46, 81) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (24, 46, 82)
+The current cut-off is located at: [0.68128436 0.50871945 0.4916002 ]
+The current key rate is 0.0006886912800717741
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (19,37).
+INFO:root:Search region for tau[1] is restricted to (37,62).
+INFO:root:Search region for tau[2] is restricted to (69,101).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (24, 45, 80) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (24, 44, 81)
+The current cut-off is located at: [0.49605301 0.39481826 0.42456103]
+The current key rate is 0.0006886390939380042
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[1] is restricted to (40,50).
+INFO:root:Search region for tau[2] is restricted to (76,89).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (24, 45, 80)
+The best cut-off is located at: [0.48855766 0.5595428  0.32541682]
+The best key rate is 0.0006888390082394521
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2000
+w0 0.985
+t_coh 600
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (28, 50, 82) is better with an increase in the secrete key rate of 0.05%.
+
+INFO:root:The current tau found: (29, 50, 81)
+The current cut-off is located at: [0.94872781 0.83463902 0.60812533]
+The current key rate is 0.0007520467657543164
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (14,330).
+INFO:root:Search region for tau[1] is restricted to (30,2001).
+INFO:root:Search region for tau[2] is restricted to (52,134).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (26, 50, 85) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (25, 50, 85)
+The current cut-off is located at: [0.70067172 0.54025255 0.54586649]
+The current key rate is 0.0007527094615832808
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (20,38).
+INFO:root:Search region for tau[1] is restricted to (41,67).
+INFO:root:Search region for tau[2] is restricted to (71,104).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (26, 49, 85)
+The best cut-off is located at: [0.5742401  0.44686306 0.49982719]
+The best key rate is 0.000752817593508404
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2000
+w0 0.985
+t_coh 700
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (33, 57, 96) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (34, 57, 97)
+The current cut-off is located at: [0.97062046 0.87517056 0.68870873]
+The current key rate is 0.0008689268229716105
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (15,330).
+INFO:root:Search region for tau[1] is restricted to (33,2001).
+INFO:root:Search region for tau[2] is restricted to (62,172).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (30, 58, 97)
+The best cut-off is located at: [0.80546685 0.6216953  0.49263918]
+The best key rate is 0.0008693518394814596
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 1500
+w0 0.985
+t_coh 800
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The probability coverage is only 98.99951411843143%, please check the validity of the result by increasing t_trunc.
+Local optimal check fails. The best tau found is not optimal. Neighboring tau = (22, 45, 82) is better with an increase in the secrete key rate of 0.05%.
+
+INFO:root:The current tau found: (21, 46, 83)
+The current cut-off is located at: [0.88542627 0.80626858 0.61924698]
+The current key rate is 0.0009733186488335376
+INFO:root:The following change has been made to the parameters:
+INFO:root:t_trunc has been increased to 2000 for more coverage. Please watch out for the running time.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (37, 59, 112) is better with an increase in the secrete key rate of 0.05%.
+
+INFO:root:The current tau found: (38, 58, 113)
+The current cut-off is located at: [0.98010512 0.87779327 0.75025826]
+The current key rate is 0.0009707995676925482
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (15,330).
+INFO:root:Search region for tau[1] is restricted to (33,2001).
+INFO:root:Search region for tau[2] is restricted to (71,231).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (35, 68, 107) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (36, 69, 106)
+The current cut-off is located at: [0.89312031 0.75138185 0.43399486]
+The current key rate is 0.0009719144671562635
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (26,2001).
+INFO:root:Search region for tau[1] is restricted to (54,121).
+INFO:root:Search region for tau[2] is restricted to (88,133).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (36, 65, 107)
+The best cut-off is located at: [0.65005069 0.39322577 0.51242726]
+The best key rate is 0.0009722210568749964
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 1500
+w0 0.985
+t_coh 1000
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The best tau found: (48, 79, 130)
+The best cut-off is located at: [0.99332282 0.94644057 0.80373983]
+The best key rate is 0.0011439784454973813
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 3000
+w0 0.985
+t_coh 1500
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The best tau found: (64, 122, 181)
+The best cut-off is located at: [0.99869514 0.99035842 0.90296586]
+The best key rate is 0.0014373927199027579
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 3500
+w0 0.99
+t_coh 300
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The best tau found: (15, 29, 51)
+The best cut-off is located at: [0.787936   0.62540997 0.40730345]
+The best key rate is 0.0004102264658032062
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 3500
+w0 0.99
+t_coh 325
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (17, 31, 54) is better with an increase in the secrete key rate of 0.14%.
+
+INFO:root:The current tau found: (18, 31, 55)
+The current cut-off is located at: [0.83901492 0.65629507 0.44058861]
+The current key rate is 0.00046116137923912787
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (10,330).
+INFO:root:Search region for tau[1] is restricted to (20,55).
+INFO:root:Search region for tau[2] is restricted to (33,88).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (16, 32, 55) is better with an increase in the secrete key rate of 0.08%.
+
+INFO:root:The current tau found: (17, 33, 54)
+The current cut-off is located at: [0.53236511 0.54715637 0.46778316]
+The current key rate is 0.0004614576773984975
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (14,25).
+INFO:root:Search region for tau[1] is restricted to (28,42).
+INFO:root:Search region for tau[2] is restricted to (45,67).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (16, 31, 55) is better with an increase in the secrete key rate of 0.01%.
+
+INFO:root:The current tau found: (17, 31, 54)
+The current cut-off is located at: [0.4585685  0.29677762 0.47784361]
+The current key rate is 0.0004618080201484986
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[2] is restricted to (50,60).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (16, 32, 55)
+The best cut-off is located at: [0.30756451 0.36669852 0.5875697 ]
+The best key rate is 0.0004618478377731549
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 3000
+w0 0.99
+t_coh 350
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (17, 34, 58) is better with an increase in the secrete key rate of 0.05%.
+
+INFO:root:The current tau found: (17, 35, 58)
+The current cut-off is located at: [0.82924066 0.70175642 0.45779476]
+The current key rate is 0.0005122698536898719
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (10,330).
+INFO:root:Search region for tau[1] is restricted to (22,66).
+INFO:root:Search region for tau[2] is restricted to (35,93).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (18, 33, 58)
+The best cut-off is located at: [0.60128523 0.43756115 0.50274639]
+The best key rate is 0.0005125026636056984
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2750
+w0 0.99
+t_coh 375
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (19, 36, 59) is better with an increase in the secrete key rate of 0.05%.
+
+INFO:root:The current tau found: (19, 36, 58)
+The current cut-off is located at: [0.86342113 0.71295054 0.46271636]
+The current key rate is 0.0005614515551398747
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (11,330).
+INFO:root:Search region for tau[1] is restricted to (23,69).
+INFO:root:Search region for tau[2] is restricted to (35,93).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (19, 35, 62) is better with an increase in the secrete key rate of 0.01%.
+
+INFO:root:The current tau found: (19, 35, 63)
+The current cut-off is located at: [0.57896746 0.46095169 0.58819248]
+The current key rate is 0.0005619172632508002
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (16,27).
+INFO:root:Search region for tau[1] is restricted to (29,45).
+INFO:root:Search region for tau[2] is restricted to (52,78).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (19, 35, 61) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (18, 35, 60)
+The current cut-off is located at: [0.27860121 0.50513472 0.34467212]
+The current key rate is 0.0005618082056320926
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[2] is restricted to (56,67).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (19, 36, 61)
+The best cut-off is located at: [0.48096219 0.54481795 0.52930627]
+The best key rate is 0.0005619659253374273
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2500
+w0 0.99
+t_coh 400
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (20, 37, 65) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (19, 37, 64)
+The current cut-off is located at: [0.8585685  0.72394282 0.50450287]
+The current key rate is 0.0006100940924362297
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (11,330).
+INFO:root:Search region for tau[1] is restricted to (23,73).
+INFO:root:Search region for tau[2] is restricted to (40,103).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (20, 37, 66) is better with an increase in the secrete key rate of 0.10%.
+
+INFO:root:The current tau found: (21, 36, 67)
+The current cut-off is located at: [0.66820752 0.47723747 0.54460077]
+The current key rate is 0.0006095529944262594
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (17,32).
+INFO:root:Search region for tau[1] is restricted to (30,47).
+INFO:root:Search region for tau[2] is restricted to (56,82).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (19, 38, 65)
+The best cut-off is located at: [0.27999931 0.59708096 0.39855287]
+The best key rate is 0.0006101641360960914
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2500
+w0 0.99
+t_coh 450
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (22, 40, 72) is better with an increase in the secrete key rate of 0.06%.
+
+INFO:root:The current tau found: (21, 39, 72)
+The current cut-off is located at: [0.89041827 0.74325047 0.55866702]
+The current key rate is 0.0007019743080243493
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (12,330).
+INFO:root:Search region for tau[1] is restricted to (25,81).
+INFO:root:Search region for tau[2] is restricted to (46,117).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (22, 41, 72) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (21, 41, 71)
+The current cut-off is located at: [0.63869908 0.53923849 0.46816576]
+The current key rate is 0.0007024229185544753
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (17,31).
+INFO:root:Search region for tau[1] is restricted to (34,53).
+INFO:root:Search region for tau[2] is restricted to (60,87).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (22, 41, 71) is better with an increase in the secrete key rate of 0.01%.
+
+INFO:root:The current tau found: (22, 41, 70)
+The current cut-off is located at: [0.53366074 0.45635852 0.44456483]
+The current key rate is 0.0007024249654376787
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[2] is restricted to (65,77).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (22, 41, 72) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (21, 42, 73)
+The current cut-off is located at: [0.50655217 0.54773402 0.73216035]
+The current key rate is 0.0007024004459063235
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 49.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (22, 41, 72) is better with an increase in the secrete key rate of 0.01%.
+
+INFO:root:The current tau found: (21, 41, 72)
+The current cut-off is located at: [0.44724419 0.4661582  0.64272273]
+The current key rate is 0.0007024601451972442
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 73.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (22, 41, 72) is better with an increase in the secrete key rate of 0.01%.
+
+INFO:root:The current tau found: (21, 42, 72)
+The current cut-off is located at: [0.50735256 0.51305596 0.63205123]
+The current key rate is 0.0007024471597434999
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 109.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (22, 41, 71) is better with an increase in the secrete key rate of 0.01%.
+
+INFO:root:The current tau found: (22, 41, 70)
+The current cut-off is located at: [0.55416426 0.4551523  0.45958   ]
+The current key rate is 0.0007024249654376787
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 163.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (22, 41, 71)
+The best cut-off is located at: [0.54414091 0.47933747 0.59006883]
+The best key rate is 0.0007025148267244249
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2250
+w0 0.99
+t_coh 475
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (25, 42, 74) is better with an increase in the secrete key rate of 0.12%.
+
+INFO:root:The current tau found: (26, 41, 73)
+The current cut-off is located at: [0.93461423 0.76313456 0.55976787]
+The current key rate is 0.0007450546228548595
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (13,330).
+INFO:root:Search region for tau[1] is restricted to (26,93).
+INFO:root:Search region for tau[2] is restricted to (46,119).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (23, 43, 75) is better with an increase in the secrete key rate of 0.04%.
+
+INFO:root:The current tau found: (24, 42, 76)
+The current cut-off is located at: [0.70852347 0.50664866 0.53822052]
+The current key rate is 0.000746286969015248
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (19,37).
+INFO:root:Search region for tau[1] is restricted to (35,55).
+INFO:root:Search region for tau[2] is restricted to (64,93).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (23, 44, 76) is better with an increase in the secrete key rate of 0.04%.
+
+INFO:root:The current tau found: (23, 45, 77)
+The current cut-off is located at: [0.45663777 0.63361874 0.49984879]
+The current key rate is 0.0007462575841237177
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[2] is restricted to (72,85).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (23, 43, 75)
+The best cut-off is located at: [0.47302043 0.49270881 0.3026197 ]
+The best key rate is 0.0007466104784335472
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2000
+w0 0.99
+t_coh 500
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The best tau found: (24, 45, 79)
+The best cut-off is located at: [0.9183839  0.80138194 0.5966295 ]
+The best key rate is 0.0007892881794194053
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2000
+w0 0.99
+t_coh 550
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (25, 49, 87) is better with an increase in the secrete key rate of 0.05%.
+
+INFO:root:The current tau found: (24, 49, 88)
+The current cut-off is located at: [0.91787924 0.82610854 0.64513848]
+The current key rate is 0.0008699548016537936
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (13,330).
+INFO:root:Search region for tau[1] is restricted to (30,2001).
+INFO:root:Search region for tau[2] is restricted to (56,150).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (25, 48, 85) is better with an increase in the secrete key rate of 0.06%.
+
+INFO:root:The current tau found: (24, 47, 85)
+The current cut-off is located at: [0.68632052 0.48370798 0.4582183 ]
+The current key rate is 0.0008698636800927889
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (19,37).
+INFO:root:Search region for tau[1] is restricted to (39,62).
+INFO:root:Search region for tau[2] is restricted to (71,105).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (26, 49, 83) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (25, 50, 82)
+The current cut-off is located at: [0.56078227 0.60173245 0.37889949]
+The current key rate is 0.0008702965378241016
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[1] is restricted to (46,57).
+INFO:root:Search region for tau[2] is restricted to (76,90).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (26, 50, 85)
+The best cut-off is located at: [0.63126627 0.45177472 0.69932922]
+The best key rate is 0.0008705837146011269
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2000
+w0 0.99
+t_coh 600
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The best tau found: (28, 54, 91)
+The best cut-off is located at: [0.94751011 0.85972599 0.6583205 ]
+The best key rate is 0.0009466981343183943
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2000
+w0 0.99
+t_coh 700
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The best tau found: (33, 62, 104)
+The best cut-off is located at: [0.96713897 0.89776278 0.71647703]
+The best key rate is 0.0010845780021417732
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 1500
+w0 0.99
+t_coh 800
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (37, 73, 115) is better with an increase in the secrete key rate of 0.01%.
+
+INFO:root:The current tau found: (36, 74, 114)
+The current cut-off is located at: [0.977425   0.93594934 0.75259657]
+The current key rate is 0.0012052583522555599
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (15,330).
+INFO:root:Search region for tau[1] is restricted to (38,1501).
+INFO:root:Search region for tau[2] is restricted to (72,237).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (39, 67, 113) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (40, 66, 112)
+The current cut-off is located at: [0.92386662 0.66800993 0.47712229]
+The current key rate is 0.0012051166107448386
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (27,1501).
+INFO:root:Search region for tau[1] is restricted to (54,93).
+INFO:root:Search region for tau[2] is restricted to (93,141).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (37, 69, 117)
+The best cut-off is located at: [0.66093171 0.58014017 0.59517187]
+The best key rate is 0.0012055380144576169
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 1500
+w0 0.99
+t_coh 1000
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (43, 78, 146) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (42, 77, 147)
+The current cut-off is located at: [0.9880016  0.94223587 0.8450505 ]
+The current key rate is 0.0014046306419519326
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (15,330).
+INFO:root:Search region for tau[1] is restricted to (39,1501).
+INFO:root:Search region for tau[2] is restricted to (88,1501).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (39, 94, 141) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (38, 95, 142)
+The current cut-off is located at: [0.91168572 0.8855078  0.52990328]
+The current key rate is 0.0014045893119006936
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (27,1501).
+INFO:root:Search region for tau[1] is restricted to (68,1501).
+INFO:root:Search region for tau[2] is restricted to (117,184).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (48, 82, 143) is better with an increase in the secrete key rate of 0.01%.
+
+INFO:root:The current tau found: (49, 81, 144)
+The current cut-off is located at: [0.89408475 0.40140648 0.52301092]
+The current key rate is 0.001405672635540729
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[0] is restricted to (38,1501).
+INFO:root:Search region for tau[1] is restricted to (74,93).
+INFO:root:Search region for tau[2] is restricted to (133,160).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (47, 85, 137)
+The best cut-off is located at: [0.6435088  0.67540302 0.19385375]
+The best key rate is 0.0014061235652927239
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 3000
+w0 0.99
+t_coh 1500
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The best tau found: (76, 134, 199)
+The best cut-off is located at: [0.99964808 0.99396275 0.92401605]
+The best key rate is 0.001745486024774601
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 3500
+w0 0.995
+t_coh 300
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (16, 31, 55) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (17, 31, 55)
+The current cut-off is located at: [0.8260209  0.64778847 0.43421304]
+The current key rate is 0.0005267856599682994
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (10,330).
+INFO:root:Search region for tau[1] is restricted to (20,55).
+INFO:root:Search region for tau[2] is restricted to (33,88).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (16, 31, 55) is better with an increase in the secrete key rate of 0.05%.
+
+INFO:root:The current tau found: (17, 31, 56)
+The current cut-off is located at: [0.56042392 0.47081155 0.51936312]
+The current key rate is 0.0005266508926318986
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (14,25).
+INFO:root:Search region for tau[1] is restricted to (26,40).
+INFO:root:Search region for tau[2] is restricted to (46,69).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (16, 31, 55) is better with an increase in the secrete key rate of 0.05%.
+
+INFO:root:The current tau found: (17, 31, 56)
+The current cut-off is located at: [0.48091879 0.46745991 0.49754666]
+The current key rate is 0.0005266508926318986
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[2] is restricted to (52,62).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (16, 31, 55)
+The best cut-off is located at: [0.3718199  0.43238768 0.40999437]
+The best key rate is 0.0005268993024912368
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 3500
+w0 0.995
+t_coh 325
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (18, 34, 56) is better with an increase in the secrete key rate of 0.09%.
+
+INFO:root:The current tau found: (17, 33, 55)
+The current cut-off is located at: [0.82165558 0.67489818 0.44125582]
+The current key rate is 0.0005888233800872723
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (10,330).
+INFO:root:Search region for tau[1] is restricted to (21,60).
+INFO:root:Search region for tau[2] is restricted to (33,88).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (18, 33, 58)
+The best cut-off is located at: [0.59150513 0.48419934 0.55573055]
+The best key rate is 0.00058957620308123
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 3000
+w0 0.995
+t_coh 350
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (19, 36, 62) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (18, 35, 61)
+The current cut-off is located at: [0.83745598 0.7021814  0.48288686]
+The current key rate is 0.0006506286741807316
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (10,330).
+INFO:root:Search region for tau[1] is restricted to (22,66).
+INFO:root:Search region for tau[2] is restricted to (38,98).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (19, 36, 62) is better with an increase in the secrete key rate of 0.04%.
+
+INFO:root:The current tau found: (18, 37, 61)
+The current cut-off is located at: [0.58637934 0.53916098 0.47828163]
+The current key rate is 0.0006505298900202863
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (15,26).
+INFO:root:Search region for tau[1] is restricted to (31,48).
+INFO:root:Search region for tau[2] is restricted to (51,75).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (19, 35, 61)
+The best cut-off is located at: [0.55237578 0.36178467 0.48065234]
+The best key rate is 0.0006507507815848888
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2750
+w0 0.995
+t_coh 375
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (20, 36, 66) is better with an increase in the secrete key rate of 0.07%.
+
+INFO:root:The current tau found: (20, 35, 66)
+The current cut-off is located at: [0.87010521 0.70558697 0.51577387]
+The current key rate is 0.0007095318606386521
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (11,330).
+INFO:root:Search region for tau[1] is restricted to (22,66).
+INFO:root:Search region for tau[2] is restricted to (41,106).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (20, 38, 66) is better with an increase in the secrete key rate of 0.07%.
+
+INFO:root:The current tau found: (21, 37, 67)
+The current cut-off is located at: [0.66658239 0.55206156 0.50850877]
+The current key rate is 0.0007098950740178258
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (17,32).
+INFO:root:Search region for tau[1] is restricted to (31,48).
+INFO:root:Search region for tau[2] is restricted to (56,82).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (20, 37, 69) is better with an increase in the secrete key rate of 0.05%.
+
+INFO:root:The current tau found: (20, 38, 70)
+The current cut-off is located at: [0.41429372 0.51705752 0.61360739]
+The current key rate is 0.0007094786553754735
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[2] is restricted to (65,77).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (20, 38, 66)
+The best cut-off is located at: [0.3850248  0.54599633 0.15345904]
+The best key rate is 0.0007103583277920023
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2500
+w0 0.995
+t_coh 400
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (21, 41, 69) is better with an increase in the secrete key rate of 0.06%.
+
+INFO:root:The current tau found: (20, 42, 68)
+The current cut-off is located at: [0.87673419 0.77214982 0.52839304]
+The current key rate is 0.0007675489762328029
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (11,330).
+INFO:root:Search region for tau[1] is restricted to (26,101).
+INFO:root:Search region for tau[2] is restricted to (43,110).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (21, 40, 68) is better with an increase in the secrete key rate of 0.05%.
+
+INFO:root:The current tau found: (22, 39, 67)
+The current cut-off is located at: [0.69195808 0.43915569 0.46535495]
+The current key rate is 0.0007676754003474134
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (17,35).
+INFO:root:Search region for tau[1] is restricted to (32,51).
+INFO:root:Search region for tau[2] is restricted to (56,82).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (21, 39, 70)
+The best cut-off is located at: [0.4461573  0.48201652 0.5845416 ]
+The best key rate is 0.000768070457381119
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2500
+w0 0.995
+t_coh 450
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (23, 44, 77) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (23, 45, 78)
+The current cut-off is located at: [0.90703402 0.79494302 0.59442907]
+The current key rate is 0.0008780155371021269
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (12,330).
+INFO:root:Search region for tau[1] is restricted to (28,2501).
+INFO:root:Search region for tau[2] is restricted to (50,128).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (23, 44, 76) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (24, 44, 75)
+The current cut-off is located at: [0.71143392 0.47738294 0.45266993]
+The current key rate is 0.0008780949392917208
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (19,40).
+INFO:root:Search region for tau[1] is restricted to (36,58).
+INFO:root:Search region for tau[2] is restricted to (63,92).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (23, 44, 76) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (22, 44, 76)
+The current cut-off is located at: [0.36882881 0.50761402 0.49974563]
+The current key rate is 0.0008780277426999061
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[2] is restricted to (71,84).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (23, 44, 76) is better with an increase in the secrete key rate of 0.01%.
+
+INFO:root:The current tau found: (24, 44, 76)
+The current cut-off is located at: [0.48620941 0.50237659 0.44355387]
+The current key rate is 0.0008781248225795342
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 49.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (23, 45, 76)
+The best cut-off is located at: [0.43314108 0.55439061 0.43679091]
+The best key rate is 0.0008781618290613722
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2250
+w0 0.995
+t_coh 475
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The best tau found: (24, 45, 80)
+The best cut-off is located at: [0.91987097 0.79917545 0.60583938]
+The best key rate is 0.0009304945398966387
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2000
+w0 0.995
+t_coh 500
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The best tau found: (25, 49, 82)
+The best cut-off is located at: [0.92170385 0.82982131 0.61421767]
+The best key rate is 0.0009811015548904353
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2000
+w0 0.995
+t_coh 550
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The best tau found: (27, 52, 88)
+The best cut-off is located at: [0.93566425 0.84865478 0.64422662]
+The best key rate is 0.0010771263145207685
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2000
+w0 0.995
+t_coh 600
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (29, 56, 96) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (28, 55, 95)
+The current cut-off is located at: [0.94324245 0.86475209 0.67989954]
+The current key rate is 0.0011664106564299624
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (14,330).
+INFO:root:Search region for tau[1] is restricted to (32,2001).
+INFO:root:Search region for tau[2] is restricted to (61,167).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (30, 56, 96)
+The best cut-off is located at: [0.81320466 0.61627181 0.50503264]
+The best key rate is 0.0011668422688711907
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2000
+w0 0.995
+t_coh 700
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (32, 63, 109) is better with an increase in the secrete key rate of 0.04%.
+
+INFO:root:The current tau found: (31, 62, 110)
+The current cut-off is located at: [0.96120662 0.89750548 0.73740739]
+The current key rate is 0.0013276150819512232
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (14,330).
+INFO:root:Search region for tau[1] is restricted to (35,2001).
+INFO:root:Search region for tau[2] is restricted to (70,217).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (34, 65, 109) is better with an increase in the secrete key rate of 0.01%.
+
+INFO:root:The current tau found: (33, 64, 108)
+The current cut-off is located at: [0.86529548 0.68578188 0.47078293]
+The current key rate is 0.00132838000668199
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (24,2001).
+INFO:root:Search region for tau[1] is restricted to (52,93).
+INFO:root:Search region for tau[2] is restricted to (90,135).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (35, 66, 107) is better with an increase in the secrete key rate of 0.01%.
+
+INFO:root:The current tau found: (34, 67, 106)
+The current cut-off is located at: [0.66296032 0.55820623 0.43908712]
+The current key rate is 0.0013283336417827427
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[0] is restricted to (30,45).
+INFO:root:Search region for tau[1] is restricted to (61,78).
+INFO:root:Search region for tau[2] is restricted to (98,117).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (35, 65, 108)
+The best cut-off is located at: [0.51963451 0.35866437 0.55452668]
+The best key rate is 0.001328535896236531
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 1500
+w0 0.995
+t_coh 800
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The best tau found: (39, 77, 118)
+The best cut-off is located at: [0.98279391 0.94288583 0.76516002]
+The best key rate is 0.001469556665931172
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 1500
+w0 0.995
+t_coh 1000
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The best tau found: (50, 90, 145)
+The best cut-off is located at: [0.99449368 0.96611032 0.83920742]
+The best key rate is 0.0017030679063078594
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 3000
+w0 0.995
+t_coh 1500
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The best tau found: (66, 141, 200)
+The best cut-off is located at: [0.99901723 0.99544836 0.92549213]
+The best key rate is 0.0020967187729617883
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 3500
+w0 1.0
+t_coh 300
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (17, 33, 58) is better with an increase in the secrete key rate of 0.04%.
+
+INFO:root:The current tau found: (17, 32, 59)
+The current cut-off is located at: [0.82029099 0.66168001 0.46790461]
+The current key rate is 0.0006609339560788858
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (10,330).
+INFO:root:Search region for tau[1] is restricted to (20,57).
+INFO:root:Search region for tau[2] is restricted to (36,95).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (17, 33, 57)
+The best cut-off is located at: [0.53685409 0.54199367 0.44864886]
+The best key rate is 0.0006611461399900929
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 3500
+w0 1.0
+t_coh 325
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (18, 35, 65) is better with an increase in the secrete key rate of 0.07%.
+
+INFO:root:The current tau found: (19, 35, 66)
+The current cut-off is located at: [0.85443678 0.69602891 0.51808178]
+The current key rate is 0.000735063600821719
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (11,330).
+INFO:root:Search region for tau[1] is restricted to (22,66).
+INFO:root:Search region for tau[2] is restricted to (41,106).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (18, 35, 63) is better with an increase in the secrete key rate of 0.06%.
+
+INFO:root:The current tau found: (19, 34, 64)
+The current cut-off is located at: [0.5861418  0.46793287 0.46352699]
+The current key rate is 0.0007356326075815355
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (16,27).
+INFO:root:Search region for tau[1] is restricted to (28,44).
+INFO:root:Search region for tau[2] is restricted to (53,79).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (19, 35, 61) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (19, 35, 60)
+The current cut-off is located at: [0.47755624 0.54443128 0.32599166]
+The current key rate is 0.0007360002928110246
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[2] is restricted to (56,67).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (19, 35, 62)
+The best cut-off is located at: [0.48775556 0.52582023 0.63935667]
+The best key rate is 0.0007361242516140976
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 3000
+w0 1.0
+t_coh 350
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (20, 37, 67) is better with an increase in the secrete key rate of 0.05%.
+
+INFO:root:The current tau found: (20, 36, 68)
+The current cut-off is located at: [0.87183102 0.71071897 0.52803888]
+The current key rate is 0.0008085367246390981
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (11,330).
+INFO:root:Search region for tau[1] is restricted to (23,69).
+INFO:root:Search region for tau[2] is restricted to (43,110).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (20, 37, 65) is better with an increase in the secrete key rate of 0.05%.
+
+INFO:root:The current tau found: (20, 36, 64)
+The current cut-off is located at: [0.64359957 0.47534875 0.41219123]
+The current key rate is 0.0008086651943734119
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (16,30).
+INFO:root:Search region for tau[1] is restricted to (30,46).
+INFO:root:Search region for tau[2] is restricted to (53,79).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (20, 38, 65) is better with an increase in the secrete key rate of 0.01%.
+
+INFO:root:The current tau found: (19, 38, 66)
+The current cut-off is located at: [0.41500785 0.60146459 0.56586529]
+The current key rate is 0.0008090024065360701
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[2] is restricted to (61,73).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (20, 38, 65)
+The best cut-off is located at: [0.46046559 0.5801252  0.40187205]
+The best key rate is 0.0008090866613487142
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2750
+w0 1.0
+t_coh 375
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (21, 40, 69) is better with an increase in the secrete key rate of 0.04%.
+
+INFO:root:The current tau found: (22, 40, 68)
+The current cut-off is located at: [0.89115508 0.75437998 0.532461  ]
+The current key rate is 0.0008794920816982686
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (12,330).
+INFO:root:Search region for tau[1] is restricted to (25,87).
+INFO:root:Search region for tau[2] is restricted to (43,110).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (22, 40, 68) is better with an increase in the secrete key rate of 0.09%.
+
+INFO:root:The current tau found: (23, 40, 67)
+The current cut-off is located at: [0.69031644 0.5008551  0.46509459]
+The current key rate is 0.0008787449775919189
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (18,36).
+INFO:root:Search region for tau[1] is restricted to (33,52).
+INFO:root:Search region for tau[2] is restricted to (56,82).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (21, 39, 69) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (21, 38, 70)
+The current cut-off is located at: [0.35814757 0.39405003 0.59559935]
+The current key rate is 0.0008794605991742507
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[2] is restricted to (65,77).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (21, 40, 69) is better with an increase in the secrete key rate of 0.01%.
+
+INFO:root:The current tau found: (21, 39, 68)
+The current cut-off is located at: [0.32706189 0.40538414 0.30919644]
+The current key rate is 0.0008796931035695059
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 49.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (21, 40, 70) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (20, 39, 71)
+The current cut-off is located at: [0.24346709 0.41189031 0.52358645]
+The current key rate is 0.0008794881300492946
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 73.
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (21, 40, 68)
+The best cut-off is located at: [0.3467329  0.49410209 0.33228635]
+The best key rate is 0.0008797697126624099
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2500
+w0 1.0
+t_coh 400
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (23, 41, 71) is better with an increase in the secrete key rate of 0.10%.
+
+INFO:root:The current tau found: (24, 40, 70)
+The current cut-off is located at: [0.91676869 0.75526447 0.54080913]
+The current key rate is 0.0009468695183629816
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (13,330).
+INFO:root:Search region for tau[1] is restricted to (25,87).
+INFO:root:Search region for tau[2] is restricted to (44,113).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (22, 40, 75) is better with an increase in the secrete key rate of 0.10%.
+
+INFO:root:The current tau found: (21, 39, 76)
+The current cut-off is located at: [0.58432918 0.46140368 0.57926661]
+The current key rate is 0.0009467857302160625
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (18,29).
+INFO:root:Search region for tau[1] is restricted to (32,51).
+INFO:root:Search region for tau[2] is restricted to (64,93).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (22, 42, 72) is better with an increase in the secrete key rate of 0.04%.
+
+INFO:root:The current tau found: (23, 41, 71)
+The current cut-off is located at: [0.61138373 0.5797632  0.30304063]
+The current key rate is 0.0009478394990322696
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[2] is restricted to (66,78).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (22, 42, 73)
+The best cut-off is located at: [0.49793423 0.66005673 0.61208768]
+The best key rate is 0.0009482389649660885
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2500
+w0 1.0
+t_coh 450
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (26, 45, 81) is better with an increase in the secrete key rate of 0.08%.
+
+INFO:root:The current tau found: (27, 44, 82)
+The current cut-off is located at: [0.93557751 0.79331669 0.61141502]
+The current key rate is 0.0010767660702794121
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (13,330).
+INFO:root:Search region for tau[1] is restricted to (27,136).
+INFO:root:Search region for tau[2] is restricted to (52,136).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (24, 46, 80) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (23, 46, 81)
+The current cut-off is located at: [0.66299722 0.53000185 0.47905207]
+The current key rate is 0.001077839710276081
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (19,34).
+INFO:root:Search region for tau[1] is restricted to (37,62).
+INFO:root:Search region for tau[2] is restricted to (68,100).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (24, 46, 81)
+The best cut-off is located at: [0.5343996  0.47453888 0.47672959]
+The best key rate is 0.0010781183359941156
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2250
+w0 1.0
+t_coh 475
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The best tau found: (26, 49, 84)
+The best cut-off is located at: [0.93073281 0.83070484 0.62545928]
+The best key rate is 0.0011397312115725138
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2000
+w0 1.0
+t_coh 500
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (27, 51, 87) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (28, 52, 87)
+The current cut-off is located at: [0.94512415 0.84784511 0.6390379 ]
+The current key rate is 0.0011989677356746688
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (14,330).
+INFO:root:Search region for tau[1] is restricted to (31,2001).
+INFO:root:Search region for tau[2] is restricted to (56,147).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (27, 51, 87) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (28, 50, 88)
+The current cut-off is located at: [0.76446801 0.53204421 0.504905  ]
+The current key rate is 0.0011990169667973646
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (22,67).
+INFO:root:Search region for tau[1] is restricted to (41,66).
+INFO:root:Search region for tau[2] is restricted to (74,108).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (27, 52, 84) is better with an increase in the secrete key rate of 0.04%.
+
+INFO:root:The current tau found: (26, 53, 83)
+The current cut-off is located at: [0.35462422 0.61091758 0.33798064]
+The current key rate is 0.0011984491211472874
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[1] is restricted to (49,61).
+INFO:root:Search region for tau[2] is restricted to (77,91).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (27, 51, 88) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (26, 52, 89)
+The current cut-off is located at: [0.35434112 0.30568044 0.86867242]
+The current key rate is 0.0011989245109862592
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 49.
+INFO:root:Search region for tau[2] is restricted to (86,2001).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (27, 51, 87)
+The best cut-off is located at: [0.46027176 0.28699007 0.3690403 ]
+The best key rate is 0.0011992339181187753
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2000
+w0 1.0
+t_coh 550
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (29, 54, 94) is better with an increase in the secrete key rate of 0.01%.
+
+INFO:root:The current tau found: (29, 53, 93)
+The current cut-off is located at: [0.95169517 0.85302964 0.66901553]
+The current key rate is 0.0013117157087398647
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (14,330).
+INFO:root:Search region for tau[1] is restricted to (31,2001).
+INFO:root:Search region for tau[2] is restricted to (59,162).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (29, 55, 94) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (28, 54, 95)
+The current cut-off is located at: [0.7829713  0.59088164 0.52191189]
+The current key rate is 0.0013117190538408606
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (22,67).
+INFO:root:Search region for tau[1] is restricted to (44,74).
+INFO:root:Search region for tau[2] is restricted to (79,118).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (29, 55, 91) is better with an increase in the secrete key rate of 0.01%.
+
+INFO:root:The current tau found: (29, 55, 90)
+The current cut-off is located at: [0.55917041 0.5103487  0.35468742]
+The current key rate is 0.001311580093319007
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[0] is restricted to (26,36).
+INFO:root:Search region for tau[1] is restricted to (50,63).
+INFO:root:Search region for tau[2] is restricted to (84,99).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (29, 54, 94)
+The best cut-off is located at: [0.50915141 0.37744002 0.68967529]
+The best key rate is 0.001311874409286274
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2000
+w0 1.0
+t_coh 600
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (33, 59, 103) is better with an increase in the secrete key rate of 0.03%.
+
+INFO:root:The current tau found: (34, 60, 104)
+The current cut-off is located at: [0.9719968  0.88631526 0.71646747]
+The current key rate is 0.0014160979757586554
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (15,330).
+INFO:root:Search region for tau[1] is restricted to (34,2001).
+INFO:root:Search region for tau[2] is restricted to (66,194).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (32, 59, 97) is better with an increase in the secrete key rate of 0.02%.
+
+INFO:root:The current tau found: (33, 59, 96)
+The current cut-off is located at: [0.84504055 0.62502382 0.40927478]
+The current key rate is 0.0014163185435063256
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (25,2001).
+INFO:root:Search region for tau[1] is restricted to (48,81).
+INFO:root:Search region for tau[2] is restricted to (80,119).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (32, 59, 98) is better with an increase in the secrete key rate of 0.01%.
+
+INFO:root:The current tau found: (31, 60, 97)
+The current cut-off is located at: [0.51258268 0.51789642 0.499558  ]
+The current key rate is 0.0014165545131164766
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[0] is restricted to (28,38).
+INFO:root:Search region for tau[1] is restricted to (55,69).
+INFO:root:Search region for tau[2] is restricted to (90,107).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (31, 60, 100)
+The best cut-off is located at: [0.42055926 0.48813683 0.65595007]
+The best key rate is 0.0014167763822251613
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 2000
+w0 1.0
+t_coh 700
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (35, 68, 113) is better with an increase in the secrete key rate of 0.01%.
+
+INFO:root:The current tau found: (34, 68, 112)
+The current cut-off is located at: [0.97205088 0.9183993  0.74459664]
+The current key rate is 0.0016053945262828613
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 15.
+INFO:root:Search region for tau[0] is restricted to (15,330).
+INFO:root:Search region for tau[1] is restricted to (37,2001).
+INFO:root:Search region for tau[2] is restricted to (71,226).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (36, 72, 104) is better with an increase in the secrete key rate of 0.04%.
+
+INFO:root:The current tau found: (35, 73, 103)
+The current cut-off is located at: [0.875019   0.75668372 0.40975395]
+The current key rate is 0.0016032784937817914
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 22.
+INFO:root:Search region for tau[0] is restricted to (26,2001).
+INFO:root:Search region for tau[1] is restricted to (58,125).
+INFO:root:Search region for tau[2] is restricted to (86,128).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:Local optimal check fails. The best tau found is not optimal. Neighboring tau = (39, 67, 113) is better with an increase in the secrete key rate of 0.01%.
+
+INFO:root:The current tau found: (40, 66, 113)
+The current cut-off is located at: [0.77918916 0.31623979 0.71046715]
+The current key rate is 0.0016052284463192572
+INFO:root:The following change has been made to the parameters:
+INFO:root:'popsize' is increased to 33.
+INFO:root:Search region for tau[0] is restricted to (34,79).
+INFO:root:Search region for tau[1] is restricted to (60,75).
+INFO:root:Search region for tau[2] is restricted to (105,125).
+INFO:root:Optimization fails to find the best cut-off. Restarting.
+
+INFO:root:The best tau found: (38, 67, 112)
+The best cut-off is located at: [0.38955263 0.55246273 0.42877527]
+The best key rate is 0.0016055386307929022
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 1500
+w0 1.0
+t_coh 800
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The best tau found: (46, 75, 125)
+The best cut-off is located at: [0.99141483 0.93686736 0.78755368]
+The best key rate is 0.0017700215090606594
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 1500
+w0 1.0
+t_coh 1000
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The best tau found: (48, 94, 156)
+The best cut-off is located at: [0.99349325 0.97079359 0.86304597]
+The best key rate is 0.0020416781302456557
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:-------------------------------------------
+INFO:root:Optimization of the cut-off time
+
+INFO:root:Parameters:
+protocol (0, 0, 0)
+p_gen 0.1
+p_swap 0.5
+t_trunc 3000
+w0 1.0
+t_coh 1500
+optimizer full_de
+
+INFO:root:Pretraining begins...
+INFO:root:Pretraining finishes, reference pmf obtained.
+INFO:root:The best tau found: (60, 130, 197)
+The best cut-off is located at: [0.9981991  0.99272436 0.92274885]
+The best key rate is 0.002502640195499009
+
+INFO:root:-------------------------------------------
+INFO:root:Saving data...
+INFO:root:Data saved at "data/tau_opt-20200407-192254.pickle"
+INFO:root:Saving parameters into record...
+INFO:root:Simulation finished.
