@@ -1,10 +1,3 @@
-"""
-This file contains the definition of the success probability and the
-Werner parameter of protocol-units, including
-entanglement swap, entanglement distillation and cut-off
-(Table 1 in the article)
-"""
-
 import numba as nb
 import numpy as np
 
@@ -15,6 +8,12 @@ __all__ = [
     "get_dist_prob_suc", "get_dist_prob_fail", "get_dist_prob_wout"
 ]
 
+
+"""
+This module contain the defined success probability and
+resulting werner parameter of each protocol unit.
+(see Table 1 in the article)
+"""
 ########################################################################
 """
 Success probability p and
@@ -110,7 +109,7 @@ result: bool
 @nb.jit(nopython=True, error_model="numpy")
 def memory_cut_off(
         t1, t2, w1=1.0, w2=1.0,
-        mt_cut=np.iinfo(np.int).max, w_cut=1.0, t_coh=0, ycut=True):
+        mt_cut=np.iinfo(np.int).max, w_cut=1.e-8, rt_cut=np.iinfo(np.int).max, t_coh=np.iinfo(np.int).max):
     """
     Memory storage cut-off. The two input links suvives only if
     |t1-t2|<=mt_cut
@@ -120,4 +119,174 @@ def memory_cut_off(
         return min(t1, t2), False
     else:
         return max(t1, t2), True
+
+
+@nb.jit(nopython=True, error_model="numpy")
+def fidelity_cut_off(
+    t1, t2, w1, w2,
+    mt_cut=np.iinfo(np.int).max, w_cut=1.e-8, rt_cut=np.iinfo(np.int).max, t_coh=np.iinfo(np.int).max):
+    """
+    Fidelity-dependent cut-off, The two input links suvives only if
+    w1 <= w_cut and w2 <= w_cut including decoherence.
+    """
+
+    if t1 == t2:
+        if w1 < w_cut or w2 < w_cut:
+            return t1, False
+        return t1, True
+    if t1 > t2:  # make sure t1 < t2
+        t1, t2 = t2, t1
+        w1, w2 = w2, w1
+    # first link has low quality
+    if w1 < w_cut:
+        return t1, False  # waiting_time = min(t1, t2)
+    waiting = np.int(np.floor(t_coh * np.log(w1/w_cut)))
+    # first link waits too long
+    if t1 + waiting < t2:
+        return t1 + waiting, False  # min(t1, t2) < waiting_time < max(t1, t2)
+    # second link has low quality
+    elif w2 < w_cut:
+        return t2, False  # waiting_time = max(t1, t2)
+    # both links are good
+    else:
+        return t2, True  # waiting_time = max(t1, t2)
+
+
+@nb.jit(nopython=True, error_model="numpy")
+def run_time_cut_off(
+    t1, t2, w1, w2,
+    mt_cut=np.iinfo(np.int).max, w_cut=1.e-8, rt_cut=np.iinfo(np.int).max, t_coh=np.iinfo(np.int).max):
+    if t1 > rt_cut or t2 > rt_cut:
+        return rt_cut, False
+    else:
+        return max(t1, t2), True
+
+
+@nb.jit(nopython=True, error_model="numpy")
+def time_cut_off(
+    t1, t2, w1, w2,
+    mt_cut=np.iinfo(np.int).max, w_cut=1.e-8, rt_cut=np.iinfo(np.int).max, t_coh=np.iinfo(np.int).max):
+    waiting_time1, result1 = memory_cut_off(
+        t1, t2, w1, w2, mt_cut=mt_cut, w_cut=w_cut, rt_cut=rt_cut, t_coh=t_coh)
+    waiting_time2, result2 = run_time_cut_off(
+        t1, t2, w1, w2, mt_cut=mt_cut, w_cut=w_cut, rt_cut=rt_cut, t_coh=t_coh)
+    result1 += mt_cut
+    result2 += rt_cut
+    if result1 and result2:
+        return max(waiting_time1, waiting_time2), True
+    else:
+        # the waiting time of failing cutoff is always
+        # smaller than max(t1, t2), so we just need a min here.
+        return min(waiting_time1, waiting_time2), False
+
+
+########################################################################
+def join_links_compatible(
+        pmf1, pmf2, w_func1, w_func2,
+        mt_cut=np.iinfo(np.int32).max, w_cut=0.0, rt_cut=np.iinfo(np.int32).max, ycut=True,
+        cut_type="memory_time", evaluate_func=get_one, t_coh=np.inf):
+    """
+    Calculate P_s and P_f.
+    Calculate sum_(t=tA+tB) Pr(TA=tA)*Pr(TB=tB)*f(tA, tB)
+    where f is the value function to
+    be evaluated for the joint distribution.
+
+    Note
+    ----
+    For swap the success probability p is
+    considered in the iterative convolution.
+
+    For the memory time cut-off,
+    the constant shift is added in the iterative convolution.
+
+
+    Parameters
+    ----------
+    pmf1, pmf2: array-like
+        The waiting time distribution of the two input links, Pr(T=t).
+    w_func1, w_func2: array-like
+        The Werner parameter function, W(t).
+    value_matrix: array-like 2-D
+        The value of a function f(TA, TB) in matrix form.
+        f can be the success probability p,
+        the function for combining two Werner parameters or
+        the product of them.
+    mt_cut: int
+        The memory time cut-off.
+    w_cut: 
+        The werner parameter cut-off.
+    cutoff_func: jit-compiled function
+        Calculate the waiting time for this attempt (with cut-off)
+        and if it succeeds.
+    evaluate_func: jit-compiled function
+        The function to be evaluated the returns a float number.
+        It can be
+        ``get_one`` for trival cases\n
+        ``get_swap_wout`` for wout\n
+        ``get_dist_prob_suc`` for pdist\n
+        ``get_dist_prob_fail`` for 1-pdist\n
+        ``get_dist_prob_wout`` for pdist * wdist
+    t_coh: int or float
+        The coherence time of the memory. It is currently not used because
+        the decay factor is passed by a global variable.
+
+    Returns
+    -------
+    result: array-like 1-D
+        The resulting array of joining the two links.
+    """
+    if cut_type == "memory_time":
+        cutoff_func = memory_cut_off
+        shift = mt_cut
+    elif cut_type == "run_time":
+        cutoff_func = run_time_cut_off
+        shift = 0
+    elif cut_type == "fidelity":
+        cutoff_func = fidelity_cut_off
+        shift = 0
+    else:
+        raise ValueError("Unknow cut-off type")
+
+    if evaluate_func == "1":
+        evaluate_func = get_one
+    elif evaluate_func == "w1w2":
+        evaluate_func = get_swap_wout
+    elif evaluate_func == "0.5+0.5w1w2":
+        evaluate_func = get_dist_prob_suc
+    elif evaluate_func == "0.5-0.5w1w2":
+        evaluate_func = get_dist_prob_fail
+    elif evaluate_func == "w1+w2+4w1w2":
+        evaluate_func = get_dist_prob_wout
+    elif isinstance(evaluate_func, str):
+        raise ValueError(evaluate_func)
+    result = join_links_helper(
+        pmf1, pmf2, w_func1, w_func2,
+        mt_cut, w_cut, rt_cut, ycut,
+        cutoff_func, evaluate_func, t_coh)
+    return result
+
+
+@nb.jit(nopython=True, error_model="numpy")
+def join_links_helper(
+        pmf1, pmf2, w_func1, w_func2,
+        mt_cut=np.iinfo(np.int32).max, w_cut=0.0, rt_cut=np.iinfo(np.int32).max, ycut=True,
+        cutoff_func=memory_cut_off, evaluate_func=get_one, t_coh=np.inf):
+    size = len(pmf1)
+    result = np.zeros(size, dtype=np.float64)
+    decay_factors = np.exp(- np.arange(size) / t_coh)
+
+    for t1 in range(1, size):
+        for t2 in range(1, size):
+            waiting_time, selection_pass = cutoff_func(
+                t1, t2, w_func1[t1], w_func2[t2],
+                mt_cut, w_cut, rt_cut, t_coh)
+            if not ycut:
+                selection_pass = not selection_pass
+            if selection_pass:
+                result[waiting_time] += pmf1[t1] * pmf2[t2] * \
+                    evaluate_func(
+                        t1, t2, w_func1[t1], w_func2[t2],
+                        decay_factors[np.abs(t1-t2)])
+    return result
+
 

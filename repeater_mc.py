@@ -1,8 +1,9 @@
-"""
-This file contains the Monte Carlo's algorithm used in the validation
-of the repeater simulation.
-"""
+import logging
+import copy
 import time
+import os
+from functools import partial
+from multiprocessing import Pool
 from collections.abc import Iterable
 
 import numpy as np
@@ -23,18 +24,41 @@ def repeater_mc(parameters, multiprocessing=False, return_pmf=False):
     p_gen = parameters["p_gen"]
     p_swap = parameters["p_swap"]
     w0 = parameters["w0"]
-    tau = parameters["tau"]
-    if not isinstance(tau, Iterable):
-        tau = np.array([tau]*len(protocol))
-    tau = np.array(tau)
     t_coh = parameters["t_coh"]
     sample_size = parameters["sample_size"]
-    network_parameters = (
-        protocol, p_gen, p_swap, tau, w0, t_coh)
+    if "cut_type" not in parameters:
+        cut_type = "memory_time"
+    else:
+        cut_type = parameters["cut_type"]
+    if "tau" in parameters:  # backward compatibility
+        parameters["mt_cut"] = parameters.pop("tau")
+    if "cutoff_dict" in parameters.keys():
+        cutoff_dict = parameters["cutoff_dict"]
+        mt_cut = cutoff_dict.get("memory_time", np.iinfo(np.int).max)
+        w_cut = cutoff_dict.get("fidelity", 1.e-8)
+        rt_cut = cutoff_dict.get("run_time", np.iinfo(np.int).max)
+    else:
+        mt_cut = parameters.get("mt_cut", np.iinfo(np.int).max)
+        w_cut = parameters.get("w_cut", 1.e-8)
+        rt_cut = parameters.get("rt_cut", np.iinfo(np.int).max)
+    if not isinstance(mt_cut, Iterable):
+        mt_cut = (mt_cut,) * len(protocol)
+    else:
+        mt_cut = tuple(mt_cut)
+    if not isinstance(w_cut, Iterable):
+        w_cut = (w_cut,) * len(protocol)
+    else:
+        w_cut = tuple(w_cut)
+    if not isinstance(rt_cut, Iterable):
+        rt_cut = (rt_cut,) * len(protocol)
+    else:
+        rt_cut = tuple(rt_cut)
+    network_parameters = (protocol, p_gen, p_swap, mt_cut, w_cut, rt_cut, w0, t_coh, cut_type)
 
     # run simulation
     t_samples_list, w_samples_list = mc_sample(
         network_parameters, sample_size, multiprocessing)
+
     if not return_pmf:
         return t_samples_list, w_samples_list
 
@@ -43,8 +67,7 @@ def repeater_mc(parameters, multiprocessing=False, return_pmf=False):
     pmf, bin_edges = create_pmf_from_samples(
         t_samples_list, t_trunc, bin_width=1)
     pmf = np.concatenate([np.zeros(bin_edges[0]), pmf])
-    w_func = compute_werner(
-        t_samples_list, w_samples_list, bin_edges, t_trunc)
+    w_func = compute_werner(t_samples_list, w_samples_list, bin_edges, t_trunc)
     w_func = np.concatenate(
         [[np.nan for i in range(bin_edges[0])], w_func])
     return pmf, w_func
@@ -73,7 +96,7 @@ def mc_sample(network_parameters, sample_size, multiprocessing=True):
     w_samples_list: list
         Samples of the Werner parameters.
     """
-    protocol, p_gen, p_swap, tau, w0, t_coh = network_parameters
+    protocol, p_gen, p_swap, mt_cut, w_cut, rt_cut, w0, t_coh, cut_type = network_parameters
 
     t_samples_list = np.empty(sample_size, dtype=np.int64)
     w_samples_list = np.empty(sample_size, dtype=np.float64)
@@ -89,7 +112,7 @@ def mc_sample(network_parameters, sample_size, multiprocessing=True):
 
 @nb.jit(nopython=True)
 def sample_protocol(step, network_parameters):
-    protocol, p_gen, p_swap, tau, w0, t_coh = \
+    protocol, p_gen, p_swap, mt_cut, w_cut, rt_cut, w0, t_coh, cut_type = \
         network_parameters
     if step == -1:
         time = np.random.geometric(p_gen)
@@ -102,47 +125,130 @@ def sample_protocol(step, network_parameters):
 
 
 @nb.jit(nopython=True)
-def time_out_both_swap(step, network_parameters):
+def cut_off_swap(step, network_parameters):
     """
     Simulate the time out protocol that discards both link when waiting time
-    difference is larger than the cut-off tau. Both qubits are discarded when
+    difference is larger than the cut-off mt_cut. Both qubits are discarded when
     it fails.
     """
-    protocol, p_gen, p_swap, tau, w0, t_coh = network_parameters
-    tau = tau[step]
+    protocol, p_gen, p_swap, mt_cut, w_cut, rt_cut, w0, t_coh, cut_type = network_parameters
+    mt_cut = mt_cut[step]
+    w_cut = w_cut[step]
+    rt_cut = rt_cut[step]
 
-    tA, wA = sample_protocol(step-1, network_parameters)
-    tB, wB = sample_protocol(step-1, network_parameters)
-    t_tot = min(tA, tB)
-    while np.abs(tA - tB) > tau:
-        tA, wA = sample_protocol(step-1, network_parameters)
-        tB, wB = sample_protocol(step-1, network_parameters)
-        t_tot += tau + min(tA, tB)
-    t_tot += abs(tA - tB)
+    tA, tB = 0, 0
+    wA, wB = 1.0, 1.0
+    t_tot = 0.
+    cut_off_pass = False
+    if cut_type == "memory_time":
+        while not cut_off_pass:
+            tA, wA = sample_protocol(step-1, network_parameters)
+            tB, wB = sample_protocol(step-1, network_parameters)
+            t_tot += mt_cut + min(tA, tB)
+            cut_off_pass = np.abs(tA - tB) <= mt_cut
+        t_tot -= mt_cut
+        t_tot += abs(tA - tB)
+    elif cut_type == "fidelity":
+        while not cut_off_pass:
+            tA, wA = sample_protocol(step-1, network_parameters)
+            tB, wB = sample_protocol(step-1, network_parameters)
+            if tA < tB:
+                if wA < w_cut:
+                    waiting_time = tA
+                else:
+                    waiting_time = min(tB, tA + np.int(np.floor(t_coh * np.log(wA/w_cut))))
+            elif tA > tB:
+                if wB < w_cut:
+                    waiting_time = tB
+                else:
+                    memory_time = np.int(np.floor(t_coh * np.log(wB/w_cut)))
+                    waiting_time = min(tA, tB + memory_time)
+            else:
+                waiting_time = tA
+
+            if tA <= tB and wA * np.exp(-np.abs(tB - tA)/t_coh) >= w_cut and wB>=w_cut:
+                cut_off_pass = True
+            elif tA > tB and wB * np.exp(-np.abs(tA - tB)/t_coh) >= w_cut and wA>=w_cut:
+                cut_off_pass = True
+            else:
+                cut_off_pass = False
+            t_tot += waiting_time
+    elif cut_type == "run_time":
+        while not cut_off_pass:
+            tA, wA = sample_protocol(step-1, network_parameters)
+            tB, wB = sample_protocol(step-1, network_parameters)
+            if tA > rt_cut or tB > rt_cut:
+                cut_off_pass = False
+                t_tot += rt_cut
+            else:
+                cut_off_pass = True
+                t_tot += max(tA, tB)
+    if tA < tB:
+        wA *= np.exp(-(tB-tA)/t_coh)
+    else:
+        wB *= np.exp(-(tA-tB)/t_coh)
     return (t_tot, tA, tB, wA, wB)
 
 
-@nb.jit(nopython=True)
-def time_out_both_dist(step, network_parameters):
-    """
-    This should be keep identical to time_out_both_swap.
-    This duplication exists
-    because numba is not stable with complicated recursive behavior.
-    Both qubits are discarded when it fails.
-    """
-    protocol, p_gen, p_swap, tau, w0, t_coh = \
-        network_parameters
-    tau = tau[step]
+# @nb.jit(nopython=True)
+# def cut_off_dist(step, network_parameters):
+#     """
+#     This should be keep identical to cut_off_swap.
+#     This duplication exists
+#     because numba is not stable with complicated recursive behavior.
+#     Both qubits are discarded when it fails.
+#     """
+#     protocol, p_gen, p_swap, mt_cut, w_cut, rt_cut, w0, t_coh, cut_type = network_parameters
+#     mt_cut = mt_cut[step]
+#     w_cut = w_cut[step]
 
-    tA, wA = sample_protocol(step-1, network_parameters)
-    tB, wB = sample_protocol(step-1, network_parameters)
-    t_tot = min(tA, tB)
-    while np.abs(tA - tB) > tau:
-        tA, wA = sample_protocol(step-1, network_parameters)
-        tB, wB = sample_protocol(step-1, network_parameters)
-        t_tot += tau + min(tA, tB)
-    t_tot += abs(tA - tB)
-    return (t_tot, tA, tB, wA, wB)
+#     tA, tB = 0, 0
+#     wA, wB = 1.0, 1.0
+#     t_tot = 0.
+#     cut_off_pass = False
+#     if cut_type == "memory_time":
+#         while not cut_off_pass:
+#             tA, wA = sample_protocol(step-1, network_parameters)
+#             tB, wB = sample_protocol(step-1, network_parameters)
+#             t_tot += mt_cut + min(tA, tB)
+#             cut_off_pass = np.abs(tA - tB) <= mt_cut
+#         t_tot -= mt_cut
+#         t_tot += abs(tA - tB)
+#     elif cut_type == "fidelity":
+#         while not cut_off_pass:
+#             tA, wA = sample_protocol(step-1, network_parameters)
+#             tB, wB = sample_protocol(step-1, network_parameters)
+#             if tA < tB:
+#                 if wA < w_cut:
+#                     waiting_time = tA
+#                 else:
+#                     waiting_time = min(tB, tA + np.int(np.floor(t_coh * np.log(wA/w_cut))))
+#             elif tA > tB:
+#                 if wB < w_cut:
+#                     waiting_time = tB
+#                 else:
+#                     memory_time = np.int(np.ceil(t_coh * np.log(wB/w_cut)))
+#                     waiting_time = min(tA, tB + memory_time)
+#             else:
+#                 waiting_time = tA
+
+#             if tA <= tB and wA * np.exp(-np.abs(tB - tA)/t_coh) >= w_cut and wB>=w_cut:
+#                 cut_off_pass = True
+#             elif tA > tB and wB * np.exp(-np.abs(tA - tB)/t_coh) >= w_cut and wA>=w_cut:
+#                 cut_off_pass = True
+#             else:
+#                 cut_off_pass = False
+#             t_tot += waiting_time
+#     # elif cut_type == "run_time":
+#     #     while not cut_off_pass:
+#     #         tA, wA = sample_protocol(step-1, network_parameters)
+#     #         tB, wB = sample_protocol(step-1, network_parameters)
+#     #         if tA >
+#     if tA < tB:
+#         wA *= np.exp(-(tB-tA)/t_coh)
+#     else:
+#         wB *= np.exp(-(tA-tB)/t_coh)
+#     return (t_tot, tA, tB, wA, wB)
 
 
 @nb.jit(nopython=True)
@@ -150,10 +256,10 @@ def sample_swap(step, network_parameters):
     """
     Simulate the entanglement swap recursively with cut-off time.
     """
-    protocol, p_gen, p_swap, tau, w0, t_coh = network_parameters
+    protocol, p_gen, p_swap, mt_cut, w_cut, rt_cut, w0, t_coh, cut_type = network_parameters
 
-    t_tot, tA, tB, wA, wB = time_out_both_swap(step, network_parameters)
-    w = wA * wB * np.exp(-np.abs(tA - tB)/t_coh)
+    t_tot, tA, tB, wA, wB = cut_off_swap(step, network_parameters)
+    w = wA * wB 
 
     swap_success = np.random.random()
     if(swap_success <= p_swap):
@@ -168,14 +274,10 @@ def sample_dist(step, network_parameters):
     """
     Simulate the distillation recursively with cut-off time
     """
-    protocol, p_gen, p_swap, tau, w0, t_coh = network_parameters
+    protocol, p_gen, p_swap, mt_cut, w_cut, rt_cut, w0, t_coh, cut_type = network_parameters
 
-    t_tot, tA, tB, wA, wB = time_out_both_dist(step, network_parameters)
+    t_tot, tA, tB, wA, wB = cut_off_swap(step, network_parameters)
 
-    if tA < tB:
-        wA *= np.exp(-(tB-tA)/t_coh)
-    else:
-        wB *= np.exp(-(tA-tB)/t_coh)
     p_dist = (1. + wA * wB)/2.
     w = (wA + wB + 4 * wA * wB) / 6. / p_dist
 
@@ -266,7 +368,7 @@ def plot_mc_simulation(
     """
     t_samples_all = samples_data[0]
     if t_trunc is None:
-        t_trunc = int(np.ceil(np.max(np.concatenate(t_samples_all)) * 2 / 3))
+        t_trunc = int(np.ceil(np.max(np.concatenate(t_samples_all)) / 2))
     for i in range(len(t_samples_all)):
         pmf, bin_edges = create_pmf_from_samples(
             t_samples_all[i], t_trunc=t_trunc,
@@ -284,3 +386,46 @@ def plot_mc_simulation(
         axs[1][0].plot(t_list, w_func, '.')
 
     plt.tight_layout()
+
+if __name__ == "__main__":
+    parameters = {
+        "protocol": (1, ),
+        "p_gen": 0.1,
+        "p_swap": 0.5,
+        "w0": 0.85,
+        "tau": (17, 32, 55),
+        "w_cut": 0.8,
+        "t_coh": 400,
+        "t_trunc": 1000,
+        "cut_type": "fidelity",
+        "sample_size": 100,
+        }
+    # parameters = {
+    #     "protocol": (0, 0, 0),
+    #     "p_gen": 0.5,
+    #     "p_swap": 0.8,
+    #     "tau": 5,
+    #     "sample_size": 200000,
+    #     "w0": 1.,
+    #     "t_coh": 30,
+    #     "t_trunc": 100
+    #     }
+    fig, axs = plt.subplots(2, 2)
+
+    # simulation part
+    t_sample_list = []
+    w_sample_list = []
+
+    start = time.time()
+    print("Sample parameters:")
+    print(parameters)
+    t_samples_level, w_samples_level = repeater_mc(parameters)
+    t_sample_list.append(t_samples_level)
+    w_sample_list.append(w_samples_level)
+    end = time.time()
+    print("MC Simulation elapse time\n", end-start)
+    print()
+
+    plot_mc_simulation(
+        [t_sample_list, w_sample_list], axs,
+        parameters=parameters, bin_width=1)

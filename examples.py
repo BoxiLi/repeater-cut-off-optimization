@@ -63,7 +63,7 @@ def single_parameter_simulation():
         [t_sample_list, w_sample_list], axs,
         parameters=parameters, bin_width=1, t_trunc=2000)
 
-    # Deterministic algorithm
+    # Algorithm presented in the paper
     print("Deterministic algorithm")
     start = time.time()
     # Run the calculation
@@ -78,7 +78,6 @@ def single_parameter_simulation():
     print("Elapse time\n", end-start)
     print()
     plot_algorithm(pmf, w_func, axs, t_trunc=2000)
-    print("coverage", sum(pmf))
     print("secret key rate", secret_key_rate(pmf, w_func))
 
     # plot

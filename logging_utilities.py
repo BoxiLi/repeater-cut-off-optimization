@@ -104,9 +104,9 @@ def save_data(id, data):
         outfile = open(data_address, 'wb')
         pickle.dump(data, outfile)
         outfile.close()
+        logging.info("Data saved at " + '"' + data_address + '"')
     except Exception as err:
         logging.exception("Failed to save data")
-    logging.info("Data saved at " + '"' + data_address + '"')
 
 
 def load_data(id):
