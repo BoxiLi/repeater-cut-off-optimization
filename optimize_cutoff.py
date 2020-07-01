@@ -225,6 +225,11 @@ class CutoffOptimizer():
         logging.info("-------------------------------------------")
         logging.info("Optimization of the cut-off time\n")
         log_params(parameters)
+        parameters.pop("mt_cut", None)
+        parameters.pop("w_cut", None)
+        parameters.pop("rt_cut", None)
+        parameters.pop("cutoff", None)
+        parameters.pop("cutoff_dict", None)
         parameters = deepcopy(parameters)
         if "cut_type" in parameters:
             self.cut_types = parameters["cut_type"]

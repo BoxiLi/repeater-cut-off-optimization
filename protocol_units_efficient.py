@@ -51,8 +51,13 @@ def get_w2_array(pmf1, pmf2, w_func1, w_func2, t_coh):
 
 def join_links_efficient(
         pmf1, pmf2, w_func1, w_func2,
-        mt_cut=np.iinfo(np.int32).max, w_cut=0.0, rt_cut=np.iinfo(np.int32).max, ycut=True,
+        cutoff=np.iinfo(np.int32).max, ycut=True,
         cut_type=None, evaluate_func=None, t_coh=np.inf):
+    if cut_type == "memory_time":
+        mt_cut = cutoff
+    else:
+        raise NotImplementedError("Unknow cut-off type")
+
     if evaluate_func == "1":
         evaluate_coeff_list = (1,)
         final_coeff = 1.
@@ -78,7 +83,7 @@ def join_links_efficient(
     
     size = len(pmf1)
     if size/t_coh > 300:
-        logging.warn("Overflow in the exp function!")
+        logging.warn("Overflow in the exponential function!")
     final_result = np.zeros(size, dtype=np.float64)
     for evaluate_coeff, evaluate_func in zip(evaluate_coeff_list, evaluate_func_list):
         # separate the positive and negative part for numerical stability

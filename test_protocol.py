@@ -181,3 +181,9 @@ def test_secret_key_rate():
     key_rate = secret_key_rate(pmf, w_func, extrapolation=True)
     assert_allclose(key_rate, 0.0148367, rtol=1.e-3)
 
+
+# test using cutoff as key
+# test efficient version
+# test version with no cutoff
+# test withouf fft and with fft
+# test with gpu

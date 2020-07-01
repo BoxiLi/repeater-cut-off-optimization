@@ -183,7 +183,7 @@ def time_cut_off(
 ########################################################################
 def join_links_compatible(
         pmf1, pmf2, w_func1, w_func2,
-        mt_cut=np.iinfo(np.int32).max, w_cut=0.0, rt_cut=np.iinfo(np.int32).max, ycut=True,
+        cutoff=np.iinfo(np.int32).max, ycut=True,
         cut_type="memory_time", evaluate_func=get_one, t_coh=np.inf):
     """
     Calculate P_s and P_f.
@@ -235,17 +235,20 @@ def join_links_compatible(
     result: array-like 1-D
         The resulting array of joining the two links.
     """
+    mt_cut=np.iinfo(np.int32).max
+    w_cut=0.0
+    rt_cut=np.iinfo(np.int32).max
     if cut_type == "memory_time":
         cutoff_func = memory_cut_off
-        shift = mt_cut
-    elif cut_type == "run_time":
-        cutoff_func = run_time_cut_off
-        shift = 0
+        mt_cut = cutoff
     elif cut_type == "fidelity":
         cutoff_func = fidelity_cut_off
-        shift = 0
+        w_cut = cutoff
+    elif cut_type == "run_time":
+        cutoff_func = run_time_cut_off
+        rt_cut = cutoff
     else:
-        raise ValueError("Unknow cut-off type")
+        raise NotImplementedError("Unknow cut-off type")
 
     if evaluate_func == "1":
         evaluate_func = get_one
@@ -260,17 +263,15 @@ def join_links_compatible(
     elif isinstance(evaluate_func, str):
         raise ValueError(evaluate_func)
     result = join_links_helper(
-        pmf1, pmf2, w_func1, w_func2,
-        mt_cut, w_cut, rt_cut, ycut,
-        cutoff_func, evaluate_func, t_coh)
+        pmf1, pmf2, w_func1, w_func2, cutoff_func=cutoff_func, evaluate_func=evaluate_func, ycut=ycut, t_coh=t_coh, 
+        mt_cut=mt_cut, w_cut=w_cut, rt_cut=rt_cut)
     return result
 
 
 @nb.jit(nopython=True, error_model="numpy")
 def join_links_helper(
         pmf1, pmf2, w_func1, w_func2,
-        mt_cut=np.iinfo(np.int32).max, w_cut=0.0, rt_cut=np.iinfo(np.int32).max, ycut=True,
-        cutoff_func=memory_cut_off, evaluate_func=get_one, t_coh=np.inf):
+        cutoff_func=memory_cut_off, evaluate_func=get_one, ycut=True, t_coh=np.inf, mt_cut=np.iinfo(np.int32).max, w_cut=0.0, rt_cut=np.iinfo(np.int32).max):
     size = len(pmf1)
     result = np.zeros(size, dtype=np.float64)
     decay_factors = np.exp(- np.arange(size) / t_coh)
