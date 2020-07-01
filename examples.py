@@ -4,7 +4,7 @@ import time
 import matplotlib.pyplot as plt
 import numpy as np
 
-from repeater_algorithm import repeater_sim, plot_algorithm
+from repeater_algorithm import RepeaterChainSimulation, repeater_sim, plot_algorithm
 from repeater_mc import repeater_mc, plot_mc_simulation
 from optimize_cutoff import CutoffOptimizer
 from logging_utilities import (
@@ -12,18 +12,17 @@ from logging_utilities import (
 from utility_functions import secret_key_rate
 
 
-def single_parameter_simulation():
+def swap_protocol():
     """
     This example is a simplified version of fig.4 from the paper.
     It calculates the waiting time distribution and the Werner parameter
     with the algorithm shown in the paper.
     A Monte Carlo algorithm is used for comparison.
-    It will take about one minutes on a i7 8700 CPU.
     """
     parameters = {
         # A protocol is represented by a tuple of 0 and 1,
         # where 0 stands for swap and 1 stands for distillation.
-        # This example is a 3-level swap,
+        # This example is a 3-level swap protocol,
         # spanning over 9 nodes (i.e. 8 segments)
         "protocol": (0, 0, 0),
         # success probability of entanglement generation
@@ -33,10 +32,14 @@ def single_parameter_simulation():
         # initial Werner parameter
         "w0": 0.98,
         # memory cut-off time
-        "tau": (16, 31, 55),
-        # the memory coherence time
+        "cutoff": (16, 31, 55),
+        # the memory coherence time,
+        # in the unit of one attempt of elementary link generation.
         "t_coh": 400,
-        # truncation time for the repeater scheme
+        # truncation time for the repeater scheme.
+        # It should be increased to cover more time step
+        # if the success proability decreases.
+        # Commercial hardware can easily handle up to t_trunc=1e5
         "t_trunc": 3000,
         # the type of cut-off
         "cut_type": "memory_time",
@@ -91,7 +94,87 @@ def single_parameter_simulation():
                 axs[i][j].legend(legend)
     plt.tight_layout()
     fig.show()
-    input()
+
+
+def mixed_protocol():
+    """
+    Here we show a mix protocol with number of qubits and segments not
+    a power of 2. Notice that it is only for demonstration purpose
+    and the protocol is not optimal.
+    Setup:
+        Four nodes (ABCD) repeater chain with three segments.
+        A and D as end nodes each has 3 qubits;
+        B and C as repeater nodes each has 6 qubits.
+    The parameter naming following the convention: span<N>_dist<d>,
+    where N is the number of segments this entanglement spans
+    and d is the number of resource used for distillation.
+    """
+    parameters = {
+        "p_gen": 0.1,
+        "p_swap": 0.5,
+        "w0": 0.85,
+        "t_coh": 400,
+        "t_trunc": 3000,
+        }
+    p_gen = parameters["p_gen"]
+    t_trunc = parameters["t_trunc"]
+    w0 = parameters["w0"]
+
+    simulator = RepeaterChainSimulation()
+    ############################
+    # Part1
+    # Generate entanglement link for all qubits pair between AB, BC and CD
+    pmf_span1_dist1 = np.concatenate(
+        (np.array([0.]),  # generation needs at least one step.
+        p_gen * (1 - p_gen)**(np.arange(1, t_trunc) - 1))
+        )
+    w_span1_dist1 = w0 * np.ones(t_trunc)  # initial werner parameter
+
+    ############################
+    # Part2: Between A and B, we distill the entanglement twice.
+    # We first distill A1-B1 and A2-B2, save the result in A1-B1
+    pmf_span1_dist2, w_span1_dist2 = simulator.compute_unit(
+        parameters, pmf_span1_dist1, w_span1_dist1, unit_kind="dist")
+
+    # We then distill A1-B1 and A3-B3, obtain a single link A-B
+    pmf_span1_dist3, w_span1_dist3 = simulator.compute_unit(
+        parameters, pmf_span1_dist2, w_span1_dist2,
+        pmf_span1_dist1, w_span1_dist1, unit_kind="dist")
+
+    # All three qubits at D are now used, we do not consider pumping.
+
+    ############################
+    # Part3: Among B, C and D. Performed simultaneously as part2
+    # We begin from swap between B-C and C-D, for all 3 pairs of elementary link.
+    pmf_span2_dist1, w_span2_dist1 = simulator.compute_unit(
+        parameters, pmf_span1_dist1, w_span1_dist1, unit_kind="swap")
+
+    # When B1-D1, B2-D2 and prepared, we distill them
+    pmf_span2_dist2, w_span2_dist2 = simulator.compute_unit(
+        parameters, pmf_span2_dist1, w_span2_dist1, unit_kind="dist")
+
+    # When B3-D3 is ready, merge it too with distillation to obtain
+    # a single link between B and D
+    parameters["cutoff"] = 50
+    pmf_span2_dist3, w_span2_dist3 = simulator.compute_unit(
+        parameters, pmf_span2_dist2, w_span2_dist2,
+        pmf_span2_dist1, w_span2_dist1, unit_kind="dist")
+    del parameters["cutoff"]
+
+    ############################
+    # Part4
+    # We connect A-B and B-D with a swap
+    parameters["cutoff"] = 50
+    pmf_span3_dist3, w_span3_dist3 = simulator.compute_unit(
+        parameters, pmf_span1_dist3, w_span1_dist3,
+        pmf_span2_dist3, w_span2_dist3, unit_kind="swap")
+    del parameters["cutoff"]
+
+    print("secret key rate", secret_key_rate(pmf_span3_dist3, w_span3_dist3))
+    # Let's plot the final time and Werner parameter distribution
+    fig, axs = plt.subplots(2, 2)
+    plot_algorithm(pmf_span3_dist3, w_span3_dist3, axs)
+    fig.show()
 
 
 def optimize_cutoff_time():
@@ -114,32 +197,34 @@ def optimize_cutoff_time():
         }
     log_init("opt", level=logging.INFO)
 
-    # Uniform cut-off optimization, ~2.5 min on Intel i7 8700
+    # Uniform cut-off optimization. ~ 1-2 min
     logging.info("Uniform cut-off optimization\n")
     # Define optimizer parameters
-    opt = CutoffOptimizer(opt_kind="uniform_de", adaptive=True, tolerance=0.)
+    opt = CutoffOptimizer(opt_kind="uniform_de", adaptive=True)
     # Run optimization
-    best_tau = opt.run(parameters, tau_dims=1)
+    best_cutoff_dict = opt.run(parameters)
     # Calculate the secret key rate
-    parameters["tau"] = best_tau
+    parameters["cutoff"] = best_cutoff_dict["memory_time"]
     pmf, w_func = repeater_sim(parameters)
     key_rate = secret_key_rate(pmf, w_func)
-    logging.info("Secret key rate: {:.5f}".format(key_rate))
+    logging.info("Secret key rate: {:.6f}".format(key_rate))
+    del parameters["cutoff"]
 
-    # Nonuniform cut-off optimization, 20~30 min on Intel i7 8700
+    # Nonuniform cut-off optimization.  ~ 5 min
     logging.info("Nonuniform cut-off optimization\n")
-    tau_dims = len(parameters["protocol"])
-    opt = CutoffOptimizer(opt_kind="full_de", adaptive=True, tolerance=0.)
-    best_tau = opt.run(parameters, tau_dims=tau_dims)
-    parameters["tau"] = best_tau
+    opt = CutoffOptimizer(opt_kind="nonuniform_de", adaptive=True)
+    best_cutoff_dict = opt.run(parameters)
+    parameters["cutoff"] = best_cutoff_dict["memory_time"]
     pmf, w_func = repeater_sim(parameters)
     key_rate = secret_key_rate(pmf, w_func)
-    logging.info("Secret key rate: {:.5f}".format(key_rate))
+    logging.info("Secret key rate: {:.6f}".format(key_rate))
 
     logging.info("No cut-off\n")
-    parameters["tau"] = np.iinfo(np.int).max
+    parameters["cutoff"] = np.iinfo(np.int).max
     pmf, w_func = repeater_sim(parameters=parameters)
     key_rate = secret_key_rate(pmf, w_func)
-    logging.info("Secret key rate without cut-off: {:.5f}".format(key_rate))
+    logging.info("Secret key rate without cut-off: {:.6f}".format(key_rate))
     logging.info("Rate without truncation time: {}\n".format(key_rate))
-single_parameter_simulation()
+
+if __name__ == "__main__":
+    optimize_cutoff_time()
