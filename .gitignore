@@ -1,3 +1,4 @@
 
 *.pyc
 .vscode/settings.json
+.cache/v/cache/lastfailed

@@ -155,7 +155,7 @@ _gpu_simulator.gpu_threshold = 1
 
 def default_solution(parameters):
     simulator = RepeaterChainSimulation()
-    pmf, w_func = simulator.run_simulation(parameters)
+    pmf, w_func = simulator.nested_protocols(parameters)
     return pmf, w_func
 
 
@@ -181,7 +181,7 @@ def default_solution(parameters):
 def testAlgorihtm(parameters, expect, simulator, efficient):
     default_pmf, default_w_func = expect
     simulator.efficient = True
-    pmf, w_func = simulator.run_simulation(parameters)
+    pmf, w_func = simulator.nested_protocols(parameters)
     cdf = np.cumsum(pmf)
     start_pos = next(x[0] for x in enumerate(cdf) if x[1] > 1.0e-2)
     end_pos = np.searchsorted(cdf, 0.99)
@@ -201,7 +201,7 @@ def testAlgorihtm(parameters, expect, simulator, efficient):
 #     ])
 # def testAgainstMC(parameters, begin, end, rtol_t, rtol_w):
 #     simulator = RepeaterChainSimulation()
-#     pmf, w_func = simulator.run_simulation(parameters)
+#     pmf, w_func = simulator.nested_protocols(parameters)
 #     cdf = np.cumsum(pmf)
 
 #     pmf_sim, w_func_sim = repeater_mc(parameters, return_pmf=True)
