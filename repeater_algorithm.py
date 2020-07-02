@@ -395,7 +395,7 @@ class RepeaterChainSimulation():
         return pmf, w_func
 
 
-    def run_simulation(self, parameters, all_level=False):
+    def nested_protocols(self, parameters, all_level=False):
         """
         Compute the waiting time and the Werner parameter of a symmetric
         repeater protocol.
@@ -490,7 +490,7 @@ def compute_unit(
 
 def repeater_sim(parameters, all_level=False):
     simulator = RepeaterChainSimulation()
-    return simulator.run_simulation(parameters=parameters, all_level=all_level)
+    return simulator.nested_protocols(parameters=parameters, all_level=all_level)
 
 
 def plot_algorithm(pmf, w_func, axs=None, t_trunc=None, legend=None):

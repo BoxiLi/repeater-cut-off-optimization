@@ -164,7 +164,7 @@ def mixed_protocol():
 
     ############################
     # Part3: Among B, C and D. Performed simultaneously as part2
-    # We first connect all elementary links between B-C and C-D, and the distll.
+    # We first connect all elementary links between B-C and C-D, and then distill.
     # We begin from swap between B-C and C-D, for all 3 pairs of elementary link.
     pmf_span2_dist1, w_span2_dist1 = simulator.compute_unit(
         parameters, pmf_span1_dist1, w_span1_dist1, unit_kind="swap")
@@ -175,6 +175,8 @@ def mixed_protocol():
 
     # When B3-D3 is ready, we merge it too with distillation to obtain
     # a single link between B and D
+    # Here we add a cutoff on the memory storage time to increase the fidelity,
+    # at the cost of a longer waiting time.
     parameters["cutoff"] = 50
     pmf_span2_dist3, w_span2_dist3 = simulator.compute_unit(
         parameters, pmf_span2_dist2, w_span2_dist2,
@@ -246,5 +248,5 @@ def optimize_cutoff_time():
     logging.info("Secret key rate without cut-off: {:.6f}".format(key_rate))
     logging.info("Rate without truncation time: {}\n".format(key_rate))
 
-if __name__ == "__main__":
+if __name__ == "__main__":  #  run the example
     mixed_protocol()
