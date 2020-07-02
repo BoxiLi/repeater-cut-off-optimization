@@ -4,7 +4,7 @@ import pytest
 import multiprocessing
 
 from repeater_mc import repeater_mc
-from repeater_algorithm import repeater_sim
+from repeater_algorithm import repeater_sim, RepeaterChainSimulation
 from protocol_units import *
 from logging_utilities import *
 from utility_functions import *
@@ -25,7 +25,6 @@ def test_fidelity_cut_off_function():
     assert(fidelity_cut_off(1, 2, 0.98, 0.94, w_cut=w_cut, t_coh=t_coh) == (2, False))
     assert(fidelity_cut_off(4, 4, 0.95, 0.95, w_cut=w_cut, t_coh=t_coh) == (4, True))
     assert(fidelity_cut_off(4, 4, 0.95, 0.9499, w_cut=w_cut, t_coh=t_coh) == (4, False))
-
 
 def test_cutoff_dict_generation():    
     parameters = {
@@ -52,118 +51,6 @@ def test_cutoff_dict_generation():
     assert_allclose(cutoff_dict["memory_time"], np.array([100, 100]))
     assert_allclose(cutoff_dict["fidelity"], np.array([0.5, 0.5]))
 
-def test_deterministic_swap():
-    """
-    Test for the deterministic algorithm with swap and distillation.
-    """
-    parameters = {
-        "protocol": (0, 0, 0),
-        "p_gen": 0.5,
-        "p_swap": 0.8,
-        "tau": 5,
-        "sample_size": 200000,
-        "w0": 1.,
-        "t_coh": 30,
-        "t_trunc": 100
-        }
-    t_trunc = 100
-    pmf, w_func = repeater_sim(parameters)
-    cdf = np.cumsum(pmf)
-
-    kwarg_list = create_iter_kwargs(parameters)
-    pmf_sim, w_func_sim = repeater_mc(kwarg_list[0], return_pmf=True)
-
-    assert_allclose(pmf[2:17], pmf_sim[2:17], rtol=0.05)
-    assert_allclose(w_func[2:17], w_func_sim[2:17], rtol=0.01)
-
-
-def test_dist():
-    """
-    Test for the deterministic algorithm with swap,
-    distillation and time-out.
-    """
-    # set parameters
-    parameters = {
-        "protocol": (1, 0, 1, 0, 1, 0),
-        "p_gen": 0.5,
-        "p_swap": 0.8,
-        "tau": (3, 6, 10, 14, 25, 100),
-        "sample_size": 200000,
-        "w0": 1.,
-        "t_coh": 30,
-        "disc_kind": "both",
-        "reuse_sampled_data": False,
-        "t_trunc": 100
-        }
-
-    t_trunc = 100
-    pmf, w_func = repeater_sim(parameters)
-    cdf = np.cumsum(pmf)
-
-    kwarg_list = create_iter_kwargs(parameters)
-    pmf_sim, w_func_sim = repeater_mc(kwarg_list[0], return_pmf=True)
-
-    assert_allclose(pmf[10:40], pmf_sim[10:40], rtol=0.08)
-    assert_allclose(w_func[10:40], w_func_sim[10:40], rtol=0.02)
-
-
-def test_fidelity_cut_off():
-    parameters = {
-        "protocol": (0, ),
-        "p_gen": 0.5,
-        "p_swap": 0.8,
-        "w0": 0.99,
-        "t_coh": 50,
-        "t_trunc": 100,
-        "cut_type": "fidelity",
-        "w_cut": 0.9,
-        "sample_size": 1000000,
-        }
-
-    t_trunc = 100
-    pmf, w_func = repeater_sim(parameters)
-    cdf = np.cumsum(pmf)
-
-    kwarg_list = create_iter_kwargs(parameters)
-    pmf_sim, w_func_sim = repeater_mc(kwarg_list[0], return_pmf=True)
-    assert_allclose(pmf[1:12], pmf_sim[1:12], rtol=0.03)
-    assert_allclose(w_func[1:12], w_func_sim[1:12], rtol=0.03)
-
-
-def test_runtime_cut_off():
-    parameters = {
-        "protocol": (1, 0),
-        "p_gen": 0.5,
-        "p_swap": 0.8,
-        "w0": 0.99,
-        "t_coh": 50,
-        "t_trunc": 100,
-        "cut_type": "run_time",
-        "rt_cut": (5, 10),
-        "sample_size": 1000000,
-        }
-    t_trunc = 100
-    pmf, w_func = repeater_sim(parameters)
-    cdf = np.cumsum(pmf)
-
-    kwarg_list = create_iter_kwargs(parameters)
-    pmf_sim, w_func_sim = repeater_mc(kwarg_list[0], return_pmf=True)
-    assert_allclose(pmf[2:13], pmf_sim[2:13], rtol=0.04)
-    assert_allclose(w_func[2:15], w_func_sim[2:15], rtol=0.03)
-
-
-@pytest.mark.skip(reason="Used only locally")
-@pytest.mark.filterwarnings("ignore:Record with ID")
-def test_record():
-    parameters1 = {'ID': 'test1', 'remark': 'test_log'}
-    parameters2 = {'ID': 'test2', 'remark': 'test_log'}
-    assert(find_record_id("test1") == parameters1)
-    assert(find_record_id("test2") == parameters2)
-    assert(len(find_record_patterns({'remark': "test_log"})) == 2)
-    assert(find_record_id("does not exist") is None)
-    assert(find_record_patterns({'ID': "does not exist"}) == [])
-
-
 def test_secret_key_rate():
     """
     Test secret key rate with exponential extrapolation.
@@ -182,8 +69,162 @@ def test_secret_key_rate():
     assert_allclose(key_rate, 0.0148367, rtol=1.e-3)
 
 
-# test using cutoff as key
-# test efficient version
-# test version with no cutoff
-# test withouf fft and with fft
-# test with gpu
+
+swap_only_protocol = {
+    "protocol": (0, 0, 0),
+    "p_gen": 0.5,
+    "p_swap": 0.8,
+    "sample_size": 100000,
+    "w0": 1.,
+    "t_coh": 50,
+    "t_trunc": 100
+    }
+
+dist_only_protocol = {
+    "protocol": (1, 1),
+    "p_gen": 0.5,
+    "p_swap": 0.8,
+    "sample_size": 100000,
+    "w0": 1.,
+    "t_coh": 20,
+    "t_trunc": 100
+    }
+
+memory_cutoff_parameters1 = {
+    "protocol": (0, 0, 0),
+    "p_gen": 0.5,
+    "p_swap": 0.8,
+    "tau": 5,
+    "sample_size": 200000,
+    "w0": 1.,
+    "t_coh": 30,
+    "t_trunc": 100
+    }
+
+
+memory_cutoff_parameters2 = {
+    "protocol": (1, 0, 1, 0, 1, 0),
+    "p_gen": 0.5,
+    "p_swap": 0.8,
+    "mt_cut": (3, 6, 10, 14, 25, 100),
+    "sample_size": 200000,
+    "w0": 1.,
+    "t_coh": 30,
+    "t_trunc": 100
+    }
+
+
+fidelity_cutoff_parameters = {
+    "protocol": (1, 0),
+    "p_gen": 0.5,
+    "p_swap": 0.8,
+    "w0": 0.99,
+    "t_coh": 50,
+    "t_trunc": 100,
+    "cut_type": "fidelity",
+    "w_cut": 0.9,
+    "sample_size": 1000000,
+    }
+
+
+runtime_cutoff_parameters = {
+    "protocol": (1, 0),
+    "p_gen": 0.5,
+    "p_swap": 0.8,
+    "w0": 0.99,
+    "t_coh": 50,
+    "t_trunc": 100,
+    "cut_type": "run_time",
+    "rt_cut": (5, 10),
+    "sample_size": 1000000,
+    }
+
+
+
+
+_convolution_simulator = RepeaterChainSimulation()
+
+_fft_simulator = RepeaterChainSimulation()
+_fft_simulator.fft_threshold = 1
+
+_gpu_simulator = RepeaterChainSimulation()
+_gpu_simulator.fft_threshold = 1
+_gpu_simulator.use_gpu = True
+_gpu_simulator.gpu_threshold = 1
+
+
+def default_solution(parameters):
+    simulator = RepeaterChainSimulation()
+    pmf, w_func = simulator.run_simulation(parameters)
+    return pmf, w_func
+
+
+@pytest.mark.parametrize("parameters, expect",
+    [
+        pytest.param(swap_only_protocol, default_solution(swap_only_protocol), id="swap_only"),
+        pytest.param(dist_only_protocol, default_solution(dist_only_protocol), id="dist_only"),
+        pytest.param(memory_cutoff_parameters1, default_solution(memory_cutoff_parameters1), id="swap_memory_cutoff"),
+        # pytest.param(memory_cutoff_parameters2, default_solution(memory_cutoff_parameters2), id="swap_dist_memory_cutoff"),
+    ])
+@pytest.mark.parametrize("simulator",
+    [
+        pytest.param(_convolution_simulator, id="convolution"),
+        pytest.param(_fft_simulator, id="fft"),
+        pytest.param(_gpu_simulator, id="gpu"),
+    ])
+@pytest.mark.parametrize("efficient",
+    [
+        pytest.param(True, id="efficient"),
+        pytest.param(False, id="compartible"),
+    ]
+)
+def testAlgorihtm(parameters, expect, simulator, efficient):
+    default_pmf, default_w_func = expect
+    simulator.efficient = True
+    pmf, w_func = simulator.run_simulation(parameters)
+    cdf = np.cumsum(pmf)
+    start_pos = next(x[0] for x in enumerate(cdf) if x[1] > 1.0e-2)
+    end_pos = np.searchsorted(cdf, 0.99)
+    assert_allclose(pmf[start_pos: end_pos], default_pmf[start_pos: end_pos], rtol=1.0e-7)
+    assert_allclose(w_func[start_pos: end_pos], default_w_func[start_pos: end_pos], rtol=1.0e-7)
+
+
+# @pytest.mark.parametrize(
+#     "parameters, begin, end, rtol_t, rtol_w",
+#     [
+#         pytest.param(swap_only_protocol, 3, 12, 0.02, 0.01, id="Swap only protocol"),
+#         pytest.param(dist_only_protocol, 3, 12, 0.02, 0.01, id="Dist only protocol"),
+#         pytest.param(memory_cutoff_parameters1, 2, 17, 0.02, 0.01, id="Swap with memory cutoff"),
+#         pytest.param(memory_cutoff_parameters2, 10, 40, 0.03, 0.02, id="Mixed protocol with memory cutoff"),
+#         pytest.param(fidelity_cutoff_parameters, 2, 12, 0.02, 0.01, id="Fidelity cutoff"),
+#         pytest.param(fidelity_cutoff_parameters, 2, 12, 0.02, 0.01, id="Runtime cutoff"),
+#     ])
+# def testAgainstMC(parameters, begin, end, rtol_t, rtol_w):
+#     simulator = RepeaterChainSimulation()
+#     pmf, w_func = simulator.run_simulation(parameters)
+#     cdf = np.cumsum(pmf)
+
+#     pmf_sim, w_func_sim = repeater_mc(parameters, return_pmf=True)
+#     cdf_sim = np.cumsum(pmf_sim)
+
+#     assert_allclose(cdf[begin: end], cdf_sim[begin: end], rtol=rtol_t)
+#     assert_allclose(w_func[begin: end], w_func_sim[begin: end], rtol=rtol_w)
+
+
+@pytest.mark.skip(reason="Used only locally")
+@pytest.mark.filterwarnings("ignore:Record with ID")
+def test_record():
+    parameters1 = {'ID': 'test1', 'remark': 'test_log'}
+    parameters2 = {'ID': 'test2', 'remark': 'test_log'}
+    assert(find_record_id("test1") == parameters1)
+    assert(find_record_id("test2") == parameters2)
+    assert(len(find_record_patterns({'remark': "test_log"})) == 2)
+    assert(find_record_id("does not exist") is None)
+    assert(find_record_patterns({'ID': "does not exist"}) == [])
+
+
+# # test using cutoff as key
+# # test efficient version
+# # test version with no cutoff
+# # test withouf fft and with fft
+# # test with gpu
