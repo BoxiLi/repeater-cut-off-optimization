@@ -13,6 +13,16 @@ NumPy, Scipy, Numba
 ```
 In addition, we use `Matplotlib` for plotting and `pytest` for unit tests.
 
+To install the packages, you can use
+```
+pip install numpy scipy numba matplotlib pytest
+```
+or 
+```
+conda install numpy scipy numba matplotlib pytest
+```
+if you are using [conda](https://docs.conda.io/en/latest/) environment.
+
 For GPU accelerated convolution, you will need
 ```
 CuPy

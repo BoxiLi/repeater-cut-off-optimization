@@ -1,3 +1,21 @@
+"""
+This file contains the demonstration examples,
+for the computation of time and Werner parameters
+as well as for optimizing cutoff.
+Run the example functions will take typically a few minutes.
+The three existing examples are:
+
+swap_protocol:
+    A nested swap protocol of level 3, with cutoff for each level.
+
+mixed_protocol:
+    A mixed protocol with both swap and distillation,
+    where the numbers of segments and qubits are not a power of 2.
+
+optimize_cutoff_time:
+    Optimization of cutoff for nested swap protocols.
+"""
+
 import logging
 import time
 
@@ -102,12 +120,15 @@ def mixed_protocol():
     a power of 2. Notice that it is only for demonstration purpose
     and the protocol is not optimal.
     Setup:
-        Four nodes (ABCD) repeater chain with three segments.
+        A four nodes (ABCD) repeater chain with three segments.
         A and D as end nodes each has 3 qubits;
         B and C as repeater nodes each has 6 qubits.
-    The parameter naming following the convention: span<N>_dist<d>,
+    The name of entangled pairs following the convention:
+    span<N>_dist<d>,
     where N is the number of segments this entanglement spans
-    and d is the number of resource used for distillation.
+    and d is the number of elementary links used in the distillation.
+    E.g. an elementary link has the name "span1_dist1", while
+    the distilled state of two elementary links "span1_dist2".
     """
     parameters = {
         "p_gen": 0.1,
@@ -226,4 +247,4 @@ def optimize_cutoff_time():
     logging.info("Rate without truncation time: {}\n".format(key_rate))
 
 if __name__ == "__main__":
-    optimize_cutoff_time()
+    mixed_protocol()
