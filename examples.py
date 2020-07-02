@@ -123,7 +123,7 @@ def mixed_protocol():
     simulator = RepeaterChainSimulation()
     ############################
     # Part1
-    # Generate entanglement link for all qubits pair between AB, BC and CD
+    # Generate entanglement link for all qubits pairs between AB, BC and CD
     pmf_span1_dist1 = np.concatenate(
         (np.array([0.]),  # generation needs at least one step.
         p_gen * (1 - p_gen)**(np.arange(1, t_trunc) - 1))
@@ -141,10 +141,9 @@ def mixed_protocol():
         parameters, pmf_span1_dist2, w_span1_dist2,
         pmf_span1_dist1, w_span1_dist1, unit_kind="dist")
 
-    # All three qubits at D are now used, we do not consider pumping.
-
     ############################
     # Part3: Among B, C and D. Performed simultaneously as part2
+    # We first connect all elementary links between B-C and C-D, and the distll.
     # We begin from swap between B-C and C-D, for all 3 pairs of elementary link.
     pmf_span2_dist1, w_span2_dist1 = simulator.compute_unit(
         parameters, pmf_span1_dist1, w_span1_dist1, unit_kind="swap")
@@ -153,7 +152,7 @@ def mixed_protocol():
     pmf_span2_dist2, w_span2_dist2 = simulator.compute_unit(
         parameters, pmf_span2_dist1, w_span2_dist1, unit_kind="dist")
 
-    # When B3-D3 is ready, merge it too with distillation to obtain
+    # When B3-D3 is ready, we merge it too with distillation to obtain
     # a single link between B and D
     parameters["cutoff"] = 50
     pmf_span2_dist3, w_span2_dist3 = simulator.compute_unit(
