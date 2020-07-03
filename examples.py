@@ -123,7 +123,7 @@ def swap_protocol():
 
 def mixed_protocol():
     """
-    Here we show a mix protocol with number of qubits and segments not
+    Here we show a mixed protocol with the number of qubits and segments not
     a power of 2. Notice that it is only for demonstration purpose
     and the protocol is not optimal.
     Setup:
@@ -135,7 +135,7 @@ def mixed_protocol():
     where N is the number of segments this entanglement spans
     and d is the number of elementary links used in the distillation.
     E.g. an elementary link has the name "span1_dist1", while
-    the distilled state of two elementary links "span1_dist2".
+    the distilled state of two elementary links the name "span1_dist2".
     """
     parameters = {
         "p_gen": 0.1,
