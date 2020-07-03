@@ -16,7 +16,9 @@ optimize_cutoff_time:
     Optimization of cutoff for nested swap protocols.
 
 One can run the script directly by opening a console and typing
-'python3 examples.py' or copy the script into a Python IDE.
+'python3 examples.py' or open the folder in a Python IDE.
+Notice that this file must be kept in the same folder
+as the rest of Python scripts.
 To choose which example to run, please change the function name
 in the last line of this script.
 """
