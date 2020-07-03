@@ -14,6 +14,11 @@ mixed_protocol:
 
 optimize_cutoff_time:
     Optimization of cutoff for nested swap protocols.
+
+One can run the script directly by opening a console and typing
+'python3 examples.py' or copy the script into a Python IDE.
+To choose which example to run, please change the function name
+in the last line of this script.
 """
 
 import logging
