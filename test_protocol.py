@@ -110,7 +110,7 @@ memory_cutoff_parameters2 = {
     "sample_size": 200000,
     "w0": 1.,
     "t_coh": 30,
-    "t_trunc": 100
+    "t_trunc": 150
     }
 
 
@@ -164,20 +164,16 @@ def default_solution(parameters):
         pytest.param(swap_only_protocol, default_solution(swap_only_protocol), id="swap_only"),
         pytest.param(dist_only_protocol, default_solution(dist_only_protocol), id="dist_only"),
         pytest.param(memory_cutoff_parameters1, default_solution(memory_cutoff_parameters1), id="swap_memory_cutoff"),
-        # pytest.param(memory_cutoff_parameters2, default_solution(memory_cutoff_parameters2), id="swap_dist_memory_cutoff"),
+        pytest.param(memory_cutoff_parameters2, default_solution(memory_cutoff_parameters2), id="swap_dist_memory_cutoff"),
     ])
-@pytest.mark.parametrize("simulator",
+@pytest.mark.parametrize(("simulator", "efficient"),
     [
-        pytest.param(_convolution_simulator, id="convolution"),
-        pytest.param(_fft_simulator, id="fft"),
-        pytest.param(_gpu_simulator, id="gpu"),
+        pytest.param(_convolution_simulator, False, id="compartible-conv"),
+        pytest.param(_convolution_simulator, True, id="efficient-conv"),
+        pytest.param(_fft_simulator, True, id="compartible-fft"),
+        pytest.param(_fft_simulator, False, id="efficient-fft"),
+        pytest.param(_gpu_simulator, True, id="compartible-gpu"),
     ])
-@pytest.mark.parametrize("efficient",
-    [
-        pytest.param(True, id="efficient"),
-        pytest.param(False, id="compartible"),
-    ]
-)
 def testAlgorihtm(parameters, expect, simulator, efficient):
     default_pmf, default_w_func = expect
     simulator.efficient = True
@@ -189,26 +185,26 @@ def testAlgorihtm(parameters, expect, simulator, efficient):
     assert_allclose(w_func[start_pos: end_pos], default_w_func[start_pos: end_pos], rtol=1.0e-7)
 
 
-# @pytest.mark.parametrize(
-#     "parameters, begin, end, rtol_t, rtol_w",
-#     [
-#         pytest.param(swap_only_protocol, 3, 12, 0.02, 0.01, id="Swap only protocol"),
-#         pytest.param(dist_only_protocol, 3, 12, 0.02, 0.01, id="Dist only protocol"),
-#         pytest.param(memory_cutoff_parameters1, 2, 17, 0.02, 0.01, id="Swap with memory cutoff"),
-#         pytest.param(memory_cutoff_parameters2, 10, 40, 0.03, 0.02, id="Mixed protocol with memory cutoff"),
-#         pytest.param(fidelity_cutoff_parameters, 2, 12, 0.02, 0.01, id="Fidelity cutoff"),
-#         pytest.param(fidelity_cutoff_parameters, 2, 12, 0.02, 0.01, id="Runtime cutoff"),
-#     ])
-# def testAgainstMC(parameters, begin, end, rtol_t, rtol_w):
-#     simulator = RepeaterChainSimulation()
-#     pmf, w_func = simulator.nested_protocols(parameters)
-#     cdf = np.cumsum(pmf)
+@pytest.mark.parametrize(
+    "parameters, begin, end, rtol_t, rtol_w",
+    [
+        pytest.param(swap_only_protocol, 5, 12, 0.03, 0.02, id="Swap only protocol"),
+        pytest.param(dist_only_protocol, 3, 12, 0.03, 0.02, id="Dist only protocol"),
+        pytest.param(memory_cutoff_parameters1, 2, 17, 0.03, 0.02, id="Swap with memory cutoff"),
+        pytest.param(memory_cutoff_parameters2, 10, 40, 0.03, 0.02, id="Mixed protocol with memory cutoff"),
+        pytest.param(fidelity_cutoff_parameters, 2, 12, 0.03, 0.01, id="Fidelity cutoff"),
+        pytest.param(fidelity_cutoff_parameters, 2, 12, 0.03, 0.01, id="Runtime cutoff"),
+    ])
+def testAgainstMC(parameters, begin, end, rtol_t, rtol_w):
+    simulator = RepeaterChainSimulation()
+    pmf, w_func = simulator.nested_protocols(parameters)
+    cdf = np.cumsum(pmf)
 
-#     pmf_sim, w_func_sim = repeater_mc(parameters, return_pmf=True)
-#     cdf_sim = np.cumsum(pmf_sim)
+    pmf_sim, w_func_sim = repeater_mc(parameters, return_pmf=True)
+    cdf_sim = np.cumsum(pmf_sim)
 
-#     assert_allclose(cdf[begin: end], cdf_sim[begin: end], rtol=rtol_t)
-#     assert_allclose(w_func[begin: end], w_func_sim[begin: end], rtol=rtol_w)
+    assert_allclose(cdf[begin: end], cdf_sim[begin: end], rtol=rtol_t)
+    assert_allclose(w_func[begin: end], w_func_sim[begin: end], rtol=rtol_w)
 
 
 @pytest.mark.skip(reason="Used only locally")
@@ -224,7 +220,3 @@ def test_record():
 
 
 # # test using cutoff as key
-# # test efficient version
-# # test version with no cutoff
-# # test withouf fft and with fft
-# # test with gpu

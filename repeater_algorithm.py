@@ -31,6 +31,7 @@ class RepeaterChainSimulation():
         self.use_gpu = False
         self.gpu_threshold = 1000000
         self.efficient = True
+        self.zero_padding_size = 1
 
     def iterative_convolution(self,
             func, shift=0, first_func=None, p_swap=None):
@@ -64,7 +65,7 @@ class RepeaterChainSimulation():
         target_size = len(func)
         if first_func is None:
             first_func = func
-        
+
         # determine the required number of convolution
         if shift != 0:
             # mt_cut is added here.
@@ -86,6 +87,9 @@ class RepeaterChainSimulation():
             sum_convolved[:len(first_func)] = p_swap * first_func
         else:
             sum_convolved[:len(first_func)] = first_func
+
+        if shift <= target_size:
+            func = np.concatenate([np.zeros(shift),  func])[:target_size]
 
         # decide what convolution to use and prepare the data
         convolved = first_func
@@ -114,30 +118,25 @@ class RepeaterChainSimulation():
         else:
             convolved = np.concatenate([convolved, np.zeros(target_size - len(convolved))])
 
+        if length > self.fft_threshold:
+            if p_swap is not None:
+                result= ifft(p_swap*convolved_fourier / (1 - (1-p_swap) * func_fourier))
+            else:
+                result= ifft(convolved_fourier / (1 - func_fourier))
+            result = to_real(result[:length])
+            if _cupy_exist and length > self.gpu_threshold:
+                result = cp.asnumpy(result)
+            return result
+
         # perform convolution
         for k in range(1, max_k):
-            zero_terms_size = k*shift
-            usefull_terms_size = target_size - zero_terms_size
-            if length > self.fft_threshold:  # convolution in the fourier space
-                convolved_fourier = fft(convolved, shape)
-                convolved_fourier *= func_fourier
-                convolved = ifft(convolved_fourier, shape)
-                convolved = to_real(convolved)
-            else:
-                convolved = np.convolve(
-                    convolved[:usefull_terms_size], func[:usefull_terms_size])[:usefull_terms_size]
-            # The first k+1 elements should be 0, but FFT convolution
-            # gives a non-zero value of about, e-20. It remains to
-            # see wether this will have effect on other elements
-            # This is important for the first few value of Werner parameters
-            convolved[:k+1] = 0.
+            convolved = np.convolve(
+                convolved[:target_size], func[:target_size])
             if p_swap is not None:
                 coeff = p_swap*(1-p_swap)**(k)
-                sum_convolved[zero_terms_size:] += coeff * convolved[:usefull_terms_size]
+                sum_convolved += coeff * convolved[:target_size]
             else:
-                sum_convolved[zero_terms_size:] += convolved[:usefull_terms_size]
-        if _cupy_exist and length > self.gpu_threshold:
-            sum_convolved = cp.asnumpy(sum_convolved)
+                sum_convolved += convolved[:target_size]
         return sum_convolved
 
     def entanglement_swap(self,
@@ -217,7 +216,6 @@ class RepeaterChainSimulation():
             state_out[1:] /= pmf_swap[1:]  # 0-th element has 0 pmf
             state_out = np.where(np.isnan(state_out), 1., state_out)
         return pmf_swap, state_out
-
 
     def destillation(self,
             pmf1, w_func1, pmf2, w_func2,
@@ -525,3 +523,91 @@ def plot_algorithm(pmf, w_func, axs=None, t_trunc=None, legend=None):
             for j in range(2):
                 axs[i][j].legend(legend)
     plt.tight_layout()
+
+
+if __name__ == "__main__":
+    # set parameters
+    parameters = {
+        "protocol": (1, 0, 1, 0, 1, 0),
+        "p_gen": 0.5,
+        "p_swap": 0.8,
+        "mt_cut": (3, 6, 10, 14, 25, 100),
+        "sample_size": 200000,
+        "w0": 1.,
+        "t_coh": 30,
+        "t_trunc": 50
+        }
+
+    simulator = RepeaterChainSimulation()
+    simulator.fft_threshold = 10000
+    pmf1, w_func1 = simulator.nested_protocols(parameters)
+    print(pmf1[10])
+
+
+    simulator.fft_threshold = 1
+    pmf2, w_func2 = simulator.nested_protocols(parameters)
+    print(pmf2[10])
+
+    # ID = log_init("tau_opt", level=logging.INFO)
+    # fig, axs = plt.subplots(2, 2, dpi=150)
+    # kwarg_list = create_iter_kwargs(parameters)
+
+    # # simulation part
+    # t_sample_list = []
+    # w_sample_list = []
+
+    # for kwarg in kwarg_list:
+    #     start = time.time()
+    #     print("Sample parameters:")
+    #     print(kwarg)
+    #     t_samples_level, w_samples_level = repeater_mc(kwarg)
+    #     t_sample_list.append(t_samples_level)
+    #     w_sample_list.append(w_samples_level)
+    #     end = time.time()
+    #     print("MC Simulation elapse time\n", end-start)
+    #     print()
+    # save_data(id, data=[t_sample_list, w_sample_list])
+
+    # plot_mc_simulation(
+    #     [t_sample_list, w_sample_list], axs, t_trunc=None,
+    #     parameters=parameters, bin_width=1)
+
+    # # exact
+    # for kwarg in kwarg_list:
+    #     # n = 10
+    #     # kwarg = deepcopy(kwarg)
+    #     # tau = np.asarray(kwarg["tau"])
+    #     # kwarg["tau"] = tuple(tau * n)
+    #     # kwarg["p_gen"] = 1 - (1-kwarg["p_gen"])**(1/n)
+    #     # kwarg["t_coh"] = kwarg["t_coh"] * n
+    #     # kwarg["t_trunc"] = kwarg["t_trunc"] * n
+    #     # print(kwarg)
+    #     start = time.time()
+    #     pmf, w_func = repeater_sim(parameters=kwarg)
+    #     end = time.time()
+    #     print("average waiting time", np.sum(pmf * np.arange(len(pmf))))
+    #     print("average w_func", np.sum(pmf * w_func))
+    #     t = 0
+    #     while(pmf[t] < 1.0e-17):
+    #         w_func[t] = np.nan
+    #         t += 1
+    #     print("Deterministic elapse time\n", end-start)
+    #     print()
+    #     plot_algorithm(pmf, w_func, axs, t_trunc=None)
+    #     print("coverage", sum(pmf))
+    #     print("secret without extrap", secret_key_rate(pmf, w_func, False))
+    #     # print("secret with extrap", secret_key_rate(pmf, w_func, True))
+    #     print()
+
+    # # plot setup
+    # legend = None
+    # axs[0][0].set_title("CDF")
+    # axs[0][1].set_title("PMF")
+    # axs[1][0].set_title("Werner")
+    # if legend is not None:
+    #     for i in range(2):
+    #         for j in range(2):
+    #             axs[i][j].legend(legend)
+    # plt.tight_layout()
+    # plt.show()
+    # input()
