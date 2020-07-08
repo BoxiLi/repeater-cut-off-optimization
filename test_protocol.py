@@ -101,7 +101,6 @@ memory_cutoff_parameters1 = {
     "t_trunc": 100
     }
 
-
 memory_cutoff_parameters2 = {
     "protocol": (1, 0, 1, 0, 1, 0),
     "p_gen": 0.5,
@@ -112,7 +111,6 @@ memory_cutoff_parameters2 = {
     "t_coh": 30,
     "t_trunc": 150
     }
-
 
 fidelity_cutoff_parameters = {
     "protocol": (1, 0),
@@ -125,7 +123,6 @@ fidelity_cutoff_parameters = {
     "w_cut": 0.9,
     "sample_size": 1000000,
     }
-
 
 runtime_cutoff_parameters = {
     "protocol": (1, 0),
@@ -140,22 +137,23 @@ runtime_cutoff_parameters = {
     }
 
 
-
-
 _convolution_simulator = RepeaterChainSimulation()
+_convolution_simulator.use_fft = False
 
 _fft_simulator = RepeaterChainSimulation()
-_fft_simulator.fft_threshold = 1
+_fft_simulator.use_fft = True
 
 _gpu_simulator = RepeaterChainSimulation()
-_gpu_simulator.fft_threshold = 1
+_gpu_simulator.use_fft = True
 _gpu_simulator.use_gpu = True
 _gpu_simulator.gpu_threshold = 1
 
 
 def default_solution(parameters):
     simulator = RepeaterChainSimulation()
-    pmf, w_func = simulator.nested_protocols(parameters)
+    simulator.efficient = False
+    simulator.fft = False
+    pmf, w_func = simulator.nested_protocol(parameters)
     return pmf, w_func
 
 
@@ -174,10 +172,10 @@ def default_solution(parameters):
         pytest.param(_fft_simulator, False, id="efficient-fft"),
         pytest.param(_gpu_simulator, True, id="compartible-gpu"),
     ])
-def testAlgorihtm(parameters, expect, simulator, efficient):
+def test_algorithm(parameters, expect, simulator, efficient):
     default_pmf, default_w_func = expect
     simulator.efficient = True
-    pmf, w_func = simulator.nested_protocols(parameters)
+    pmf, w_func = simulator.nested_protocol(parameters)
     cdf = np.cumsum(pmf)
     start_pos = next(x[0] for x in enumerate(cdf) if x[1] > 1.0e-2)
     end_pos = np.searchsorted(cdf, 0.99)
@@ -195,9 +193,9 @@ def testAlgorihtm(parameters, expect, simulator, efficient):
         pytest.param(fidelity_cutoff_parameters, 2, 12, 0.03, 0.01, id="Fidelity cutoff"),
         pytest.param(fidelity_cutoff_parameters, 2, 12, 0.03, 0.01, id="Runtime cutoff"),
     ])
-def testAgainstMC(parameters, begin, end, rtol_t, rtol_w):
+def test_against_MC(parameters, begin, end, rtol_t, rtol_w):
     simulator = RepeaterChainSimulation()
-    pmf, w_func = simulator.nested_protocols(parameters)
+    pmf, w_func = simulator.nested_protocol(parameters)
     cdf = np.cumsum(pmf)
 
     pmf_sim, w_func_sim = repeater_mc(parameters, return_pmf=True)

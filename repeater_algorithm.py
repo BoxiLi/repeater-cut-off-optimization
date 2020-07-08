@@ -27,7 +27,6 @@ __all__ = ["compute_unit", "plot_algorithm",
 class RepeaterChainSimulation():
     def __init__(self):
         self.use_fft = True
-        self.fft_threshold = 1000
         self.use_gpu = False
         self.gpu_threshold = 1000000
         self.efficient = True
@@ -94,7 +93,7 @@ class RepeaterChainSimulation():
         # decide what convolution to use and prepare the data
         convolved = first_func
         length = len(convolved)
-        if length > self.fft_threshold:
+        if self.use_fft:
             shape = 2 * target_size - 1
             # The following is from SciPy, they choose the size to be 2^n,
             # It increases the accuracy.
@@ -118,7 +117,7 @@ class RepeaterChainSimulation():
         else:
             convolved = np.concatenate([convolved, np.zeros(target_size - len(convolved))])
 
-        if length > self.fft_threshold:
+        if self.use_fft:
             if p_swap is not None:
                 result= ifft(p_swap*convolved_fourier / (1 - (1-p_swap) * func_fourier))
             else:
@@ -393,7 +392,7 @@ class RepeaterChainSimulation():
         return pmf, w_func
 
 
-    def nested_protocols(self, parameters, all_level=False):
+    def nested_protocol(self, parameters, all_level=False):
         """
         Compute the waiting time and the Werner parameter of a symmetric
         repeater protocol.
@@ -488,7 +487,7 @@ def compute_unit(
 
 def repeater_sim(parameters, all_level=False):
     simulator = RepeaterChainSimulation()
-    return simulator.nested_protocols(parameters=parameters, all_level=all_level)
+    return simulator.nested_protocol(parameters=parameters, all_level=all_level)
 
 
 def plot_algorithm(pmf, w_func, axs=None, t_trunc=None, legend=None):
@@ -539,13 +538,13 @@ if __name__ == "__main__":
         }
 
     simulator = RepeaterChainSimulation()
-    simulator.fft_threshold = 10000
-    pmf1, w_func1 = simulator.nested_protocols(parameters)
+    simulator.use_fft = True
+    pmf1, w_func1 = simulator.nested_protocol(parameters)
     print(pmf1[10])
 
 
-    simulator.fft_threshold = 1
-    pmf2, w_func2 = simulator.nested_protocols(parameters)
+    simulator.use_fft = False
+    pmf2, w_func2 = simulator.nested_protocol(parameters)
     print(pmf2[10])
 
     # ID = log_init("tau_opt", level=logging.INFO)
