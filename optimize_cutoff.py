@@ -72,9 +72,9 @@ def optimization_tau_wrapper(
     """
     parameters = deepcopy(parameters)
     if "cut_type" in parameters:
-        cut_types = parameters["cut_type"]
+        cut_type = parameters["cut_type"]
     else:
-        cut_types = "memory_time"
+        cut_type = "memory_time"
 
     if isinstance(cutoffs, dict):
         cutoff_dict = cutoffs
@@ -83,12 +83,11 @@ def optimization_tau_wrapper(
             cutoffs = np.asarray(cutoffs)
         elif np.isscalar(cutoffs):
             cutoffs = np.asarray([cutoffs])
-        cutoff_dict = create_cutoff_dict(cutoffs, cut_types, parameters, ref_pmf_matrix)
+        cutoff_dict = create_cutoff_dict(cutoffs, cut_type, parameters, ref_pmf_matrix)
 
     parameters["cutoff_dict"]= cutoff_dict
 
     # suppress the truncation time warning, we check it seperately.
-    # TODO use logging handler to deal with this
     current_log_level = logging.getLogger().level
     logging.getLogger().setLevel(logging.ERROR)
     try:
@@ -102,10 +101,7 @@ def optimization_tau_wrapper(
 
     coverage = np.sum(pmf)
     if merit is not None:
-        if coverage >= 0.95:
-            merit_result = 0. - merit(pmf, w_func)
-        else:
-            merit_result = 0.
+        merit_result = 0. - merit(pmf, w_func)
 
     if merit is not None:
         return merit_result
@@ -156,7 +152,7 @@ def parallel_tau_warpper(tau_list, parameters, t_trunc=None, workers=1):
             tau_list)
         pool.close()
         pool.join()
-    for tau_ind, (pmf, w_func) in enumerate(result):
+    for _, (pmf, w_func) in enumerate(result):
         pmf_list.append(pmf)
         w_func_list.append(w_func)
 
@@ -210,7 +206,9 @@ class CutoffOptimizer():
         self.adaptive = adaptive
         self.de_kwargs = de_kwargs
         if workers is None:
-            self.workers = mp.cpu_count() - 1
+            self.workers = mp.cpu_count() - 2
+            if self.workers <= 0:
+                self.workers = 1
         else:
             self.workers = workers
 
@@ -225,30 +223,31 @@ class CutoffOptimizer():
         logging.info("-------------------------------------------")
         logging.info("Optimization of the cut-off time\n")
         log_params(parameters)
+        parameters = deepcopy(parameters)
+        # remove cutoff related keywords for safety
         parameters.pop("mt_cut", None)
         parameters.pop("w_cut", None)
         parameters.pop("rt_cut", None)
         parameters.pop("cutoff", None)
         parameters.pop("cutoff_dict", None)
-        parameters = deepcopy(parameters)
         if "cut_type" in parameters:
-            self.cut_types = parameters["cut_type"]
+            self.cut_type = parameters["cut_type"]
         else:
             parameters["cut_type"] = "memory_time"
-            self.cut_types = "memory_time"
+            self.cut_type = "memory_time"
         if self.opt_kind == "uniform_de":
-            if self.cut_types != "memory_time":
+            if self.cut_type != "memory_time":
                 raise UserWarning("Only memory time has good performance with uniform cutoff.")
             tau_dims = 1
         elif self.opt_kind == "nonuniform_de":
             tau_dims = len(parameters["protocol"])
-            if self.cut_types == "run_time":
-                pass
         else:
             raise ValueError("Unknown optimization method")
 
-        # pretraining
-        if self.cut_types in ("memory_time", "run_time"):
+        # pretraining, using a known distribution instead of uniform sampling
+        # to speed up the convergence.
+        # Similar to sklearn.preprocessing.quantile_transform.
+        if self.cut_type in ("memory_time", "run_time"):
             logging.info("Pretraining begins...")
             ref_pmf_matrix = self.pretrain(parameters, tau_dims=tau_dims)
             logging.info("Pretraining finishes, reference pmf obtained.")
@@ -288,7 +287,7 @@ class CutoffOptimizer():
 
             # Processing result
             best_raw_cutoffs = result.x
-            best_cutoff_dict = create_cutoff_dict(best_raw_cutoffs, self.cut_types, parameters, ref_pmf_matrix)
+            best_cutoff_dict = create_cutoff_dict(best_raw_cutoffs, self.cut_type, parameters, ref_pmf_matrix)
             best_pmf, best_w_func = optimization_tau_wrapper(
                 cutoffs=best_cutoff_dict,
                 func=repeater_sim,
@@ -306,6 +305,8 @@ class CutoffOptimizer():
                 local_max_check, local_max_check_warning_msg = True, ""
             coverage_check, coverage_check_warning_msg = self.check_coverage(
                 best_pmf)
+            # We don't include coverage check because the secret key rate
+            # depends on it and, hence, we cannot increase it.
             terminate = nonzero_rate and local_max_check
 
             # Check if terminates

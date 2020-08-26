@@ -15,12 +15,13 @@ except (ImportError, ModuleNotFoundError):
 
 from protocol_units import join_links_compatible
 from protocol_units_efficient import join_links_efficient
-from utility_functions import secret_key_rate, ceil
+from utility_functions import secret_key_rate, ceil, werner_to_fid, find_heading_zeros_num, matrix_to_werner, werner_to_matrix, get_fidelity
 from logging_utilities import log_init, create_iter_kwargs, save_data
 from repeater_mc import repeater_mc, plot_mc_simulation
+from nv_state import nv_elementary_link
 
 
-__all__ = ["compute_unit", "plot_algorithm",
+__all__ = ["RepeaterChainSimulation", "compute_unit", "plot_algorithm",
            "join_links_compatible", "repeater_sim"]
 
 
@@ -44,65 +45,94 @@ class RepeaterChainSimulation():
         ----------
         func: array-like
             The function to be convolved in array form.
-        size: int
-            The truncation time that determines the number of sums
+            It is always a probability distribution.
         shift: int, optional
             For each k the function will be shifted to the right. Using for
             time-out mt_cut.
         first_func: array-like, optional
             The first_function in the convolution. If not given, use func.
-            It can be different because the first_func is `P_s` and the `func` P_f.
+            It can be different because the first_func is
+            `P_s` and the `func` P_f.
             It is upper bounded by 1.
-        coeffs: array-like optional
-            The additional factor when sum over k, default is 1.
+            It can be a probability, or an array of states.
+        p_swap: float, optimal
+            Entanglement swap success probability.
 
         Returns
         -------
         sum_convolved: array-like
             The result of the sum of all convolutions.
         """
-        target_size = len(func)
-        if first_func is None:
-            first_func = func
+        if first_func is None or len(first_func.shape) == 1:
+            is_dm = False
+        else:
+            is_dm = True
+
+        trunc = len(func)
 
         # determine the required number of convolution
         if shift != 0:
-            # mt_cut is added here.
+            # cut-off is added here.
             # because it is a constant, we only need size/mt_cut convolution.
-            max_k = int(np.ceil((target_size/shift)))
+            max_k = int(np.ceil((trunc/shift)))
         else:
-            max_k = target_size
+            max_k = trunc
         if p_swap is not None:
             pf = np.sum(func) * (1 - p_swap)
         else:
             pf = np.sum(func)
         with np.errstate(divide='ignore'):
-            max_k = min(max_k, (-52 - np.log(target_size))/ np.log(pf))
+            max_k = min(max_k, (-52 - np.log(trunc))/ np.log(pf))
         max_k = int(max_k)
 
+        # Transpose the array of state to the shape (1,1,trunc)
+        # if werner or shape (4,4,trunc) if density matrix
+        if first_func is None:
+            first_func = func
+        if not is_dm:
+            first_func = first_func.reshape((trunc, 1, 1))
+        first_func = np.transpose(first_func, (1, 2, 0))
+
+        # Convolution
+        result = np.empty(first_func.shape, first_func.dtype)
+        for i in range(first_func.shape[0]):
+            for j in range(first_func.shape[1]):
+                result[i][j] = self.iterative_convolution_helper(
+                    func, first_func[i][j], trunc, shift, p_swap, max_k)
+
+        # Permute the indices back
+        result = np.transpose(result, (2, 0, 1))
+        if not is_dm:
+            result = result.reshape(trunc)
+
+        return result
+
+    def iterative_convolution_helper(
+            self, func, first_func, trunc, shift, p_swap, max_k):
         # initialize the result array
-        sum_convolved = np.zeros(target_size)
+        sum_convolved = np.zeros(trunc)
         if p_swap is not None:
             sum_convolved[:len(first_func)] = p_swap * first_func
         else:
             sum_convolved[:len(first_func)] = first_func
 
-        if shift <= target_size:
-            func = np.concatenate([np.zeros(shift),  func])[:target_size]
+        if shift <= trunc:
+            zero_state = np.zeros(shift)
+            func = np.concatenate([zero_state, func])[:trunc]
 
         # decide what convolution to use and prepare the data
         convolved = first_func
-        length = len(convolved)
-        if self.use_fft:
-            shape = 2 * target_size - 1
+        if self.use_fft: # Use geometric sum in Fourier space
+            shape = 2 * trunc - 1
             # The following is from SciPy, they choose the size to be 2^n,
             # It increases the accuracy.
             shape = 2 ** np.ceil(np.log2(shape)).astype(int)
-            if _cupy_exist and length > self.gpu_threshold:
+            if self.use_gpu and shape > self.gpu_threshold:
                 # transfer the data to GPU
                 sum_convolved = cp.asarray(sum_convolved)
                 convolved = cp.asarray(convolved)
                 func = cp.asarray(func)
+            if self.use_gpu and shape > self.gpu_threshold:
                 # use CuPy fft
                 ifft = cp.fft.ifft
                 fft = cp.fft.fft
@@ -112,31 +142,31 @@ class RepeaterChainSimulation():
                 ifft = np.fft.ifft
                 fft = np.fft.fft
                 to_real = np.real
+
             convolved_fourier = fft(convolved, shape)
             func_fourier = fft(func, shape)
-        else:
-            convolved = np.concatenate([convolved, np.zeros(target_size - len(convolved))])
 
-        if self.use_fft:
             if p_swap is not None:
-                result= ifft(p_swap*convolved_fourier / (1 - (1-p_swap) * func_fourier))
+                result= ifft(
+                    p_swap*convolved_fourier / (1 - (1-p_swap) * func_fourier))
             else:
                 result= ifft(convolved_fourier / (1 - func_fourier))
-            result = to_real(result[:length])
-            if _cupy_exist and length > self.gpu_threshold:
+            result = to_real(result[:trunc])
+            if self.use_gpu and shape > self.gpu_threshold:
                 result = cp.asnumpy(result)
-            return result
 
-        # perform convolution
-        for k in range(1, max_k):
-            convolved = np.convolve(
-                convolved[:target_size], func[:target_size])
-            if p_swap is not None:
-                coeff = p_swap*(1-p_swap)**(k)
-                sum_convolved += coeff * convolved[:target_size]
-            else:
-                sum_convolved += convolved[:target_size]
-        return sum_convolved
+        else:  # Use exact convolution
+            zero_state = np.zeros(trunc - len(convolved))
+            convolved = np.concatenate([convolved, zero_state])
+            for k in range(1, max_k):
+                convolved = np.convolve(convolved[:trunc], func[:trunc])
+                if p_swap is not None:
+                    coeff = p_swap*(1-p_swap)**(k)
+                    sum_convolved += coeff * convolved[:trunc]
+                else:
+                    sum_convolved += convolved[:trunc]
+            result = sum_convolved
+        return result
 
     def entanglement_swap(self,
             pmf1, w_func1, pmf2, w_func2, p_swap,
@@ -153,14 +183,13 @@ class RepeaterChainSimulation():
             The Werner parameter as function of T of the two input links.
         p_swap: float
             The success probability of entanglement swap.
-        mt_cut: int
-            The memory time cut-off.
-        w_cut: 
-            The werner parameter cut-off.
+        cutoff: int or float
+            The memory time cut-off, werner parameter cut-off, or 
+            run time cut-off.
         t_coh: int
             The coherence time.
-        size: int
-            The truncation time, also the size of the matrix.
+        cut_type: str
+            `memory_time`, `fidliety` or `run_time`.
 
         Returns
         -------
@@ -211,9 +240,10 @@ class RepeaterChainSimulation():
             first_func=state_prep, p_swap=p_swap)
         del pmf_cutoff
 
-        with np.errstate(divide='ignore'):
+        with np.errstate(divide='ignore', invalid='ignore'):
             state_out[1:] /= pmf_swap[1:]  # 0-th element has 0 pmf
             state_out = np.where(np.isnan(state_out), 1., state_out)
+
         return pmf_swap, state_out
 
     def destillation(self,
@@ -229,14 +259,13 @@ class RepeaterChainSimulation():
             The waiting time distribution of the two input links.
         w_func1, w_func2: array-like 1-D
             The Werner parameter as function of T of the two input links.
-        mt_cut: int
-            The memory time cut-off.
-        w_cut: 
-            The werner parameter cut-off.
+        cutoff: int or float
+            The memory time cut-off, werner parameter cut-off, or 
+            run time cut-off.
         t_coh: int
             The coherence time.
-        size: int
-            The truncation time, also the size of the matrix.
+        cut_type: str
+            `memory_time`, `fidliety` or `run_time`.
 
         Returns
         -------
@@ -300,14 +329,15 @@ class RepeaterChainSimulation():
             first_func=state_prep)
         del pf_dist, state_prep
 
-        with np.errstate(divide='ignore'):
+        with np.errstate(divide='ignore', invalid='ignore'):
             state_out[1:] /= pmf_dist[1:]
             state_out = np.where(np.isnan(state_out), 1., state_out)
         return pmf_dist, state_out
 
 
     def compute_unit(self,
-            parameters, pmf1, w_func1, pmf2=None, w_func2=None, unit_kind="swap", step_size=1):
+            parameters, pmf1, w_func1, pmf2=None, w_func2=None,
+            unit_kind="swap", step_size=1):
         """
         Calculate the the waiting time distribution and
         the Werner parameter of a protocol unit swap or distillation.
@@ -355,10 +385,10 @@ class RepeaterChainSimulation():
         # type check
         if not isinstance(p_gen, float) or not isinstance(p_swap, float):
             raise TypeError("p_gen and p_swap must be a float number.")
-        # if cut_type in ("memory_time", "run_time") and not np.issubdtype(type(cutoff), np.integer):
-        #     raise TypeError(f"Time cut-off must be an integer. not {cutoff}")
-        # if  cut_type == "fidelity" and not (cutoff >= 0. or cutoff < 1.):
-        #     raise TypeError(f"Fidelity cut-off must be a real number between 0 and 1.")
+        if cut_type in ("memory_time", "run_time") and not np.issubdtype(type(cutoff), np.integer):
+            raise TypeError(f"Time cut-off must be an integer. not {cutoff}")
+        if cut_type == "fidelity" and not (cutoff >= 0. or cutoff < 1.):
+            raise TypeError(f"Fidelity cut-off must be a real number between 0 and 1.")
         if not np.isreal(t_coh):
             raise TypeError(
                 f"The coherence time must be a real number, not{t_coh}")
@@ -480,12 +510,18 @@ class RepeaterChainSimulation():
 def compute_unit(
         parameters, pmf1, w_func1, pmf2=None, w_func2=None,
         unit_kind="swap", step_size=1):
+    """
+    Functional warpper for compute_unit
+    """
     simulator = RepeaterChainSimulation()
     return simulator.compute_unit(
         parameters=parameters, pmf1=pmf1, w_func1=w_func1, pmf2=pmf2, w_func2=w_func2, unit_kind=unit_kind, step_size=step_size)
 
 
 def repeater_sim(parameters, all_level=False):
+    """
+    Functional warpper for nested_protocol
+    """
     simulator = RepeaterChainSimulation()
     return simulator.nested_protocol(parameters=parameters, all_level=all_level)
 
@@ -527,29 +563,20 @@ def plot_algorithm(pmf, w_func, axs=None, t_trunc=None, legend=None):
 if __name__ == "__main__":
     # set parameters
     parameters = {
-        "protocol": (1, 0, 1, 0, 1, 0),
-        "p_gen": 0.5,
-        "p_swap": 0.8,
-        "mt_cut": (3, 6, 10, 14, 25, 100),
-        "sample_size": 200000,
-        "w0": 1.,
-        "t_coh": 30,
-        "t_trunc": 50
+        "protocol": (0, 0, 0),
+        "p_gen": 0.01,
+        "p_swap": 0.5,
+        # "cutoff": (175, 319, 553),
+        "cutoff": (176, 320, 554),
+        "w0": 0.98,
+        "t_coh": 4000,
+        "t_trunc": 80000,
         }
 
-    simulator = RepeaterChainSimulation()
-    simulator.use_fft = True
-    pmf1, w_func1 = simulator.nested_protocol(parameters)
-    print(pmf1[10])
 
-
-    simulator.use_fft = False
-    pmf2, w_func2 = simulator.nested_protocol(parameters)
-    print(pmf2[10])
-
-    # ID = log_init("tau_opt", level=logging.INFO)
-    # fig, axs = plt.subplots(2, 2, dpi=150)
-    # kwarg_list = create_iter_kwargs(parameters)
+    ID = log_init("tau_opt", level=logging.INFO)
+    fig, axs = plt.subplots(2, 2, dpi=150)
+    kwarg_list = create_iter_kwargs(parameters)
 
     # # simulation part
     # t_sample_list = []
@@ -571,42 +598,43 @@ if __name__ == "__main__":
     #     [t_sample_list, w_sample_list], axs, t_trunc=None,
     #     parameters=parameters, bin_width=1)
 
-    # # exact
-    # for kwarg in kwarg_list:
-    #     # n = 10
-    #     # kwarg = deepcopy(kwarg)
-    #     # tau = np.asarray(kwarg["tau"])
-    #     # kwarg["tau"] = tuple(tau * n)
-    #     # kwarg["p_gen"] = 1 - (1-kwarg["p_gen"])**(1/n)
-    #     # kwarg["t_coh"] = kwarg["t_coh"] * n
-    #     # kwarg["t_trunc"] = kwarg["t_trunc"] * n
-    #     # print(kwarg)
-    #     start = time.time()
-    #     pmf, w_func = repeater_sim(parameters=kwarg)
-    #     end = time.time()
-    #     print("average waiting time", np.sum(pmf * np.arange(len(pmf))))
-    #     print("average w_func", np.sum(pmf * w_func))
-    #     t = 0
-    #     while(pmf[t] < 1.0e-17):
-    #         w_func[t] = np.nan
-    #         t += 1
-    #     print("Deterministic elapse time\n", end-start)
-    #     print()
-    #     plot_algorithm(pmf, w_func, axs, t_trunc=None)
-    #     print("coverage", sum(pmf))
-    #     print("secret without extrap", secret_key_rate(pmf, w_func, False))
-    #     # print("secret with extrap", secret_key_rate(pmf, w_func, True))
-    #     print()
+    # exact
+    for kwarg in kwarg_list:
+        # n = 10
+        # kwarg = deepcopy(kwarg)
+        # tau = np.asarray(kwarg["tau"])
+        # kwarg["tau"] = tuple(tau * n)
+        # kwarg["p_gen"] = 1 - (1-kwarg["p_gen"])**(1/n)
+        # kwarg["t_coh"] = kwarg["t_coh"] * n
+        # kwarg["t_trunc"] = kwarg["t_trunc"] * n
+        # print(kwarg)
+        start = time.time()
+        simulator = RepeaterChainSimulation()
+        pmf, w_func = simulator.nested_protocol(parameters=kwarg)
+        end = time.time()
+        print("average waiting time", np.sum(pmf * np.arange(len(pmf))))
+        print("average w_func", np.sum(pmf * w_func))
+        t = 0
+        while(pmf[t] < 1.0e-17):
+            w_func[t] = np.nan
+            t += 1
+        print("Deterministic elapse time\n", end-start)
+        print()
+        plot_algorithm(pmf, w_func, axs, t_trunc=None)
+        print("coverage", sum(pmf))
+        print("secret without extrap", secret_key_rate(pmf, w_func, False))
+        # print("secret with extrap", secret_key_rate(pmf, w_func, True))
+        print()
 
-    # # plot setup
-    # legend = None
-    # axs[0][0].set_title("CDF")
-    # axs[0][1].set_title("PMF")
-    # axs[1][0].set_title("Werner")
-    # if legend is not None:
-    #     for i in range(2):
-    #         for j in range(2):
-    #             axs[i][j].legend(legend)
-    # plt.tight_layout()
-    # plt.show()
-    # input()
+    # plot setup
+    legend = None
+    axs[0][0].set_title("CDF")
+    axs[0][1].set_title("PMF")
+    axs[1][0].set_title("Werner")
+    if legend is not None:
+        for i in range(2):
+            for j in range(2):
+                axs[i][j].legend(legend)
+    plt.tight_layout()
+    plt.show()
+    input()

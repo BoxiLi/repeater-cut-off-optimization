@@ -94,7 +94,7 @@ memory_cutoff_parameters1 = {
     "protocol": (0, 0, 0),
     "p_gen": 0.5,
     "p_swap": 0.8,
-    "tau": 5,
+    "mt_cut": 5,
     "sample_size": 200000,
     "w0": 1.,
     "t_coh": 30,
@@ -152,7 +152,7 @@ _gpu_simulator.gpu_threshold = 1
 def default_solution(parameters):
     simulator = RepeaterChainSimulation()
     simulator.efficient = False
-    simulator.fft = False
+    simulator.use_fft = False
     pmf, w_func = simulator.nested_protocol(parameters)
     return pmf, w_func
 
@@ -188,7 +188,7 @@ def test_algorithm(parameters, expect, simulator, efficient):
     [
         pytest.param(swap_only_protocol, 5, 12, 0.03, 0.02, id="Swap only protocol"),
         pytest.param(dist_only_protocol, 3, 12, 0.03, 0.02, id="Dist only protocol"),
-        pytest.param(memory_cutoff_parameters1, 2, 17, 0.03, 0.02, id="Swap with memory cutoff"),
+        pytest.param(memory_cutoff_parameters1, 2, 17, 0.04, 0.02, id="Swap with memory cutoff"),
         pytest.param(memory_cutoff_parameters2, 10, 40, 0.03, 0.02, id="Mixed protocol with memory cutoff"),
         pytest.param(fidelity_cutoff_parameters, 2, 12, 0.03, 0.01, id="Fidelity cutoff"),
         pytest.param(fidelity_cutoff_parameters, 2, 12, 0.03, 0.01, id="Runtime cutoff"),

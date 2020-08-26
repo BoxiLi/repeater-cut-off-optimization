@@ -1,0 +1,11 @@
+name: qn
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python>=3.6
+  - numpy
+  - numba
+  - scipy
+  - matplotlib
+  - pytest

@@ -86,10 +86,7 @@ def secret_key_rate(pmf, w_func, extrapolation=False, show_warning=False):
     """
     w_func = np.where(np.isnan(w_func), 0., w_func)
     coverage = np.sum(pmf)
-    if not extrapolation or coverage > 1 - 1.e-10 or coverage < 0.99:
-        aver_w = np.sum(pmf * w_func) / coverage
-    else:
-        aver_w = np.sum(pmf * w_func) + w_func[-1] * (1. - coverage)
+    aver_w = get_mean_werner(pmf, w_func, extrapolation)
     aver_t = get_mean_waiting_time(pmf, extrapolation, show_warning)
 
     key_rate = 1/aver_t * secret_fraction(aver_w)
@@ -97,6 +94,15 @@ def secret_key_rate(pmf, w_func, extrapolation=False, show_warning=False):
         key_rate = 0.
     return key_rate
 
+
+def get_mean_werner(pmf, w_func, extrapolation=False):
+    coverage = np.sum(pmf)
+    if not extrapolation or coverage > 1 - 1.e-10 or coverage < 0.99:
+        aver_w = np.sum(pmf * w_func) / coverage
+    else:
+        aver_w = np.sum(pmf * w_func) + w_func[-1] * (1. - coverage)
+    return aver_w
+    
 
 def get_mean_waiting_time(pmf, extrapolation=False, show_warning=False):
     coverage = np.sum(pmf)
@@ -169,3 +175,44 @@ def create_cutoff_dict(cutoff_list, cut_types, parameters, ref_pmf_matrix=None):
 
 def ceil(float_number):
     return int(np.ceil(float_number))
+
+
+def find_heading_zeros_num(array):
+    heading_zeros_num = 0
+    for i in range(len(array)):
+        if array[i] == 0.:
+            heading_zeros_num += 1
+        else:
+            break
+    return heading_zeros_num
+
+
+def werner_to_matrix(w):
+    if np.isscalar(w):
+        identity = np.eye(4)/4
+        phi = np.outer([0,1,1,0], [0,1,1,0])/2
+        return w * phi + (1-w) * identity
+    else:
+        result = np.empty((len(w), 4, 4), dtype=float)
+        for i in range(len(w)):
+            result[i] = werner_to_matrix(w[i])
+        return result
+
+
+def matrix_to_werner(mat):
+    if mat.shape == (4, 4):
+        return (mat[1, 1] - mat[0, 0]) * 2
+    else:
+        result = np.empty(len(mat), dtype=float)
+        for i in range(len(mat)):
+            result[i] = matrix_to_werner(mat[i])
+        return result
+
+def get_fidelity(state, ket):
+    if state.shape == (4, 4):
+        return np.sqrt(np.real(np.transpose(ket) @ state @ ket))
+    else:
+        result = np.empty(len(state), dtype=float)
+        for i in range(len(state)):
+            result[i] = matrix_to_werner(state[i])
+        return result

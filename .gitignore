@@ -1,4 +1,15 @@
+# Python
+/__pycache__
 
-*.pyc
+
+# Results folder
+/logging
+/data
+
 .vscode/settings.json
+*.pyc
+*.npy
+*.pdf
+*.png
 .cache/v/cache/lastfailed
+/.ipynb_checkpoints
