@@ -18,7 +18,6 @@ from protocol_units_efficient import join_links_efficient
 from utility_functions import secret_key_rate, ceil, werner_to_fid, find_heading_zeros_num, matrix_to_werner, werner_to_matrix, get_fidelity
 from logging_utilities import log_init, create_iter_kwargs, save_data
 from repeater_mc import repeater_mc, plot_mc_simulation
-from nv_state import nv_elementary_link
 
 
 __all__ = ["RepeaterChainSimulation", "compute_unit", "plot_algorithm",
