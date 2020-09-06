@@ -4,7 +4,7 @@ This repository stores the implementation of the algorithm introduced in *Effici
 - The optimizer used to optimize the cut-off time for maximal secret key rate.
 
 ## Tutorial [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/BoxiLi/repeater-cut-off-optimization/master?filepath=https%3A%2F%2Fgithub.com%2FBoxiLi%2Frepeater-cut-off-optimization%2Fmaster%2FExample.ipynb)
-A tutorial is written in Jupyter Notebook. By clicking the badge above, you will be directed to a online Jupyter Notebook. After the loading succeed, please find and click `Example.ipynb`. Then you can run examples in the notebook online without installing anything! (Loading could be a few minutes, please be patient.)
+A tutorial is written in Jupyter Notebook. By clicking the badge above, you will be directed to a online Jupyter Notebook. After the loading succeed, please find and click `tutorial.ipynb`. Then you can run examples in the notebook online without installing anything! (Loading could be a few minutes, please be patient.)
 
 
 ## Download

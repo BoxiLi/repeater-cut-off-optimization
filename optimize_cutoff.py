@@ -16,7 +16,7 @@ from repeater_algorithm import repeater_sim, compute_unit, plot_algorithm
 from repeater_mc import repeater_mc, plot_mc_simulation
 
 
-__all__ = [
+__all__ = ["CutoffOptimizer",
     "optimization_tau_wrapper", "parallel_tau_warpper",
     "uniform_tau_pretrain",
     "full_tau_pretrain_high_tau", "full_tau_pretrain"]

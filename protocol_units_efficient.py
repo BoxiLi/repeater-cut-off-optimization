@@ -53,6 +53,51 @@ def join_links_efficient(
         pmf1, pmf2, w_func1, w_func2,
         cutoff=np.iinfo(np.int32).max, ycut=True,
         cut_type=None, evaluate_func=None, t_coh=np.inf):
+    """
+    Calculate P_s and P_f efficiently using cumulative function.
+    Only memory time cutoff is supported.
+    The implementation includes both werner parameter representation
+    and density matrix representation.
+
+    Note
+    ----
+    For swap the success probability p is
+    considered in the iterative convolution.
+
+    For the memory time cut-off,
+    the constant shift is added in the iterative convolution.
+
+
+    Parameters
+    ----------
+    pmf1, pmf2: array-like
+        The waiting time distribution of the two input links, Pr(T=t).
+    w_func1, w_func2: array-like
+        The Werner parameter function, W(t).
+    cutoff: int or float
+        The cut-off threshold.
+    ycut: bool
+        Success ful cut-off or failed cut-off.
+    cutoff_type: str
+        Type of cut-off.
+        `memory_time`, `run_time` or `fidelity`.
+    evaluate_func: str
+        The function to be evaluated the returns a float number.
+        It can be
+        ``get_one`` for trival cases\n
+        ``get_swap_wout`` for wout\n
+        ``get_dist_prob_suc`` for pdist\n
+        ``get_dist_prob_fail`` for 1-pdist\n
+        ``get_dist_prob_wout`` for pdist * wdist
+    t_coh: int or float
+        The coherence time of the memory. It is currently not used because
+        the decay factor is passed by a global variable.
+
+    Returns
+    -------
+    result: array-like 1-D
+        The resulting array of joining the two links.
+    """
     if cut_type == "memory_time":
         mt_cut = cutoff
     else:

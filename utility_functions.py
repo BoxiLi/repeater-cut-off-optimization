@@ -84,7 +84,6 @@ def secret_key_rate(pmf, w_func, extrapolation=False, show_warning=False):
     It is defined by the multiplication of raw key rate and the
     secret key fraction.
     """
-    w_func = np.where(np.isnan(w_func), 0., w_func)
     coverage = np.sum(pmf)
     aver_w = get_mean_werner(pmf, w_func, extrapolation)
     aver_t = get_mean_waiting_time(pmf, extrapolation, show_warning)
@@ -96,6 +95,7 @@ def secret_key_rate(pmf, w_func, extrapolation=False, show_warning=False):
 
 
 def get_mean_werner(pmf, w_func, extrapolation=False):
+    w_func = np.where(np.isnan(w_func), 0., w_func)
     coverage = np.sum(pmf)
     if not extrapolation or coverage > 1 - 1.e-10 or coverage < 0.99:
         aver_w = np.sum(pmf * w_func) / coverage

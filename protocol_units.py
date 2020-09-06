@@ -206,19 +206,14 @@ def join_links_compatible(
         The waiting time distribution of the two input links, Pr(T=t).
     w_func1, w_func2: array-like
         The Werner parameter function, W(t).
-    value_matrix: array-like 2-D
-        The value of a function f(TA, TB) in matrix form.
-        f can be the success probability p,
-        the function for combining two Werner parameters or
-        the product of them.
-    mt_cut: int
-        The memory time cut-off.
-    w_cut: 
-        The werner parameter cut-off.
-    cutoff_func: jit-compiled function
-        Calculate the waiting time for this attempt (with cut-off)
-        and if it succeeds.
-    evaluate_func: jit-compiled function
+    cutoff: int or float
+        The cut-off threshold.
+    ycut: bool
+        Success ful cut-off or failed cut-off.
+    cutoff_type: str
+        Type of cut-off.
+        `memory_time`, `run_time` or `fidelity`.
+    evaluate_func: str
         The function to be evaluated the returns a float number.
         It can be
         ``get_one`` for trival cases\n
