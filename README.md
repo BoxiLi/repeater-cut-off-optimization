@@ -5,7 +5,7 @@ This repository stores the implementation of the algorithm introduced in *Effici
 
 ## Tutorial [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/BoxiLi/repeater-cut-off-optimization/master)
 
-A tutorial is written in Jupyter Notebook. By clicking the badge above, you will be directed to a online Jupyter Notebook. After the loading succeed, please find and click `tutorial.ipynb`. Then you can run examples in the notebook online without installing anything! (Loading could be a few minutes, please be patient.)
+A tutorial is written in Jupyter Notebook. By clicking the badge above, you will be directed to an online Jupyter Notebook. After the loading succeeds, please find and click `tutorial.ipynb`. Then you can run examples in the notebook online without installing anything! (The loading can take a few minutes. It takes too long, please try again half an hour later.)
 
 
 ## Download
