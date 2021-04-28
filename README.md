@@ -35,7 +35,7 @@ CuPy
 See [CuPy installation](https://docs-cupy.chainer.org/en/stable/install.html) for details
 
 ## File overview
-- The protocol units such as entanglement swap, distillation or cut-off are defined in `protocol_units.py`.
+- The protocol units such as entanglement swap, distillation or cut-off are defined in `protocol_units.py` and `protocol_unit_efficient.py`. The later makes use of customized convolution in Fourier space.
 - The core code for the numerical simulation of repeater chains is under `repeater_algorithm.py`.
 - The optimizer can be found in `optimize_cutoff.py`.
 - Examples for computing repeater protocols and optimizing the cut-off time are given in `examples.py`
