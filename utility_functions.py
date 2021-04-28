@@ -97,17 +97,21 @@ def secret_key_rate(pmf, w_func, extrapolation=False, show_warning=False):
 def get_mean_werner(pmf, w_func, extrapolation=False):
     w_func = np.where(np.isnan(w_func), 0., w_func)
     coverage = np.sum(pmf)
+    if coverage <= 0:
+        return 0.  # to prevent nan corrupts the optimization result
     if not extrapolation or coverage > 1 - 1.e-10 or coverage < 0.99:
         aver_w = np.sum(pmf * w_func) / coverage
     else:
         aver_w = np.sum(pmf * w_func) + w_func[-1] * (1. - coverage)
     return aver_w
-    
+
 
 def get_mean_waiting_time(pmf, extrapolation=False, show_warning=False):
     coverage = np.sum(pmf)
     # if coverage < 0.99, extrapolation may leads to wrong secret key rate
     # if coverage > 1 - 1.e-10, the last few point is close to 0 and therefore the numerical noise dominant.
+    if coverage <= 0:
+        return np.inf  # to prevent nan corrupts the optimization result
     if not extrapolation or coverage > 1 - 1.e-10 or coverage < 0.99:
         return (1 - coverage) / coverage * len(pmf) + np.sum(pmf * np.arange(len(pmf)))/coverage
     else:
@@ -193,7 +197,7 @@ def werner_to_matrix(w):
         phi = np.outer([0,1,1,0], [0,1,1,0])/2
         return w * phi + (1-w) * identity
     else:
-        result = np.empty((len(w), 4, 4), dtype=float)
+        result = np.empty((len(w), 4, 4), dtype=np.complex)
         for i in range(len(w)):
             result[i] = werner_to_matrix(w[i])
         return result
@@ -201,7 +205,7 @@ def werner_to_matrix(w):
 
 def matrix_to_werner(mat):
     if mat.shape == (4, 4):
-        return (mat[1, 1] - mat[0, 0]) * 2
+        return np.real((mat[1, 1] - mat[0, 0]) * 2)
     else:
         result = np.empty(len(mat), dtype=float)
         for i in range(len(mat)):

@@ -191,7 +191,7 @@ def test_algorithm(parameters, expect, simulator, efficient):
         pytest.param(memory_cutoff_parameters1, 2, 17, 0.04, 0.02, id="Swap with memory cutoff"),
         pytest.param(memory_cutoff_parameters2, 10, 40, 0.03, 0.02, id="Mixed protocol with memory cutoff"),
         pytest.param(fidelity_cutoff_parameters, 2, 12, 0.03, 0.01, id="Fidelity cutoff"),
-        pytest.param(fidelity_cutoff_parameters, 2, 12, 0.03, 0.01, id="Runtime cutoff"),
+        pytest.param(runtime_cutoff_parameters, 2, 12, 0.03, 0.01, id="Runtime cutoff"),
     ])
 def test_against_MC(parameters, begin, end, rtol_t, rtol_w):
     simulator = RepeaterChainSimulation()

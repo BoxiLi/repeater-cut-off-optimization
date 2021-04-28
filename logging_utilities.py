@@ -132,39 +132,11 @@ def create_iter_kwargs(parameters):
         kwarg_list.append(param_dict)
     return kwarg_list
 
-    
-# def get_valid_tau(tau, swap_level, dist_level):
-#     """
-#     scalar if constant tau
-#     1d array if swap only
-#     2d array if swap and dist
-#     """
-#     if isinstance(tau, (list, tuple)):
-#         tau = np.array(tau)
-#     if np.isscalar(tau):
-#         if not np.issubdtype(type(tau), np.integer):
-#             raise TypeError("Truncation time tau must be an integer. not {}".format(type(tau)))
-#         tau = np.array([[tau] * (dist_level[n]+1) for n in range(swap_level)], dtype=int)
-#     if len(tau.shape)==1:
-#         if tau.shape[0] != swap_level:
-#             raise ValueError(
-#                 "Length of tau does not match swap_level.\n"
-#                 "len(tau) = {}\n"
-#                 "swap_level = {}\n".format(tau.shape[0], swap_level))
-#         tau = np.array([[tau[n] * (dist_level[n]+1)] for n in range(swap_level)], dtype=int)
-#     else:
-#         if tau.shape != (swap_level, dist_level[0]+1):  # FIXME dist_level
-#             raise ValueError("Invalid tau matrix shape {}".format(tau.shape))
-
-#     tau = np.vstack([np.zeros((1, dist_level[0]+1), dtype=int), tau])
-#     return tau
-
 
 def find_record_id(ID):
     patterns = {"ID":ID}
     result = find_record_patterns(patterns)
     if not result:
-        warnings.warn("Record with ID=\"{}\" does not exsit.".format(ID))
         return None
     else:
         return result

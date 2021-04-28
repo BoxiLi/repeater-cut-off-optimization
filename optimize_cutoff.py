@@ -12,7 +12,7 @@ from scipy.optimize import differential_evolution
 from utility_functions import create_cutoff_dict, secret_key_rate
 from logging_utilities import (
     log_init, log_params, log_finish, mytimeit, create_iter_kwargs)
-from repeater_algorithm import repeater_sim, compute_unit, plot_algorithm
+from repeater_algorithm import repeater_sim, compute_unit, plot_algorithm, RepeaterChainSimulation
 from repeater_mc import repeater_mc, plot_mc_simulation
 
 
@@ -25,7 +25,8 @@ __all__ = ["CutoffOptimizer",
 
 def optimization_tau_wrapper(
         cutoffs, func, parameters, merit=None,
-        ref_pmf_matrix=None, tracker_data=None, **kwargs):
+        ref_pmf_matrix=None, tracker_data=None,
+        **kwargs):
     """
     Wrapper for repeater_sim or repeater_mc. It uses the cut-off
     as explicitly parameter and mutes the warning message
@@ -40,8 +41,10 @@ def optimization_tau_wrapper(
         The memory cut-off time. 
         If no `ref_pmf_matrix` is given, each element should be
         a integer number, otherwise float number.
-    func: repeater_mc or repeater_sim
-        The Monte Carlo algorithm or the deterministic algorithm.
+    func: python function
+        A python function that takes parameters and return
+        the `pmf` and `w_func`.
+        The function can be e.g. `repeater_sim` and `repeater_mc`.
     parameters: dict
         Dictionary for the network parameters. If present,
         the value of the key `cutoffs` will be overwritten.
@@ -68,7 +71,7 @@ def optimization_tau_wrapper(
 
     If `merit` is given:
     negative_merit: float
-        ``0. - merit(pmf, w_func)``
+        ``- merit(pmf, w_func)``
     """
     parameters = deepcopy(parameters)
     if "cut_type" in parameters:
@@ -99,17 +102,15 @@ def optimization_tau_wrapper(
         raise err
     logging.getLogger().setLevel(current_log_level)
 
-    coverage = np.sum(pmf)
     if merit is not None:
         merit_result = 0. - merit(pmf, w_func)
-
     if merit is not None:
         return merit_result
     else: 
         return pmf, w_func
 
 
-def parallel_tau_warpper(tau_list, parameters, t_trunc=None, workers=1):
+def parallel_tau_warpper(tau_list, parameters, func=None, t_trunc=None, workers=1):
     """
     An additional wrapper that enables multi-processing.
 
@@ -131,13 +132,15 @@ def parallel_tau_warpper(tau_list, parameters, t_trunc=None, workers=1):
         The Werner parameter as function of T of the distillation
         for different tau.
     """
+    if func is None:
+        func = repeater_sim
     pmf_list = []
     w_func_list = []
     if workers == 1:
         result = map(
             partial(
                 optimization_tau_wrapper,
-                func=repeater_sim,
+                func=func,
                 parameters=parameters
                 ),
             tau_list)
@@ -146,7 +149,7 @@ def parallel_tau_warpper(tau_list, parameters, t_trunc=None, workers=1):
         result = pool.map(
             partial(
                 optimization_tau_wrapper,
-                func=repeater_sim,
+                func=func,
                 parameters=parameters
                 ),
             tau_list)
@@ -160,7 +163,7 @@ def parallel_tau_warpper(tau_list, parameters, t_trunc=None, workers=1):
 
 
 def call_back(xk, convergence):
-    # print(xk)
+    print("current cut-off location", xk)
     print("convergence:", convergence)
     return None
 
@@ -173,20 +176,30 @@ class CutoffOptimizer():
 
     Parameters
     ----------
-    opt_kind: str
-        "nonuniform_de" for non-uniform cut-off or
-        "unform_de" for uniform cut-off
-    adaptive: bool
+    opt_kind: str, optional
+        `nonuniform_de` for non-uniform cut-off or
+        `uniform_de` for uniform cut-off
+    adaptive: bool, optional
         If the found cut-off is not a local optimal because of
         the discrete search space, improve the optimization parameters
         and restart the algorithm
-    wokers:
+    wokers:, optional
         Number of processes used for parallel computing
         (`multiprocessing.Pool`) for differential evolution.
-    pretrain: python function
+    pretrain: python function, optional
         The pretraining function for the reference waiting time distribution.
+    sample_distance: int, optional
+        Distance of the sampled cut-off used in checking if the result is optimal.
+        After the differential evolution algorithm terminates,
+        we perform a local optimality check.
+        We compare `cutoff` with ``cutoff-sample_distance``
+        and ``cutoff+sample_distance``.
+        If the difference is smaller than 0.001%,
+        the check succeed.
+        If you want to find the very best cut-off, set this to 1.
+        Default is `max(1, int(t_trunc/10000))`.
     **de_wargs:
-        Additional key word argument for differential evolution
+        Additional key word arguments for differential evolution.
 
     See Also
     --------
@@ -194,7 +207,7 @@ class CutoffOptimizer():
     """
     def __init__(
             self, opt_kind="nonuniform_de", adaptive=False, workers=None,
-            pretrain=None, **de_kwargs):
+            pretrain=None, sample_distance=None, simulator=None, **de_kwargs):
         self.opt_kind = opt_kind
         if pretrain is None:
             if self.opt_kind == "nonuniform_de":
@@ -211,6 +224,8 @@ class CutoffOptimizer():
                 self.workers = 1
         else:
             self.workers = workers
+        self.sample_distance = sample_distance
+        self.simulator = simulator
 
     def run(self, parameters):
         """
@@ -264,7 +279,7 @@ class CutoffOptimizer():
             "workers": self.workers,
             "strategy": "best1exp",
             "callback": call_back,
-            "tol": 0.005,
+            "tol": 0.01,
             "popsize": 10
         }
         if logging.getLogger().level == logging.DEBUG:
@@ -272,10 +287,12 @@ class CutoffOptimizer():
         de_config.update(self.de_kwargs)  # de_kwargs has privilege
 
         count = 0  # Number of repetitions in total
+        if self.simulator is None:
+            self.simulator = RepeaterChainSimulation()
         while True:
             target_function = partial(
                 optimization_tau_wrapper,
-                func=repeater_sim,
+                func=self.simulator.nested_protocol,
                 parameters=parameters,
                 merit=secret_key_rate,
                 ref_pmf_matrix=ref_pmf_matrix,
@@ -290,7 +307,7 @@ class CutoffOptimizer():
             best_cutoff_dict = create_cutoff_dict(best_raw_cutoffs, self.cut_type, parameters, ref_pmf_matrix)
             best_pmf, best_w_func = optimization_tau_wrapper(
                 cutoffs=best_cutoff_dict,
-                func=repeater_sim,
+                func=self.simulator.nested_protocol,
                 parameters=parameters
                 )
             best_key_rate = secret_key_rate(best_pmf, best_w_func)
@@ -299,8 +316,11 @@ class CutoffOptimizer():
             nonzero_rate, nonzero_rate_warning_msg = self.nonzero_rate_check(
                 best_key_rate)
             if "memory_time" in best_cutoff_dict.keys():
+                if self.sample_distance is None:
+                    self.sample_distance = max(1, int(parameters["t_trunc"] / 10000))
                 local_max_check, local_max_check_warning_msg = \
-                    self.check_local_max(parameters, best_cutoff_dict)
+                    self.check_local_max(
+                        parameters, best_cutoff_dict, self.sample_distance)
             else:
                 local_max_check, local_max_check_warning_msg = True, ""
             coverage_check, coverage_check_warning_msg = self.check_coverage(
@@ -311,7 +331,7 @@ class CutoffOptimizer():
 
             # Check if terminates
             count += 1
-            if count >= 5:
+            if count >= 10:
                 logging.warning(
                     "Maximal number of attempts arrived. "
                     "Optimization fails.")
@@ -325,7 +345,7 @@ class CutoffOptimizer():
                 # coverage_check_warning_msg +
                 local_max_check_warning_msg)
             logging.info(
-                f"The current tau found: {best_cutoff_dict}\n"
+                f"The current cut-off found: {best_cutoff_dict}\n"
                 f"The current cut-off is located at: {best_raw_cutoffs}\n"
                 f"The current key rate is {best_key_rate}")
             logging.info(
@@ -353,7 +373,7 @@ class CutoffOptimizer():
         if warning_msg != "":
             logging.warning(str(parameters) + "\n" + warning_msg)
         logging.info(
-            f"The best tau found: {best_cutoff_dict}\n"
+            f"The best cut-off found: {best_cutoff_dict}\n"
             f"The best cut-off is located at: {best_raw_cutoffs}\n"
             f"The best key rate is {best_key_rate}\n")
 
@@ -393,7 +413,7 @@ class CutoffOptimizer():
             coverage_check_warning_msg = ""
         return coverage_check, coverage_check_warning_msg
 
-    def check_local_max(self, parameters, cutoff_dict):
+    def check_local_max(self, parameters, cutoff_dict, sample_distance=1):
         """
         Check if the curret found cut-off the locally optimal.
         It check all the direct neighbours, if the difference between
@@ -413,21 +433,20 @@ class CutoffOptimizer():
         if self.opt_kind == "uniform_de":
             time_cutoff = time_cutoff[0:1]
         for t in time_cutoff:
-            if t != 0 and t < parameters["t_trunc"]:
-                cutoff_with_neighbor.append([t-1, t, t + 1])
-            elif t == 0:
-                cutoff_with_neighbor.append([t, t+1])
-            else:
-                cutoff_with_neighbor.append([t-1, t])
+            t_trunc = parameters["t_trunc"]
+            t_max = min(t + sample_distance, t_trunc)
+            t_min = max(t - sample_distance, 0)
+            cutoff_with_neighbor.append([t_min, t, t_max])
 
         # iteration for all time_cutoff combination in cutoff_with_neighbor
         tau_list = [time_cutoff] + list(product(*cutoff_with_neighbor))
         pmf_list, w_func_list = parallel_tau_warpper(
-            tau_list, parameters, workers=self.workers)
+            tau_list, parameters, func=self.simulator.nested_protocol,
+            workers=self.workers)
         key_rate_list = [
             secret_key_rate(pmf, w_func)
             for pmf, w_func in zip(pmf_list, w_func_list)]
-        if np.argmax(key_rate_list) < 1.0e-10:
+        if np.argmax(key_rate_list) < 1.0e-10:  # key rates are all 0
             return True, ""
         better_iter = np.argmax(key_rate_list)
         better_cutoff = tau_list[better_iter]
@@ -437,9 +456,9 @@ class CutoffOptimizer():
         if increase > 1.e-5:
             warning_msg = (
                 "Local optimal check fails. "
-                "The best tau found is not optimal. "
-                "Neighboring tau = {0} is better with an increase "
-                "in the secrete key rate of {1:.2f}%.\n".format(
+                "The cut-off found is not optimal. "
+                "Neighboring cut-off {0} is better with an increase "
+                "in the secrete key rate of {1:.3f}%.\n".format(
                     better_cutoff, increase * 100
                     )
                 )
@@ -485,16 +504,16 @@ class CutoffOptimizer():
         for i, (t, ref_pmf) in enumerate(zip(best_tau_loc, ref_pmf_matrix)):
             ref_cmf = np.cumsum(ref_pmf)
             t_prob = best_tau_loc[i]
-            prob_max = min(1.0, t_prob + 0.2)
+            prob_max = min(1.0, t_prob + 0.3)
             t_max = np.searchsorted(ref_cmf, prob_max) + 1
-            prob_min = max(0.0, t_prob - 0.2)
+            prob_min = max(0.0, t_prob - 0.3)
             t_min = np.searchsorted(ref_cmf, prob_min)
             if (t_max - t_min) >= 10:
                 ref_pmf[0: t_min] = 0.
                 ref_pmf[t_max:] = 0.
                 ref_pmf_matrix[i] = 0.991 / np.sum(ref_pmf) * ref_pmf
                 logging.info(
-                    f"Search region for tau[{i}] is restricted to "
+                    f"Search region for cutoff[{i}] is restricted to "
                     f"({t_min},{t_max}).")
         return ref_pmf_matrix
 
@@ -574,3 +593,23 @@ def guess_tau_pretrain(parameters, tau_dims, geuss_tau):
     full_result = repeater_sim(parameters, all_level=True)
     ref_pmf_matrix = np.array([result_pair[0] for result_pair in full_result])
     return ref_pmf_matrix[:-1]
+
+
+if __name__ == "__main__":
+    parameters = {
+        "protocol": (0, 0, 0),
+        "p_gen": 0.002,
+        "p_swap": 0.25,
+        "w0": 0.97,
+        "t_coh": 35000,
+        "t_trunc": 2000000,
+        "cut_type": "memory_time",
+        "sample_distance": 50,
+        "tol": 0.0001,
+        }
+
+    ID = log_init("optimize", level=logging.INFO)
+    simulator = RepeaterChainSimulation()
+    simulator.use_gpu = True
+    optimizer = CutoffOptimizer(simulator=simulator, workers=8, adaptive=True, opt_kind="nonuniform_de")
+    optimal_cutoff = optimizer.run(parameters)

@@ -222,8 +222,7 @@ def join_links_compatible(
         ``get_dist_prob_fail`` for 1-pdist\n
         ``get_dist_prob_wout`` for pdist * wdist
     t_coh: int or float
-        The coherence time of the memory. It is currently not used because
-        the decay factor is passed by a global variable.
+        The coherence time of the memory.
 
     Returns
     -------
